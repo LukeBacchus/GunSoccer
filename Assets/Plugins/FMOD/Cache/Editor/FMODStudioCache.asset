@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4968697815285780977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Footstep
+  m_EditorClassIdentifier: 
+  Path: event:/Footstep
+  Guid:
+    Data1: 1866261393
+    Data2: 1178757088
+    Data3: -674980690
+    Data4: 1679548116
+  Banks:
+  - {fileID: 7493166900564875200}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 336
 --- !u!114 &-332360448802052593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,12 +72,13 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -332360448802052593}
   - {fileID: 7683325488424546994}
+  - {fileID: -4968697815285780977}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7493166900564875200}
   StringsBanks:
   - {fileID: 6292978919917906969}
-  cacheTime: 638099073674031888
+  cacheTime: 638099083174418417
   cacheVersion: 131601
 --- !u!114 &6292978919917906969
 MonoBehaviour:
@@ -67,10 +95,10 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD_Gun_Soccer/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638099073674031888
+  lastModified: 638099083174418417
   FileSizes:
   - Name: Desktop
-    Value: 808
+    Value: 846
   Exists: 1
 --- !u!114 &7493166900564875200
 MonoBehaviour:
@@ -87,10 +115,10 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD_Gun_Soccer/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638099073674021881
+  lastModified: 638099083174413365
   FileSizes:
   - Name: Desktop
-    Value: 760416
+    Value: 764736
   Exists: 1
 --- !u!114 &7683325488424546994
 MonoBehaviour:
