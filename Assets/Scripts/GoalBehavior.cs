@@ -11,6 +11,7 @@ public class GoalBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Soccer")
         {
             Debug.Log("Team " + team + " got scored on.");
+            collision.gameObject.transform.position = new Vector3(0, 5, 0);
         }
     }
 }
