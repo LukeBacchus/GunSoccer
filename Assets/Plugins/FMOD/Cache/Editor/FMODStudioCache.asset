@@ -73,13 +73,41 @@ MonoBehaviour:
   - {fileID: -332360448802052593}
   - {fileID: 7683325488424546994}
   - {fileID: -4968697815285780977}
+  - {fileID: 99542419803385712}
   EditorParameters: []
   MasterBanks:
   - {fileID: 7493166900564875200}
   StringsBanks:
   - {fileID: 6292978919917906969}
-  cacheTime: 638099083174418417
+  cacheTime: 638099085870793778
   cacheVersion: 131601
+--- !u!114 &99542419803385712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music
+  m_EditorClassIdentifier: 
+  Path: event:/Music
+  Guid:
+    Data1: 45753502
+    Data2: 1333116782
+    Data3: -1321033599
+    Data4: 1847962111
+  Banks:
+  - {fileID: 7493166900564875200}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 64000
 --- !u!114 &6292978919917906969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,10 +123,10 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD_Gun_Soccer/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638099083174418417
+  lastModified: 638099085870793778
   FileSizes:
   - Name: Desktop
-    Value: 846
+    Value: 882
   Exists: 1
 --- !u!114 &7493166900564875200
 MonoBehaviour:
@@ -115,10 +143,10 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD_Gun_Soccer/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638099083174413365
+  lastModified: 638099085870758929
   FileSizes:
   - Name: Desktop
-    Value: 764736
+    Value: 1724672
   Exists: 1
 --- !u!114 &7683325488424546994
 MonoBehaviour:
