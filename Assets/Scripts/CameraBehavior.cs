@@ -8,6 +8,7 @@ public class CameraBehavior : MonoBehaviour
     private float sensitivityX = 10;
     private float sensitivityY = 5;
     public Quaternion camRotation;
+    [SerializeField] private int playerNum;
 
     // Start is called before the first frame update
     void Start()
@@ -18,8 +19,8 @@ public class CameraBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float camJoyStickY = Input.GetAxis("Mouse Y");
-        float camJoyStickX = Input.GetAxis("Mouse X");
+        float camJoyStickY = Input.GetAxis("Mouse Y" + (playerNum).ToString());
+        float camJoyStickX = Input.GetAxis("Mouse X" + (playerNum).ToString());
 
         camRotation = Quaternion.Euler(camJoyStickY * sensitivityY, camJoyStickX * sensitivityX, 0);
 
