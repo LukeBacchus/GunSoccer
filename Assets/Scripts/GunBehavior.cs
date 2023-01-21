@@ -8,7 +8,7 @@ public class GunBehavior : MonoBehaviour
 
     public GameObject bullet;
     public Transform muzzle;
-    public StudioEventEmitter sfx;
+    private StudioEventEmitter sfx;
 
     private float currCooldown;
     private float shootCooldown = 0.5f;
@@ -42,6 +42,6 @@ public class GunBehavior : MonoBehaviour
         Physics.IgnoreCollision(bulletInstance.GetComponent<Collider>(), transform.GetComponentInParent<Collider>());
         
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
-        bulletRB.AddForce(muzzle.forward * 1000);
+        bulletRB.AddForce(muzzle.forward * 3000);
     }
 }

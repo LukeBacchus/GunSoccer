@@ -42,7 +42,7 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD_Gun_Soccer/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638099055343950335
+  lastModified: 638099040464569628
   FileSizes:
   - Name: Desktop
     Value: 756
@@ -69,7 +69,7 @@ MonoBehaviour:
   - {fileID: 1456322292060150633}
   StringsBanks:
   - {fileID: -3144685875131726424}
-  cacheTime: 638099055343950335
+  cacheTime: 638099040464569628
   cacheVersion: 131601
 --- !u!114 &1456322292060150633
 MonoBehaviour:
@@ -86,7 +86,7 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD_Gun_Soccer/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638099055343940587
+  lastModified: 638099040464559570
   FileSizes:
   - Name: Desktop
     Value: 18496
