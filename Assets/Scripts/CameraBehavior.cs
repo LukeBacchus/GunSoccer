@@ -20,10 +20,6 @@ public class CameraBehavior : MonoBehaviour
         float camJoyStickY = Input.GetAxis("Mouse Y");
         float camJoyStickX = Input.GetAxis("Mouse X");
 
-        Debug.Log(camJoyStickX);
-        Debug.Log(camJoyStickY);
-
-
         Quaternion camRotation = Quaternion.Euler(camJoyStickY * sensitivityY, camJoyStickX * sensitivityX, 0);
 
         transform.rotation *= camRotation;
