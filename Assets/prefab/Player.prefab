@@ -115,6 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 1
   speed: 20
+  CameraObj: {fileID: 7724132453709515021}
 --- !u!54 &7724132453207544369
 Rigidbody:
   m_ObjectHideFlags: 0
