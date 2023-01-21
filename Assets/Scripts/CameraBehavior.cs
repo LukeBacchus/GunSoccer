@@ -7,6 +7,7 @@ public class CameraBehavior : MonoBehaviour
 
     private float sensitivityX = 10;
     private float sensitivityY = 5;
+    public Quaternion camRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +21,7 @@ public class CameraBehavior : MonoBehaviour
         float camJoyStickY = Input.GetAxis("Mouse Y");
         float camJoyStickX = Input.GetAxis("Mouse X");
 
-        Quaternion camRotation = Quaternion.Euler(camJoyStickY * sensitivityY, camJoyStickX * sensitivityX, 0);
+        camRotation = Quaternion.Euler(camJoyStickY * sensitivityY, camJoyStickX * sensitivityX, 0);
 
         transform.rotation *= camRotation;
 
