@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private int playerNum;
     [SerializeField] private float speed = 2.0F;
     private Rigidbody rb;
 
@@ -21,11 +22,8 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-        rb.velocity = new Vector3(x * speed, rb.velocity.y, z * speed);
-
-        Debug.Log(x);
-        Debug.Log(z);
+        float x = Input.GetAxisRaw("Horizontal" + (playerNum).ToString());
+        float z = Input.GetAxisRaw("Vertical" + (playerNum).ToString());
+        rb.velocity = (x * transform.right + z * transform.forward) * speed;
     }
 }
