@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour
     }
 
     void Rotate(){
-        float camJoyStickY = Input.GetAxis("Mouse Y");
-        float camJoyStickX = Input.GetAxis("Mouse X");
+        float camJoyStickY = Input.GetAxis("Mouse Y" + (playerNum).ToString());
+        float camJoyStickX = Input.GetAxis("Mouse X" + (playerNum).ToString());
 
         Quaternion camRotation = Quaternion.Euler(camJoyStickY * sensitivityY, 0, 0);
         Quaternion bodyRotation = Quaternion.Euler(0, camJoyStickX * sensitivityX, 0);

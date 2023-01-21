@@ -340,6 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camRotation: {x: 0, y: 0, z: 0, w: 0}
+  playerNum: 2
 --- !u!1001 &1179877384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -656,3 +657,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camRotation: {x: 0, y: 0, z: 0, w: 0}
+  playerNum: 1
