@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea982fedc5140b48b723cfc2d576fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &493427147
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNum: 1
   speed: 20
+  CameraObj: {fileID: 450237675}
 --- !u!54 &1615717619
 Rigidbody:
   m_ObjectHideFlags: 0
