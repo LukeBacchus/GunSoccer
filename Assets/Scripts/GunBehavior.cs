@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class GunBehavior : MonoBehaviour
 {
 
     public GameObject bullet;
     public Transform muzzle;
+    public StudioEventEmitter sfx;
 
     private float currCooldown;
     private float shootCooldown = 0.5f;
@@ -15,6 +17,8 @@ public class GunBehavior : MonoBehaviour
     void Start()
     {
         currCooldown = 0;
+
+        sfx = GetComponent<StudioEventEmitter>();
     }
 
     // Update is called once per frame
@@ -24,6 +28,9 @@ public class GunBehavior : MonoBehaviour
         {
             ShootGun();
             currCooldown += shootCooldown;
+
+            RuntimeManager.PlayOneShot("event:/Gunshot");
+
         }
 
         currCooldown = Mathf.Clamp(currCooldown - Time.deltaTime, 0, 10);
