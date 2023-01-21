@@ -9,6 +9,7 @@ public class GunBehavior : MonoBehaviour
     public GameObject bullet;
     public Transform muzzle;
     private StudioEventEmitter sfx;
+    [SerializeField] private int playerNum;
 
     private float currCooldown;
     private float shootCooldown = 0.5f;
@@ -24,8 +25,9 @@ public class GunBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1") && currCooldown == 0)
+        if (Input.GetButton("Fire1" + (playerNum).ToString()) && currCooldown == 0)
         {
+            Debug.Log((playerNum).ToString());
             ShootGun();
             currCooldown += shootCooldown;
 
