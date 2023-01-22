@@ -27,7 +27,6 @@ public class GunBehavior : MonoBehaviour
     {
         if (Input.GetButton("Fire1" + (playerNum).ToString()) && currCooldown == 0)
         {
-            Debug.Log((playerNum).ToString());
             ShootGun();
             currCooldown += shootCooldown;
 

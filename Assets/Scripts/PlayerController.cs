@@ -6,32 +6,50 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private int playerNum;
     [SerializeField] private float speed = 2.0F;
+    private float maxSpeed = 5f;
     private Rigidbody rb;
     [SerializeField] private GameObject CameraObj;
     private float sensitivityX = 10;
     private float sensitivityY = 5;
+    private float moveX;
+    private float moveZ;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
+        MoveInput();
         Rotate();
     }
 
-    void Move()
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    void MoveInput()
     {
         float x = Input.GetAxisRaw("Horizontal" + (playerNum).ToString());
         float z = Input.GetAxisRaw("Vertical" + (playerNum).ToString());
 
-        Vector3 move = new Vector3(x * speed * Time.deltaTime, 0f, z * speed * Time.deltaTime);
-        move = transform.TransformDirection(move);
-        rb.MovePosition(rb.position + move);
+        moveX = x;
+        moveZ = z;
+    }
+
+    void Move()
+    {
+        Vector3 move = new Vector3(moveX * speed * Time.deltaTime, 0f, moveZ * speed * Time.deltaTime);
+
+        rb.AddRelativeForce(move * 50, ForceMode.Impulse);
+        float ymove = rb.velocity.y;
+        rb.velocity = Vector3.ClampMagnitude(new Vector3(rb.velocity.x, 0, rb.velocity.z), maxSpeed);
+        rb.velocity = new Vector3(rb.velocity.x, ymove, rb.velocity.z);
     }
 
     void Rotate(){
