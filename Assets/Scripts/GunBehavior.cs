@@ -25,7 +25,7 @@ public class GunBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1" + (playerNum).ToString()) && currCooldown == 0)
+        if ((Input.GetButton("Fire1" + (playerNum).ToString()) || Input.GetButton("Fire1")) && currCooldown == 0)
         {
             ShootGun();
             currCooldown += shootCooldown;
@@ -43,6 +43,6 @@ public class GunBehavior : MonoBehaviour
         Physics.IgnoreCollision(bulletInstance.GetComponent<Collider>(), transform.GetComponentInParent<Collider>());
         
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
-        bulletRB.AddForce(muzzle.forward * 3000);
+        bulletRB.AddForce(muzzle.forward * 5000);
     }
 }
