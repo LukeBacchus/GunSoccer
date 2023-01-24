@@ -8,6 +8,7 @@ public class GunBehavior : MonoBehaviour
 
     public GameObject bullet;
     public Transform muzzle;
+    public Transform cam;
     private StudioEventEmitter sfx;
     [SerializeField] private int playerNum;
 
@@ -39,6 +40,15 @@ public class GunBehavior : MonoBehaviour
 
     void ShootGun()
     {
+        RaycastHit hit;
+        if (Physics.Raycast(cam.position + cam.forward * 2, cam.forward, out hit))
+        {
+            muzzle.LookAt(hit.point);
+        } else
+        {
+            muzzle.rotation = Quaternion.identity;
+        }
+
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
         Physics.IgnoreCollision(bulletInstance.GetComponent<Collider>(), transform.GetComponentInParent<Collider>());
         

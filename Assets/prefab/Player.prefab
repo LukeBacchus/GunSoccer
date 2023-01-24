@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 6294286833029330474, guid: 9a567a08036c4864ab016a824d304630, type: 3}
   muzzle: {fileID: 1348869497229708824}
+  cam: {fileID: 7724132453709515016}
   playerNum: 0
 --- !u!1 &3225666586663297833
 GameObject:
