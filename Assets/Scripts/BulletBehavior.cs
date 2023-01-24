@@ -6,8 +6,8 @@ public class BulletBehavior : MonoBehaviour
 {
 
     private float bulletLifeTime = 10;
-    [SerializeField] private float blastRadius = 15.0f;
-    [SerializeField] private float blastForce = 50.0f;
+    [SerializeField] private float blastRadius = 2f;
+    [SerializeField] private float blastForce = 500.0f;
 
     private void Update()
     {
@@ -20,14 +20,15 @@ public class BulletBehavior : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Collider[] toBePushedObjs = Physics.OverlapSphere(this.transform.position, blastRadius);
+        Collider[] toBePushedObjs = Physics.OverlapSphere(collision.contacts[0].point, blastRadius);
+
         foreach (Collider hitObj in toBePushedObjs)
         {
             Rigidbody rb = hitObj.GetComponent<Rigidbody>();
 
-            if (rb != null){
+            if (rb != null && hitObj.gameObject != gameObject){
                 Debug.Log(hitObj.gameObject.name);
-                rb.AddExplosionForce(blastForce, this.transform.position, blastRadius, 1.0F, ForceMode.Impulse);
+                rb.AddExplosionForce(blastForce, collision.contacts[0].point, blastRadius, 1, ForceMode.Impulse);
             }
         }
 

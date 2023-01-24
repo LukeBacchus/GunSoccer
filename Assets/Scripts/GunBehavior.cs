@@ -25,7 +25,7 @@ public class GunBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetButton("Fire1" + (playerNum).ToString()) || Input.GetButton("Fire1")) && currCooldown == 0)
+        if (Input.GetButton("Fire1" + (playerNum).ToString()) && currCooldown == 0)
         {
             ShootGun();
             currCooldown += shootCooldown;

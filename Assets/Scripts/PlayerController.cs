@@ -5,10 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private int playerNum;
-    [SerializeField] private float speed = 2.0F;
-    private float maxSpeed = 5f;
     private Rigidbody rb;
     [SerializeField] private GameObject CameraObj;
+    private Collider col;
+    private float speed = 50;
+    private float maxSpeed = 10;
+    private float maxUpSpeed = 15;
+    private float maxFallSpeed = 20;
+    private float maxSlope = 60;
     private float sensitivityX = 10;
     private float sensitivityY = 5;
     private float moveX;
@@ -19,6 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+        col = GetComponent<CapsuleCollider>();
     }
 
     // Update is called once per frame
@@ -44,10 +49,19 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        Vector3 move = new Vector3(moveX * speed * Time.deltaTime, 0f, moveZ * speed * Time.deltaTime);
+        RaycastHit hit;
+        Physics.Raycast(col.bounds.center, -transform.up, out hit, col.bounds.size.y);
+        float currSlope = Vector3.Angle(Vector3.up, hit.normal);
 
-        rb.AddRelativeForce(move * 50, ForceMode.Impulse);
-        float ymove = rb.velocity.y;
+        Vector3 step = transform.TransformDirection(new Vector3(moveX, 0, moveZ));
+        if (currSlope <= maxSlope && currSlope != 0)
+        {
+            step = Vector3.ProjectOnPlane(step, hit.normal);
+        }
+        Vector3 move = step.normalized * rb.mass * speed * Time.fixedDeltaTime;
+        rb.AddForce(move, ForceMode.Impulse);
+
+        float ymove = Mathf.Clamp(rb.velocity.y, -maxFallSpeed, maxUpSpeed);
         rb.velocity = Vector3.ClampMagnitude(new Vector3(rb.velocity.x, 0, rb.velocity.z), maxSpeed);
         rb.velocity = new Vector3(rb.velocity.x, ymove, rb.velocity.z);
     }
