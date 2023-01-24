@@ -6,8 +6,8 @@ public class BulletBehavior : MonoBehaviour
 {
 
     private float bulletLifeTime = 10;
-    [SerializeField] private float blastRadius = 2f;
-    [SerializeField] private float blastForce = 500.0f;
+    private float blastRadius = 5f;
+    private float blastForce = 20.0f;
 
     private void Update()
     {
@@ -28,7 +28,7 @@ public class BulletBehavior : MonoBehaviour
 
             if (rb != null && hitObj.gameObject != gameObject){
                 Debug.Log(hitObj.gameObject.name);
-                rb.AddExplosionForce(blastForce, collision.contacts[0].point, blastRadius, 1, ForceMode.Impulse);
+                rb.AddExplosionForce(blastForce * rb.mass, collision.contacts[0].point, blastRadius, 1, ForceMode.Impulse);
             }
         }
 
