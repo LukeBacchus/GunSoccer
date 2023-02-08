@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private GameObject CameraObj;
     private Collider col;
+    private float jumpForce = 10;
     private float speed = 50;
     private float maxSpeed = 10;
     private float maxUpSpeed = 15;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float sensitivityY = 5;
     private float moveX;
     private float moveZ;
+    private bool jump;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +33,37 @@ public class PlayerController : MonoBehaviour
     {
         MoveInput();
         Rotate();
+        JumpInput();
     }
 
     private void FixedUpdate()
     {
         Move();
+        if (jump)
+        {
+            Jump();
+        }
+    }
+
+    bool IsGrounded()
+    {
+        if (Physics.Raycast(col.bounds.center + col.bounds.extents.z * transform.forward, -transform.up, out _, col.bounds.size.y * 0.5f + 0.1f) ||
+            Physics.Raycast(col.bounds.center + col.bounds.extents.z * -transform.forward, -transform.up, out _, col.bounds.size.y * 0.5f + 0.1f) ||
+            Physics.Raycast(col.bounds.center + col.bounds.extents.x * transform.right, -transform.up, out _, col.bounds.size.y * 0.5f + 0.1f) ||
+            Physics.Raycast(col.bounds.center + col.bounds.extents.x * -transform.right, -transform.up, out _, col.bounds.size.y * 0.5f + 0.1f) ||
+            Physics.Raycast(col.bounds.center, -transform.up, out _, col.bounds.size.y * 0.5f + 0.1f))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    void JumpInput()
+    {
+        if (Input.GetButtonDown("Jump" + (playerNum).ToString()) && IsGrounded())
+        {
+            jump = true;
+        }
     }
 
     void MoveInput()
@@ -45,6 +73,12 @@ public class PlayerController : MonoBehaviour
 
         moveX = x;
         moveZ = z;
+    }
+
+    void Jump()
+    {
+        rb.AddRelativeForce(new Vector3(0, jumpForce * rb.mass, 0), ForceMode.Impulse);
+        jump = false;
     }
 
     void Move()
@@ -78,11 +112,11 @@ public class PlayerController : MonoBehaviour
 
         float camX = CameraObj.transform.localEulerAngles.x;
 
-        if (50f < camX && camX < 310f)
+        if (60f < camX && camX < 310f)
         {
-            if (camX - 50f < 310f - camX)
+            if (camX - 60f < 310f - camX)
             {
-                camX = 50f;
+                camX = 60f;
             }
             else
             {

@@ -50,6 +50,7 @@ public class GunBehavior : MonoBehaviour
         }
 
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        bulletInstance.GetComponent<BulletBehavior>().playerNum = playerNum;
         Physics.IgnoreCollision(bulletInstance.GetComponent<Collider>(), transform.GetComponentInParent<Collider>());
         
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
