@@ -35,11 +35,6 @@ public class PlayerController : MonoBehaviour
         MoveInput();
         Rotate();
         JumpInput();
-
-        if (playerNum == 1)
-        {
-            print(rb.velocity);
-        }
     }
 
     private void FixedUpdate()
