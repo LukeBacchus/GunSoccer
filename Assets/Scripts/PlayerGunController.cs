@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
-public class GunBehavior : MonoBehaviour
+public class PlayerGunController : MonoBehaviour
 {
-
     public GameObject bullet;
     public Transform muzzle;
     public Transform cam;
+    public bool shoot;
+
     private StudioEventEmitter sfx;
-    [SerializeField] private int playerNum;
+    private PlayerStats playerStats;
 
     private float currCooldown;
     private float shootCooldown = 0.5f;
@@ -21,18 +22,23 @@ public class GunBehavior : MonoBehaviour
         currCooldown = 0;
 
         sfx = GetComponent<StudioEventEmitter>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire1" + (playerNum).ToString()) && currCooldown == 0)
+        if (shoot)
         {
-            ShootGun();
-            currCooldown += shootCooldown;
+            if (currCooldown == 0)
+            {
+                ShootGun();
+                currCooldown += shootCooldown;
 
-            RuntimeManager.PlayOneShot("event:/Gunshot");
+                RuntimeManager.PlayOneShot("event:/Gunshot");
+            }
 
+            shoot = false;
         }
 
         currCooldown = Mathf.Clamp(currCooldown - Time.deltaTime, 0, 10);
@@ -50,8 +56,7 @@ public class GunBehavior : MonoBehaviour
         }
 
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        bulletInstance.GetComponent<BulletBehavior>().playerNum = playerNum;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<Collider>(), transform.GetComponentInParent<Collider>());
+        bulletInstance.GetComponent<BulletBehavior>().playerNum = playerStats.playerNum;
         
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
         bulletRB.AddForce(muzzle.forward * 5000);

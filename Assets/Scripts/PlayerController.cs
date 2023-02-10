@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private int playerNum;
+    public float moveX;
+    public float moveZ;
+    public float camJoyStickX = 0;
+    public float camJoyStickY = 0;
+    public bool jump = false;
+
     private Rigidbody rb;
     [SerializeField] private GameObject CameraObj;
     private Collider col;
@@ -18,24 +23,18 @@ public class PlayerController : MonoBehaviour
     private float sensitivityX = 10;
     private float sensitivityY = 5;
     [SerializeField] private float rotationSpeed = 2.0f;
-    private float moveX;
-    private float moveZ;
-    private bool jump = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
         col = GetComponent<CapsuleCollider>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        MoveInput();
         Rotate();
-        JumpInput();
     }
 
     private void FixedUpdate()
@@ -48,7 +47,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    bool IsGrounded()
+    public bool IsGrounded()
     {
         if (Physics.Raycast(col.bounds.center + col.bounds.extents.z * transform.forward, -transform.up, out _, col.bounds.size.y * 0.5f + 0.05f) ||
             Physics.Raycast(col.bounds.center + col.bounds.extents.z * -transform.forward, -transform.up, out _, col.bounds.size.y * 0.5f + 0.05f) ||
@@ -59,23 +58,6 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    void JumpInput()
-    {
-        if (Input.GetButtonDown("Jump" + (playerNum).ToString()) && IsGrounded())
-        {
-            jump = true;
-        }
-    }
-
-    void MoveInput()
-    {
-        float x = Input.GetAxisRaw("Horizontal" + (playerNum).ToString());
-        float z = Input.GetAxisRaw("Vertical" + (playerNum).ToString());
-
-        moveX = x;
-        moveZ = z;
     }
 
     void Jump()
@@ -99,9 +81,6 @@ public class PlayerController : MonoBehaviour
     }
 
     void Rotate(){
-        float camJoyStickY = Input.GetAxis("Mouse Y" + (playerNum).ToString());
-        float camJoyStickX = Input.GetAxis("Mouse X" + (playerNum).ToString());
-
         Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
         Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
 
@@ -122,7 +101,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        CameraObj.transform.localEulerAngles = new Vector3(camX, CameraObj.transform.localEulerAngles.y, 0);
+        CameraObj.transform.localEulerAngles = new Vector3(camX, 0, 0);
     }
 
     void ApplyGravity()

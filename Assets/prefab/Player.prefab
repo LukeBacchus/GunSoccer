@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3528648595329365612}
   - component: {fileID: 4815941404904841512}
-  - component: {fileID: 5221003463869605014}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -78,22 +77,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5221003463869605014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1335958817154499586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b652a9630cbd7248b8cb41fc94d96ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 6294286833029330474, guid: 9a567a08036c4864ab016a824d304630, type: 3}
-  muzzle: {fileID: 1348869497229708824}
-  cam: {fileID: 7724132453709515016}
-  playerNum: 0
 --- !u!1 &3225666586663297833
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,8 +122,11 @@ GameObject:
   - component: {fileID: 7724132453207544365}
   - component: {fileID: 7724132453207544364}
   - component: {fileID: 7724132453207544371}
-  - component: {fileID: 7724132453207544370}
   - component: {fileID: 7724132453207544369}
+  - component: {fileID: 3798917291030710522}
+  - component: {fileID: 66192549074824378}
+  - component: {fileID: 4353217284937007142}
+  - component: {fileID: 5155603571499715764}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -228,20 +214,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7724132453207544370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7724132453207544368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d470ddd8a8ba691439389fe794b69ae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNum: 1
-  CameraObj: {fileID: 7724132453709515021}
 --- !u!54 &7724132453207544369
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -258,6 +230,67 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &3798917291030710522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724132453207544368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a4ce173486e0f40a44359dedf0752d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNum: 0
+--- !u!114 &66192549074824378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724132453207544368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d815e610e0e9a424d89a38ac882cbfec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4353217284937007142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724132453207544368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d470ddd8a8ba691439389fe794b69ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveX: 0
+  moveZ: 0
+  camJoyStickX: 0
+  camJoyStickY: 0
+  jump: 0
+  CameraObj: {fileID: 7724132453709515021}
+  speed: 50
+  rotationSpeed: 2
+--- !u!114 &5155603571499715764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7724132453207544368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b652a9630cbd7248b8cb41fc94d96ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 6294286833029330474, guid: 9a567a08036c4864ab016a824d304630, type: 3}
+  muzzle: {fileID: 1348869497229708824}
+  cam: {fileID: 7724132453709515016}
+  shoot: 0
 --- !u!1 &7724132453709515021
 GameObject:
   m_ObjectHideFlags: 0
