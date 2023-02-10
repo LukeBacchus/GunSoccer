@@ -46,10 +46,11 @@ public class GunBehavior : MonoBehaviour
             muzzle.LookAt(hit.point);
         } else
         {
-            muzzle.rotation = Quaternion.identity;
+            muzzle.localEulerAngles = new Vector3(0, 180, 0);
         }
 
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
+        bulletInstance.GetComponent<BulletBehavior>().playerNum = playerNum;
         Physics.IgnoreCollision(bulletInstance.GetComponent<Collider>(), transform.GetComponentInParent<Collider>());
         
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
