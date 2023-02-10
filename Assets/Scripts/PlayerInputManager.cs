@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerInputManager : MonoBehaviour
 {
     private PlayerStats playerStats;
-    private PlayerController playerController;
+    private PlayerMovementController playerController;
     private PlayerGunController playerGunController;
 
     // Start is called before the first frame update
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerMovementController>();
         playerGunController = GetComponent<PlayerGunController>();
         Cursor.lockState = CursorLockMode.Locked;
     }
