@@ -115,7 +115,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 3
+    axis: 2
     joyNum: 1
   - serializedVersion: 3
     m_Name: Mouse X1
@@ -147,7 +147,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 3
+    axis: 2
     joyNum: 2
   - serializedVersion: 3
     m_Name: Mouse Y1
@@ -163,7 +163,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 5
     joyNum: 1
   - serializedVersion: 3
     m_Name: Mouse Y1
@@ -195,7 +195,7 @@ InputManager:
     snap: 0
     invert: 0
     type: 2
-    axis: 4
+    axis: 5
     joyNum: 2
   - serializedVersion: 3
     m_Name: Mouse ScrollWheel

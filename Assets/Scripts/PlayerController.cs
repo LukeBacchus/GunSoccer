@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject CameraObj;
     private Collider col;
     private float jumpForce = 10;
-    private float speed = 50;
+    [SerializeField] private float speed = 50;
     private float maxSpeed = 10;
     private float maxUpSpeed = 15;
     private float maxFallSpeed = 20;
@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 slopeNormal = new Vector3(0, 1, 0);
     private float sensitivityX = 10;
     private float sensitivityY = 5;
+    [SerializeField] private float rotationSpeed = 2.0f;
     private float moveX;
     private float moveZ;
     private bool jump = false;
@@ -101,8 +102,8 @@ public class PlayerController : MonoBehaviour
         float camJoyStickY = Input.GetAxis("Mouse Y" + (playerNum).ToString());
         float camJoyStickX = Input.GetAxis("Mouse X" + (playerNum).ToString());
 
-        Quaternion camRotation = Quaternion.Euler(camJoyStickY * sensitivityY, 0, 0);
-        Quaternion bodyRotation = Quaternion.Euler(0, camJoyStickX * sensitivityX, 0);
+        Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
+        Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
 
         CameraObj.transform.rotation *= camRotation;
         transform.rotation *= bodyRotation;
