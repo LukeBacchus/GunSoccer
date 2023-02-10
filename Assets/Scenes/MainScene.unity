@@ -1190,6 +1190,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1223150685802612376, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
+      propertyPath: m_TagString
+      value: Soccer
+      objectReference: {fileID: 0}
     - target: {fileID: 2578515618550787341, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
       propertyPath: m_Name
       value: Soccer
