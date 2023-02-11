@@ -1027,6 +1027,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3798917291030710522, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
+      propertyPath: playerNum
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4542626297705156093, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1186,6 +1190,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1223150685802612376, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
+      propertyPath: m_TagString
+      value: Soccer
+      objectReference: {fileID: 0}
     - target: {fileID: 2578515618550787341, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
       propertyPath: m_Name
       value: Soccer
@@ -1595,6 +1603,10 @@ PrefabInstance:
     - target: {fileID: 592028466466907004, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3798917291030710522, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
+      propertyPath: playerNum
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5221003463869605014, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
       propertyPath: playerNum
