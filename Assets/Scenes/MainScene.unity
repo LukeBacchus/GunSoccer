@@ -1035,6 +1035,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5155603571499715764, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e3732e319d203946ba181cd065c8d11, type: 2}
     - target: {fileID: 5221003463869605014, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
       propertyPath: playerNum
       value: 2
@@ -1608,6 +1612,10 @@ PrefabInstance:
       propertyPath: playerNum
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5155603571499715764, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a9f159aaf0387c48b860470d3623522, type: 2}
     - target: {fileID: 5221003463869605014, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
       propertyPath: playerNum
       value: 1

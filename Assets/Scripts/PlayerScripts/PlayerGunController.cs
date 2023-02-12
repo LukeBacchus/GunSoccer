@@ -5,21 +5,23 @@ using FMODUnity;
 
 public class PlayerGunController : MonoBehaviour
 {
-    public GameObject bullet;
-    public Transform muzzle;
-    public Transform cam;
+    [SerializeField] private Weapons weapon;
+    [SerializeField] private Transform muzzle;
+    [SerializeField] private Transform cam;
     public bool shoot;
 
     private StudioEventEmitter sfx;
     private PlayerStats playerStats;
 
     private float currCooldown;
-    private float shootCooldown = 0.5f;
+    private int currMagazine;
+    private bool reloading;
 
     // Start is called before the first frame update
     void Start()
     {
         currCooldown = 0;
+        currMagazine = weapon.magazineSize;
 
         sfx = GetComponent<StudioEventEmitter>();
         playerStats = GetComponent<PlayerStats>();
@@ -28,12 +30,18 @@ public class PlayerGunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currMagazine == 0)
+        {
+            reloading = true;
+            StartCoroutine(Reload());
+        }
+
         if (shoot)
         {
-            if (currCooldown == 0)
+            if (currCooldown == 0 && !reloading)
             {
                 ShootGun();
-                currCooldown += shootCooldown;
+                currCooldown += weapon.shootCooldown;
 
                 RuntimeManager.PlayOneShot("event:/Gunshot");
             }
@@ -55,10 +63,14 @@ public class PlayerGunController : MonoBehaviour
             muzzle.localEulerAngles = new Vector3(0, 180, 0);
         }
 
-        GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
-        bulletInstance.GetComponent<BulletBehavior>().playerNum = playerStats.playerNum;
-        
-        Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
-        bulletRB.AddForce(muzzle.forward * 5000);
+        weapon.ShootGun(muzzle, playerStats.playerNum);
+        currMagazine -= 1;
+    }
+
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(weapon.reloadSpeed);
+        currMagazine = weapon.magazineSize;
+        reloading = false;
     }
 }
