@@ -15,7 +15,7 @@ public class GameStats : MonoBehaviour
     {
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 5*60;
+        gameTime = 5;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
     }
     void Update()
@@ -25,7 +25,7 @@ public class GameStats : MonoBehaviour
             gameTime -= Time.deltaTime;
             timerText.text = "Timer: " + Mathf.FloorToInt(gameTime / 60) + ":" + Mathf.FloorToInt(gameTime % 60);
         } else {
-            SceneManager.LoadScene("Main Arena"); 
+            SceneManager.LoadScene("WinScreen"); 
         }
 
     }
