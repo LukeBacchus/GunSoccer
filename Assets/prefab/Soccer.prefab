@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3389472856299081815}
   m_Layer: 0
   m_Name: pasted__Soccer_Ball
-  m_TagString: Untagged
+  m_TagString: Soccer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 2919294526943426487}
   m_Layer: 0
   m_Name: Soccer
-  m_TagString: Untagged
+  m_TagString: Soccer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
