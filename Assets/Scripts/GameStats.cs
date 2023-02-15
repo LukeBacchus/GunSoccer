@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStats : MonoBehaviour
 {
@@ -23,7 +24,8 @@ public class GameStats : MonoBehaviour
         {
             gameTime -= Time.deltaTime;
             timerText.text = "Timer: " + Mathf.FloorToInt(gameTime / 60) + ":" + Mathf.FloorToInt(gameTime % 60);
-
+        } else {
+            SceneManager.LoadScene("Main Arena"); 
         }
 
     }
