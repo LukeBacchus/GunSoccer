@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 69b2516ffb0c72e40808759b633471ca
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - gunModel: {fileID: 919132149155446097, guid: 6e39f098e5ec28e469aa63bb5dd23c9a, type: 3}
+  - bullet: {fileID: 6294286833029330474, guid: 9a567a08036c4864ab016a824d304630, type: 3}
+  - bulletType: {fileID: 11400000, guid: 569ad630d5f8d694eb1d439fccb5e8a3, type: 2}
+  - icon: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
