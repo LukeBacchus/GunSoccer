@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class BallDistance : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject ball; 
+    [SerializeField] private GameObject goal;
+    [SerializeField] private GameObject ball;
+    [SerializeField] private StudioEventEmitter soundEmitter;
+    [SerializeField] private string Intensity;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +19,11 @@ public class BallDistance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Dist to ball: " + Vector3.Distance(player.transform.position, ball.transform.position));
+
+        float distance = Vector3.Distance(goal.transform.position, ball.transform.position);
+
+        soundEmitter.SetParameter(Intensity, distance);
+
+        Debug.Log("Dist to ball: " + distance);
     }
 }
