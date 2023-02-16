@@ -36,7 +36,7 @@ public class GameStats : MonoBehaviour
         if (gameTime > 0)
         {
             gameTime -= Time.deltaTime;
-            timerText.text = "Timer: " + Mathf.FloorToInt(gameTime / 60) + ":" + Mathf.FloorToInt(gameTime % 60);
+            timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
         } else {
             SceneManager.LoadScene("WinScreen"); 
         }
