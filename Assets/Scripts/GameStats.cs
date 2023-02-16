@@ -9,14 +9,27 @@ public class GameStats : MonoBehaviour
     public int teamOneScore;
     public int teamTwoScore;
     public float gameTime;
-    // Start is called before the first frame update
+    public float updateInterval = 0.5F;
+    private double lastInterval;
+    private int frames;
+    
     private TMPro.TextMeshProUGUI timerText;
+    private TMPro.TextMeshProUGUI countDownText;
+
+    // Start is called before the first frame update
     void Start()
     {
+        lastInterval = Time.realtimeSinceStartup;
+        frames = 0;
+
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 5;
+        gameTime = 5*60 + 1;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
+        countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
+
+        StartCoroutine(Countdown());
+
     }
     void Update()
     {
@@ -29,4 +42,32 @@ public class GameStats : MonoBehaviour
         }
 
     }
+
+    void PauseGame ()
+    {
+        Time.timeScale = 0;
+    }
+    
+    void ResumeGame ()
+    {
+        Time.timeScale = 1;
+    }
+    
+    public IEnumerator Countdown(){
+        PauseGame();
+        int count = 5;
+        int i = count;
+        float startTime = UnityEngine.Time.realtimeSinceStartup;
+        while (UnityEngine.Time.realtimeSinceStartup - startTime < count + 1) {
+            countDownText.text = i.ToString();
+            i = count - (int)(UnityEngine.Time.realtimeSinceStartup - startTime);
+            yield return null;
+        }
+
+        countDownText.text = "";
+
+        ResumeGame();
+    }
+
+
 }

@@ -18,11 +18,13 @@ public class GoalBehavior : MonoBehaviour
         teamOneScoreText = GameObject.Find("Team 1 Score").GetComponent<TMPro.TextMeshProUGUI>();
         teamTwoScoreText = GameObject.Find("Team 2 Score").GetComponent<TMPro.TextMeshProUGUI>();
     }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Soccer")
         {
             collision.gameObject.transform.position = new Vector3(0, 5, 0);
+            collision.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
             if (team == 1)
             {
@@ -33,6 +35,10 @@ public class GoalBehavior : MonoBehaviour
                 gameStats.teamOneScore += 1;
                 teamOneScoreText.text = "Team 1 Score: " + gameStats.teamOneScore;
             }
+
+
+            StartCoroutine(gameStats.Countdown());
         }
     }
+
 }
