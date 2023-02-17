@@ -225,48 +225,20 @@ public class StartScreenScript : MonoBehaviour
 
         if (numPlayers == 1)
         {
-            GameObject menu = GameObject.Instantiate(playerLoadoutMenu);
-            menu.transform.SetParent(loadoutPanel.transform);
-            menu.name = "Player 1 Loadout Menu";
-            menu.GetComponent<PlayerLoadoutMenu>().playerNum = 1;
-            RectTransform rTransform = menu.GetComponent<RectTransform>();
-            rTransform.offsetMin = Vector2.zero;
-            rTransform.offsetMax = Vector2.zero;
-
-            loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
+            CreatePlayerLoadoutMenu(1, new List<List<float>> { new List<float> { 0, 0, 1, 1 } });
         }
         else if (numPlayers == 2)
         {
             for (int i = 0; i < 2; i++)
             {
-                GameObject menu = GameObject.Instantiate(playerLoadoutMenu);
-                menu.transform.SetParent(loadoutPanel.transform);
-                menu.name = "Player " + (i + 1) + " Loadout Menu";
-                menu.GetComponent<PlayerLoadoutMenu>().playerNum = i + 1;
-                RectTransform rTransform = menu.GetComponent<RectTransform>();
-                rTransform.anchorMin = new Vector2(twoPlayerMenuLocations[i][0], twoPlayerMenuLocations[i][1]);
-                rTransform.anchorMax = new Vector2(twoPlayerMenuLocations[i][2], twoPlayerMenuLocations[i][3]);
-                rTransform.offsetMin = Vector2.zero;
-                rTransform.offsetMax = Vector2.zero;
-
-                loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
+                CreatePlayerLoadoutMenu(i + 1, twoPlayerMenuLocations);
             }
         } 
         else if (numPlayers == 4)
         {
             for (int i = 0; i < 4; i++)
             {
-                GameObject menu = GameObject.Instantiate(playerLoadoutMenu);
-                menu.transform.SetParent(loadoutPanel.transform);
-                menu.name = "Player " + (i + 1) + " Loadout Menu";
-                menu.GetComponent<PlayerLoadoutMenu>().playerNum = i + 1;
-                RectTransform rTransform = menu.GetComponent<RectTransform>();
-                rTransform.anchorMin = new Vector2(fourPlayerMenuLocations[i][0], fourPlayerMenuLocations[i][1]);
-                rTransform.anchorMax = new Vector2(fourPlayerMenuLocations[i][2], fourPlayerMenuLocations[i][3]);
-                rTransform.offsetMin = Vector2.zero;
-                rTransform.offsetMax = Vector2.zero;
-
-                loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
+                CreatePlayerLoadoutMenu(i + 1, fourPlayerMenuLocations);
             }
         }
 
@@ -280,6 +252,23 @@ public class StartScreenScript : MonoBehaviour
             SpawnPlayer(i);
         }
         SceneManager.LoadScene("Main Arena");
+    }
+
+    private void CreatePlayerLoadoutMenu(int playerNum, List<List<float>> menuLocs)
+    {
+        GameObject menu = Instantiate(playerLoadoutMenu);
+        menu.transform.SetParent(loadoutPanel.transform);
+        menu.name = "Player " + playerNum + " Loadout Menu";
+        PlayerLoadoutMenu menuScript = menu.GetComponent<PlayerLoadoutMenu>();
+        menuScript.playerNum = playerNum;
+        menuScript.UpdateTitle();
+        RectTransform rTransform = menu.GetComponent<RectTransform>();
+        rTransform.anchorMin = new Vector2(menuLocs[playerNum - 1][0], menuLocs[playerNum - 1][1]);
+        rTransform.anchorMax = new Vector2(menuLocs[playerNum - 1][2], menuLocs[playerNum - 1][3]);
+        rTransform.offsetMin = Vector2.zero;
+        rTransform.offsetMax = Vector2.zero;
+
+        loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
     }
 
     private void SpawnPlayer(int playerNum)

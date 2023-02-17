@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlayerLoadoutMenu : MonoBehaviour
 {
     [SerializeField]
+    private TMPro.TextMeshProUGUI title;
+    [SerializeField]
     private RectTransform weaponGrid;
     [SerializeField]
     private RectTransform viewport;
@@ -130,6 +132,11 @@ public class PlayerLoadoutMenu : MonoBehaviour
                 Debug.Log("Selected " + currentSelection.ToString());
             }
         }
+    }
+
+    public void UpdateTitle()
+    {
+        title.text = "Player " + playerNum + " Loadout";
     }
 
     private void UpdateSelectedButtonColors(bool removeSelect)
