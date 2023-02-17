@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameStats : MonoBehaviour
 {
-
+    public GameStatus gameStatus = GameStatus.PAUSED;
     public int teamOneScore;
     public int teamTwoScore;
     public float gameTime;
@@ -15,6 +15,14 @@ public class GameStats : MonoBehaviour
     
     private TMPro.TextMeshProUGUI timerText;
     private TMPro.TextMeshProUGUI countDownText;
+
+
+    public enum GameStatus
+    {
+        ONGOING,
+        PAUSED,
+        OVERTIME
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -45,11 +53,13 @@ public class GameStats : MonoBehaviour
 
     void PauseGame ()
     {
+        gameStatus = GameStatus.PAUSED;
         Time.timeScale = 0;
     }
     
     void ResumeGame ()
     {
+        gameStatus = GameStatus.ONGOING;
         Time.timeScale = 1;
     }
     

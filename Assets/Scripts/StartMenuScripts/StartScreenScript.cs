@@ -31,9 +31,12 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private GameObject playerLoadoutMenu;
     [SerializeField]
-    private List<ScriptableObject> weaponScriptableObjects;
+    private List<Weapons> weaponScriptableObjects;
     private List<PlayerLoadoutMenu> loadoutMenuScripts = new List<PlayerLoadoutMenu>();
     private bool loadingLoadoutMenu = false;
+
+    [SerializeField]
+    private GameObject playerPrefab;
 
     private ButtonColors buttonColors;
     private int numPlayers = 1;
@@ -114,7 +117,6 @@ public class StartScreenScript : MonoBehaviour
         if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2"))
         {
             TransitionTogamemodeMenu();
-            //SceneManager.LoadScene("Main Arena");
         }
     }
 
@@ -170,9 +172,16 @@ public class StartScreenScript : MonoBehaviour
     {
         if (!loadingLoadoutMenu)
         {
+            int numReady = 0;
             foreach (PlayerLoadoutMenu script in loadoutMenuScripts)
             {
                 script.LoadoutInput();
+                numReady += script.ready ? 1 : 0;
+            }
+
+            if (numReady == numPlayers)
+            {
+                TransitionMapMenu();
             }
         }
     }
@@ -262,5 +271,35 @@ public class StartScreenScript : MonoBehaviour
         }
 
         loadingLoadoutMenu = false;
+    }
+
+    private void TransitionMapMenu()
+    {
+        for (int i = 1; i <= numPlayers; i++)
+        {
+            SpawnPlayer(i);
+        }
+        SceneManager.LoadScene("Main Arena");
+    }
+
+    private void SpawnPlayer(int playerNum)
+    {
+        GameObject player = Object.Instantiate(playerPrefab);
+        player.name = "Player " + (playerNum).ToString();
+        PlayerStats playerStats = player.GetComponent<PlayerStats>();
+        playerStats.playerNum = playerNum;
+        Debug.Log(weaponScriptableObjects[(int)loadoutMenuScripts[playerNum - 1].currentSelection]);
+        playerStats.weapon = weaponScriptableObjects[(int)loadoutMenuScripts[playerNum - 1].currentSelection];
+
+        if (numPlayers == 2)
+        {
+            playerStats.cam.rect = new Rect(playerNum == 1 ? 0 : 0.5f, 0, 0.5f, 1);
+        }
+        else if (numPlayers == 4)
+        {
+            playerStats.cam.rect = new Rect(playerNum % 2 == 1 ? 0 : 0.5f, playerNum >= 3 ? 0.5f : 0, 0.5f, 0.5f);
+        }
+
+        DontDestroyOnLoad(player);
     }
 }

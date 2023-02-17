@@ -229,6 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 0
+  weapon: {fileID: 0}
+  cam: {fileID: 7724132453709515023}
 --- !u!114 &66192549074824378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +260,6 @@ MonoBehaviour:
   camJoyStickX: 0
   camJoyStickY: 0
   jump: 0
-  CameraObj: {fileID: 7724132453709515021}
   speed: 50
   rotationSpeed: 2
 --- !u!114 &5155603571499715764
@@ -273,7 +274,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b652a9630cbd7248b8cb41fc94d96ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
   muzzle: {fileID: 1348869497229708824}
   cam: {fileID: 7724132453709515016}
   shoot: 0

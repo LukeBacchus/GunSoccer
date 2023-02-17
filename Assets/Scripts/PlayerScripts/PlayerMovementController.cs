@@ -10,8 +10,8 @@ public class PlayerMovementController : MonoBehaviour
     public float camJoyStickY = 0;
     public bool jump = false;
 
+    private PlayerStats playerStats;
     private Rigidbody rb;
-    [SerializeField] private GameObject CameraObj;
     private Collider col;
     private float jumpForce = 10;
     [SerializeField] private float speed = 50;
@@ -30,6 +30,7 @@ public class PlayerMovementController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void Update()
@@ -84,10 +85,10 @@ public class PlayerMovementController : MonoBehaviour
         Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
         Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
 
-        CameraObj.transform.rotation *= camRotation;
+        playerStats.cam.transform.rotation *= camRotation;
         transform.rotation *= bodyRotation;
 
-        float camX = CameraObj.transform.localEulerAngles.x;
+        float camX = playerStats.cam.transform.localEulerAngles.x;
 
         if (60f < camX && camX < 310f)
         {
@@ -101,7 +102,7 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
-        CameraObj.transform.localEulerAngles = new Vector3(camX, 0, 0);
+        playerStats.cam.transform.localEulerAngles = new Vector3(camX, 0, 0);
     }
 
     void ApplyGravity()
