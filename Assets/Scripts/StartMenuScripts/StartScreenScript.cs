@@ -21,10 +21,7 @@ public class StartScreenScript : MonoBehaviour
     private Button twoPlayerButton;
     [SerializeField]
     private Button fourPlayerButton;
-    private List<Button> gamemodeButtons;
-    private float gamemodeHoldTime = 0.5f;
-    private float gamemodeCurrHoldTime = 0;
-    private int gamemodeIndex = 0;
+    private MenuSelectionHelper gameModeSelector;
 
     [SerializeField]
     private GameObject loadoutPanel;
@@ -38,7 +35,6 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private GameObject playerPrefab;
 
-    private ButtonColors buttonColors;
     private int numPlayers = 1;
     private MenuTypes currentMenu = MenuTypes.CoverMenu;
 
@@ -83,8 +79,6 @@ public class StartScreenScript : MonoBehaviour
 
     void Start()
     {
-        buttonColors = GameObject.Find("StartScreenManager").GetComponent<ButtonColors>();
-
         tutorialButton.onClick.AddListener(SelectedTutorial);
         practiceButton.onClick.AddListener(SelectedPractice);
         twoPlayerButton.onClick.AddListener(SelectedTwoPlayerMode);
@@ -93,8 +87,8 @@ public class StartScreenScript : MonoBehaviour
         gamemodePanel.SetActive(false);
         loadoutPanel.SetActive(false);
 
-        gamemodeButtons = new List<Button> { tutorialButton, practiceButton, twoPlayerButton, fourPlayerButton };
-        gamemodeButtons[gamemodeIndex].GetComponent<Image>().color = buttonColors.hoverColor;
+        List<Button> gamemodeButtons = new List<Button> { tutorialButton, practiceButton, twoPlayerButton, fourPlayerButton };
+        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 3);
     }
 
     // Update is called once per frame
@@ -122,49 +116,10 @@ public class StartScreenScript : MonoBehaviour
 
     private void GamemodeMenuInput()
     {
-        if (Input.GetAxis("Horizontal1") >= 0.9f)
+        gameModeSelector.HorizontalSelection();
+        if (gameModeSelector.Select())
         {
-            gamemodeCurrHoldTime += Time.deltaTime;
-            if (gamemodeCurrHoldTime >= gamemodeHoldTime)
-            {
-                int prevIndex = gamemodeIndex;
-                gamemodeIndex += 1;
-                if (gamemodeIndex == 4)
-                {
-                    gamemodeIndex = 0;
-                }
-
-                gamemodeButtons[gamemodeIndex].GetComponent<Image>().color = buttonColors.hoverColor;
-                gamemodeButtons[prevIndex].GetComponent<Image>().color = buttonColors.normalColor;
-                gamemodeCurrHoldTime = 0;
-
-                Debug.Log(gamemodeIndex);
-            }
-        }
-        else if (Input.GetAxis("Horizontal1") <= -0.9f)
-        {
-            gamemodeCurrHoldTime += Time.deltaTime;
-            if (gamemodeCurrHoldTime >= gamemodeHoldTime)
-            {
-                int prevIndex = gamemodeIndex;
-                gamemodeIndex -= 1;
-                if (gamemodeIndex < 0)
-                {
-                    gamemodeIndex = 3;
-                }
-
-                gamemodeButtons[gamemodeIndex].GetComponent<Image>().color = buttonColors.hoverColor;
-                gamemodeButtons[prevIndex].GetComponent<Image>().color = buttonColors.normalColor;
-                gamemodeCurrHoldTime = 0;
-
-                Debug.Log(gamemodeIndex);
-            }
-        }
-
-        if (Input.GetButtonDown("Jump1"))
-        {
-            gamemodeButtons[gamemodeIndex].onClick.Invoke();
-            gamemodeButtons[gamemodeIndex].GetComponent<Image>().color = buttonColors.selectedColor;
+            gameModeSelector.InvokeSelection();
         }
     }
 

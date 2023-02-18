@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonColors : MonoBehaviour
+public static class ButtonColors
 {
-    public Color normalColor = Color.white;
-    public Color hoverColor = new Color(0.8f, 0.8f, 0.8f);
-    public Color selectedColor = new Color(0.5f, 0.5f, 0.5f);
+    public static Color normalColor = Color.white;
+    public static Color hoverColor = new Color(0.8f, 0.8f, 0.8f);
+    public static Color selectedColor = new Color(0.5f, 0.5f, 0.5f);
 }

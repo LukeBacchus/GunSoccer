@@ -21,18 +21,9 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private Button shotgunButton;
     [SerializeField]
     private Button grenadeLauncherButton;
-    private List<Button> buttons;
 
-    private int selectedIndex = 0;
-    private float holdTime = 0.5f;
-    private float currHoldTime = 0;
-    private int firstVisible = 0;
-    private int lastVisible = 0;
-    private float widthOffset = 0;
-    private bool offsetOnRight = true;
     private float cellWidth = 105;
-
-    private ButtonColors buttonColors;
+    private MenuSelectionHelper weaponSelector;
 
     public int playerNum;
     public bool ready = false;
@@ -50,26 +41,25 @@ public class PlayerLoadoutMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        buttonColors = GameObject.Find("StartScreenManager").GetComponent<ButtonColors>();
-
         rifleButton.onClick.AddListener(SelectRifle);
         sniperButton.onClick.AddListener(SelectSniper);
         smgButton.onClick.AddListener(SelectSmg);
         shotgunButton.onClick.AddListener(SelectShotgun);
         grenadeLauncherButton.onClick.AddListener(SelectGrenadeLauncher);
 
-        buttons = new List<Button> { rifleButton, sniperButton, smgButton, shotgunButton, grenadeLauncherButton };
-        buttons[selectedIndex].GetComponent<Image>().color = buttonColors.selectedColor;
+        List<Button> buttons = new List<Button> { rifleButton, sniperButton, smgButton, shotgunButton, grenadeLauncherButton };
         weaponGrid.offsetMin = Vector2.zero;
 
         Canvas.ForceUpdateCanvases();
-        lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
-        widthOffset = viewport.rect.width % cellWidth;
+        int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
+        float widthOffset = viewport.rect.width % cellWidth;
+
+        weaponSelector = new MenuSelectionHelper(buttons, 4, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, playerNum);
     }
 
     public void LoadoutInput()
     {
-        if (Input.GetButtonDown("Jump" + (playerNum).ToString()))
+        if (Input.GetButtonDown("Fire1" + (playerNum).ToString()))
         {
             ToggleReady();
             Debug.Log("Ready? " + ready);
@@ -77,109 +67,14 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
         if (!ready)
         {
-            if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
-            {
-                currHoldTime += Time.deltaTime;
-                if (currHoldTime >= holdTime)
-                {
-                    int prevIndex = selectedIndex;
-                    if (selectedIndex < 4)
-                    {
-                        selectedIndex += 1;
-                        if (selectedIndex > lastVisible)
-                        {
-                            MoveGridRight();
-                        }
-                    }
-
-                    UpdateButtonColors(prevIndex, selectedIndex);
-                    currHoldTime = 0;
-
-                    Debug.Log(selectedIndex);
-                }
-            }
-            else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
-            {
-                currHoldTime += Time.deltaTime;
-                if (currHoldTime >= holdTime)
-                {
-                    int prevIndex = selectedIndex;
-                    if (selectedIndex > 0)
-                    {
-                        selectedIndex -= 1;
-                        if (selectedIndex < firstVisible)
-                        {
-                            MoveGridLeft();
-                        }
-                    }
-
-                    UpdateButtonColors(prevIndex, selectedIndex);
-                    currHoldTime = 0;
-
-                    Debug.Log(selectedIndex);
-                }
-            }
-            else
-            {
-                currHoldTime = 0;
-            }
-
-            if (Input.GetButtonDown("Fire1" + (playerNum).ToString()))
-            {
-                UpdateSelectedButtonColors(true);
-                currentSelection = (WeaponType)selectedIndex;
-                UpdateSelectedButtonColors(false);
-                Debug.Log("Selected " + currentSelection.ToString());
-            }
+            weaponSelector.HorizontalSelection();
+            weaponSelector.Select();
         }
     }
 
     public void UpdateTitle()
     {
         title.text = "Player " + playerNum + " Loadout";
-    }
-
-    private void UpdateSelectedButtonColors(bool removeSelect)
-    {
-        if (removeSelect)
-        {
-            buttons[(int)currentSelection].GetComponent<Image>().color = buttonColors.normalColor;
-        }
-        else
-        {
-            buttons[selectedIndex].GetComponent<Image>().color = buttonColors.selectedColor;
-        }
-    }
-
-    private void UpdateButtonColors(int prevIndex, int currIndex)
-    {
-        if (currIndex != (int)currentSelection)
-        {
-            buttons[currIndex].GetComponent<Image>().color = buttonColors.hoverColor;
-        }
-
-        if (prevIndex != (int)currentSelection && prevIndex != currIndex)
-        {
-            buttons[prevIndex].GetComponent<Image>().color = buttonColors.normalColor;
-        }
-    }
-
-    private void MoveGridRight()
-    {
-        weaponGrid.position += new Vector3(offsetOnRight ? widthOffset - cellWidth : -cellWidth, 0, 0);
-        offsetOnRight = false;
-
-        firstVisible += 1;
-        lastVisible += 1;
-    }
-
-    private void MoveGridLeft()
-    {
-        weaponGrid.position += new Vector3(!offsetOnRight ? cellWidth - widthOffset : cellWidth, 0, 0);
-        offsetOnRight = true;
-
-        firstVisible -= 1;
-        lastVisible -= 1;
     }
 
     private void ToggleReady()
