@@ -68,7 +68,10 @@ public class PlayerLoadoutMenu : MonoBehaviour
         if (!ready)
         {
             weaponSelector.HorizontalSelection();
-            weaponSelector.Select();
+            if (weaponSelector.Select())
+            {
+                weaponSelector.InvokeSelection();
+            }
         }
     }
 

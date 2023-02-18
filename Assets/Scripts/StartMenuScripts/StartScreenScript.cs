@@ -33,6 +33,12 @@ public class StartScreenScript : MonoBehaviour
     private bool loadingLoadoutMenu = false;
 
     [SerializeField]
+    private GameObject mapPanel;
+    [SerializeField]
+    private Button stadiumButton;
+    private MenuSelectionHelper mapSelector;
+
+    [SerializeField]
     private GameObject playerPrefab;
 
     private int numPlayers = 1;
@@ -74,21 +80,28 @@ public class StartScreenScript : MonoBehaviour
         GamemodeMenu,
         LoadoutMenu,
         MapMenu
-
     }
 
     void Start()
     {
+        // Gamemode menu button onclick events
         tutorialButton.onClick.AddListener(SelectedTutorial);
         practiceButton.onClick.AddListener(SelectedPractice);
         twoPlayerButton.onClick.AddListener(SelectedTwoPlayerMode);
         fourPlayerButton.onClick.AddListener(SelectedFourPlayerMode);
 
+        // Map menu button onclick events
+        stadiumButton.onClick.AddListener(delegate { LoadMap(stadiumButton.name); });
+
         gamemodePanel.SetActive(false);
         loadoutPanel.SetActive(false);
+        mapPanel.SetActive(false);
 
         List<Button> gamemodeButtons = new List<Button> { tutorialButton, practiceButton, twoPlayerButton, fourPlayerButton };
         gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 3);
+
+        List<Button> mapButtons = new List<Button> { stadiumButton };
+        mapSelector = new MenuSelectionHelper(mapButtons, 0);
     }
 
     // Update is called once per frame
@@ -100,9 +113,12 @@ public class StartScreenScript : MonoBehaviour
         } else if (currentMenu == MenuTypes.GamemodeMenu)
         {
             GamemodeMenuInput();
-        } else
+        } else if (currentMenu == MenuTypes.LoadoutMenu)
         {
             LoadoutMenuInput();
+        } else
+        {
+            MapMenuInput();
         }
     }
 
@@ -138,6 +154,15 @@ public class StartScreenScript : MonoBehaviour
             {
                 TransitionMapMenu();
             }
+        }
+    }
+
+    private void MapMenuInput()
+    {
+        mapSelector.HorizontalSelection();
+        if (mapSelector.Select())
+        {
+            mapSelector.InvokeSelection();
         }
     }
 
@@ -202,11 +227,18 @@ public class StartScreenScript : MonoBehaviour
 
     private void TransitionMapMenu()
     {
+        mapPanel.SetActive(true);
+        currentMenu = MenuTypes.MapMenu;
+        loadoutPanel.SetActive(false);
+    }
+
+    private void LoadMap(string sceneName)
+    {
         for (int i = 1; i <= numPlayers; i++)
         {
             SpawnPlayer(i);
         }
-        SceneManager.LoadScene("Main Arena");
+        SceneManager.LoadScene(sceneName);
     }
 
     private void CreatePlayerLoadoutMenu(int playerNum, List<List<float>> menuLocs)
