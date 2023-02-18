@@ -93,6 +93,7 @@ public class StartScreenScript : MonoBehaviour
         // Map menu button onclick events
         stadiumButton.onClick.AddListener(delegate { LoadMap(stadiumButton.name); });
 
+        coverPanel.SetActive(true);
         gamemodePanel.SetActive(false);
         loadoutPanel.SetActive(false);
         mapPanel.SetActive(false);
@@ -264,7 +265,6 @@ public class StartScreenScript : MonoBehaviour
         player.name = "Player " + (playerNum).ToString();
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         playerStats.playerNum = playerNum;
-        Debug.Log(weaponScriptableObjects[(int)loadoutMenuScripts[playerNum - 1].currentSelection]);
         playerStats.weapon = weaponScriptableObjects[(int)loadoutMenuScripts[playerNum - 1].currentSelection];
 
         if (numPlayers == 2)

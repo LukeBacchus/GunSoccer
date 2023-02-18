@@ -24,6 +24,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
     private float cellWidth = 105;
     private MenuSelectionHelper weaponSelector;
+    private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
     public int playerNum;
     public bool ready = false;
@@ -62,7 +63,6 @@ public class PlayerLoadoutMenu : MonoBehaviour
         if (Input.GetButtonDown("Fire1" + (playerNum).ToString()))
         {
             ToggleReady();
-            Debug.Log("Ready? " + ready);
         }
 
         if (!ready)
@@ -90,6 +90,8 @@ public class PlayerLoadoutMenu : MonoBehaviour
             smgButton.onClick.RemoveAllListeners();
             shotgunButton.onClick.RemoveAllListeners();
             grenadeLauncherButton.onClick.RemoveAllListeners();
+
+            GetComponent<Image>().color = readyColor;
         } else
         {
             rifleButton.onClick.AddListener(SelectRifle);
@@ -97,37 +99,34 @@ public class PlayerLoadoutMenu : MonoBehaviour
             smgButton.onClick.AddListener(SelectSmg);
             shotgunButton.onClick.AddListener(SelectShotgun);
             grenadeLauncherButton.onClick.AddListener(SelectGrenadeLauncher);
+
+            GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
     }
 
     private void SelectRifle()
     {
         currentSelection = WeaponType.AssaultRifle;
-        Debug.Log("Selected AR");
     }
 
     private void SelectSniper()
     {
         currentSelection = WeaponType.SniperRifle;
-        Debug.Log("Selected Sniper");
     }
 
     private void SelectSmg()
     {
         currentSelection = WeaponType.SMG;
-        Debug.Log("Selected SMG");
     }
 
     private void SelectShotgun()
     {
         currentSelection = WeaponType.Shotgun;
-        Debug.Log("Selected Shotgun");
     }
 
     private void SelectGrenadeLauncher()
     {
         currentSelection = WeaponType.GrenadeLauncher;
-        Debug.Log("Selected GL");
     }
 
 }

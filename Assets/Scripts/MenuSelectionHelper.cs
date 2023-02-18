@@ -84,8 +84,6 @@ public class MenuSelectionHelper
 
                 UpdateButtonColors(prevIndex, currentIndex);
                 currHoldTime = 0;
-
-                Debug.Log(currentIndex);
             }
         }
         else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
@@ -111,9 +109,15 @@ public class MenuSelectionHelper
 
                 UpdateButtonColors(prevIndex, currentIndex);
                 currHoldTime = 0;
-
-                Debug.Log(currentIndex);
             }
+        }
+    }
+
+    public void ResetAllButtonColors()
+    {
+        foreach (Button button in buttons)
+        {
+            button.GetComponent<Image>().color = ButtonColors.normalColor;
         }
     }
 
