@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07397716277bf5b4aa4d215c28d750ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInit: {fileID: 1711731391328974972}
   team: 2
 --- !u!1 &277732868622961489
 GameObject:
@@ -117,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07397716277bf5b4aa4d215c28d750ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInit: {fileID: 1711731391328974972}
   team: 1
 --- !u!1 &510645528773123808
 GameObject:
@@ -374,7 +376,7 @@ GameObject:
   - component: {fileID: 3602513787439450074}
   m_Layer: 0
   m_Name: polySurface3
-  m_TagString: Untagged
+  m_TagString: Stadium Surface
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -640,14 +642,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3602513785906719827}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3602513787588197929}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &3602513786780363173
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,14 +673,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3602513786780363173}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3602513787588197929}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &3602513786800880899
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,14 +735,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3602513786815004456}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0.5, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3602513787588197929}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &3602513786989098695
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,6 +1000,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3923772508782690583}
+  - component: {fileID: 1711731391328974972}
   m_Layer: 0
   m_Name: Main Stadium
   m_TagString: Untagged
@@ -1026,6 +1029,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1711731391328974972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4413486825652345773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c5737005e95314686f3b6ef59bde8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  twoPlayerSpawns:
+  - {fileID: 3602513786780363172}
+  - {fileID: 3602513786800880898}
+  fourPlayerSpawns:
+  - {fileID: 3602513786815004503}
+  - {fileID: 3602513785906719826}
+  - {fileID: 3602513787306108869}
+  - {fileID: 3602513786989098694}
 --- !u!1 &4604949580151142860
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,6 +1334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07397716277bf5b4aa4d215c28d750ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInit: {fileID: 1711731391328974972}
   team: 2
 --- !u!1 &6534065660241510341
 GameObject:
@@ -1404,6 +1428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07397716277bf5b4aa4d215c28d750ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInit: {fileID: 1711731391328974972}
   team: 1
 --- !u!1 &7495662286258062877
 GameObject:
@@ -1463,6 +1488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07397716277bf5b4aa4d215c28d750ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInit: {fileID: 1711731391328974972}
   team: 2
 --- !u!1 &8335133447237624583
 GameObject:
@@ -1724,6 +1750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07397716277bf5b4aa4d215c28d750ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapInit: {fileID: 1711731391328974972}
   team: 1
 --- !u!1 &9005786000374885357
 GameObject:

@@ -7,10 +7,8 @@ public class GoalBehavior : MonoBehaviour
 {
     private TMPro.TextMeshProUGUI teamOneScoreText;
     private TMPro.TextMeshProUGUI teamTwoScoreText;
-
-    [SerializeField] private GameObject[] players;
-    private Vector3[] playerPoss = new Vector3[4];
-    private Quaternion[] playerRots = new Quaternion[4];
+    [SerializeField]
+    private InitializeMap mapInit;
 
     public int team;
     private GameStats gameStats;
@@ -21,13 +19,6 @@ public class GoalBehavior : MonoBehaviour
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
         teamOneScoreText = GameObject.Find("Team 1 Score").GetComponent<TMPro.TextMeshProUGUI>();
         teamTwoScoreText = GameObject.Find("Team 2 Score").GetComponent<TMPro.TextMeshProUGUI>();
-
-        for(int i = 0; i < players.Length; i++){
-            playerPoss[i] = players[i].gameObject.transform.position;
-            playerRots[i] = players[i].gameObject.transform.rotation;
-        }
-
-        Debug.Log("Pos init: " + playerPoss[0]);
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -36,13 +27,6 @@ public class GoalBehavior : MonoBehaviour
         {
             collision.gameObject.transform.position = new Vector3(0, 5, 0);
             collision.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-
-            Debug.Log("Pos: " + playerPoss[0]);
-
-            for(int i = 0; i < players.Length; i++){
-                players[i].gameObject.transform.position = playerPoss[i];
-                players[i].gameObject.transform.rotation = playerRots[i];
-            }
 
             if (team == 1)
             {
@@ -54,7 +38,7 @@ public class GoalBehavior : MonoBehaviour
                 teamOneScoreText.text = "Team 1 Score: " + gameStats.teamOneScore;
             }
 
-
+            mapInit.ResetPlayerLocs();
             StartCoroutine(gameStats.Countdown());
         }
     }

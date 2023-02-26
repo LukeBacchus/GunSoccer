@@ -5,7 +5,6 @@ using FMODUnity;
 
 public class PlayerGunController : MonoBehaviour
 {
-    [SerializeField] private Weapons weapon;
     [SerializeField] private Transform muzzle;
     [SerializeField] private Transform cam;
     public bool shoot;
@@ -20,11 +19,11 @@ public class PlayerGunController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currCooldown = 0;
-        currMagazine = weapon.magazineSize;
-
         sfx = GetComponent<StudioEventEmitter>();
         playerStats = GetComponent<PlayerStats>();
+
+        currCooldown = 0;
+        currMagazine = playerStats.weapon.magazineSize;
     }
 
     // Update is called once per frame
@@ -41,7 +40,7 @@ public class PlayerGunController : MonoBehaviour
             if (currCooldown == 0 && !reloading)
             {
                 ShootGun();
-                currCooldown += weapon.shootCooldown;
+                currCooldown += playerStats.weapon.shootCooldown;
 
                 RuntimeManager.PlayOneShot("event:/Gunshot");
             }
@@ -63,14 +62,14 @@ public class PlayerGunController : MonoBehaviour
             muzzle.localEulerAngles = new Vector3(0, 180, 0);
         }
 
-        weapon.ShootGun(muzzle, playerStats.playerNum);
+        playerStats.weapon.ShootGun(muzzle, playerStats.playerNum);
         currMagazine -= 1;
     }
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(weapon.reloadSpeed);
-        currMagazine = weapon.magazineSize;
+        yield return new WaitForSeconds(playerStats.weapon.reloadSpeed);
+        currMagazine = playerStats.weapon.magazineSize;
         reloading = false;
     }
 }
