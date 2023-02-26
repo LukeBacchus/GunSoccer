@@ -220,6 +220,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+--- !u!1 &233477687 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1223150685802612376, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
+  m_PrefabInstance: {fileID: 1287263872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &233477694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 233477687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c6ab8da4805354fa926515595b2122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfx: {fileID: 0}
 --- !u!1 &263114610 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1978163395254023183, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
@@ -317,6 +335,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: PlayEvent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4341748448517819315, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -957,6 +979,10 @@ PrefabInstance:
       propertyPath: players.Array.data[1]
       value: 
       objectReference: {fileID: 1880730216}
+    - target: {fileID: 2580256411261462166, guid: d28d7978c5ade59448f1cd6a27a0cdef, type: 3}
+      propertyPath: m_TagString
+      value: Stadium Surface
+      objectReference: {fileID: 0}
     - target: {fileID: 3206806875250150383, guid: d28d7978c5ade59448f1cd6a27a0cdef, type: 3}
       propertyPath: players.Array.size
       value: 2
