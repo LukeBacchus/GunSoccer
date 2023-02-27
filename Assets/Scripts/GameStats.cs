@@ -32,7 +32,7 @@ public class GameStats : MonoBehaviour
 
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 5*60 + 1;
+        gameTime = 5*30 + 1;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
         countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
 
@@ -46,6 +46,15 @@ public class GameStats : MonoBehaviour
             gameTime -= Time.deltaTime;
             timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
         } else {
+            if (teamOneScore > teamTwoScore) {
+                Scores.TeamScores = "Team 1";
+            }
+            else if (teamTwoScore > teamOneScore) {
+                Scores.TeamScores = "Team 2";
+            }
+            else {
+                Scores.TeamScores = "No One";
+            }
             SceneManager.LoadScene("WinScreen"); 
         }
 
