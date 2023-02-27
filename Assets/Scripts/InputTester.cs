@@ -57,19 +57,19 @@ public class InputTester : MonoBehaviour
         // Debug.Log("my2: " + my2);
         // Debug.Log("sw: " + sw);
 
-        Debug.Log(Input.GetAxis("X test").ToString("F5"));
-        Debug.Log("X test: " + Input.GetAxis("X test").ToString("F5"));
-        Debug.Log("Y test: " + Input.GetAxis("Y test").ToString("F5"));
-        Debug.Log("X test 2: " + Input.GetAxis("X test 2").ToString("F5"));
-        Debug.Log("Y test 2: " + Input.GetAxis("Y test 2").ToString("F5"));
-        // Debug.Log("3 test: " + Input.GetAxisRaw("3 test").ToString("F5"));
-        // Debug.Log("4 test: " + Input.GetAxisRaw("4 test").ToString("F5"));
-        // Debug.Log("5 test: " + Input.GetAxisRaw("5 test").ToString("F5"));
-        // Debug.Log("6 test: " + Input.GetAxisRaw("6 test").ToString("F5"));
-        // Debug.Log("7 test: " + Input.GetAxisRaw("7 test").ToString("F5"));
-        // Debug.Log("8 test: " + Input.GetAxisRaw("8 test").ToString("F5"));
-        // Debug.Log("9 test: " + Input.GetAxisRaw("9 test").ToString("F5"));
-        // Debug.Log("10 test: " + Input.GetAxisRaw("10 test").ToString("F5"));
+        // Debug.Log(Input.GetAxis("X test").ToString("F5"));
+        // Debug.Log("X test: " + Input.GetAxis("X test").ToString("F5"));
+        // Debug.Log("Y test: " + Input.GetAxis("Y test").ToString("F5"));
+        // Debug.Log("X test 2: " + Input.GetAxis("X test 2").ToString("F5"));
+        // Debug.Log("Y test 2: " + Input.GetAxis("Y test 2").ToString("F5"));
+        Debug.Log("3 test: " + Input.GetAxisRaw("3 test").ToString("F5"));
+        Debug.Log("4 test: " + Input.GetAxisRaw("4 test").ToString("F5"));
+        Debug.Log("5 test: " + Input.GetAxisRaw("5 test").ToString("F5"));
+        Debug.Log("6 test: " + Input.GetAxisRaw("6 test").ToString("F5"));
+        Debug.Log("7 test: " + Input.GetAxisRaw("7 test").ToString("F5"));
+        Debug.Log("8 test: " + Input.GetAxisRaw("8 test").ToString("F5"));
+        Debug.Log("9 test: " + Input.GetAxisRaw("9 test").ToString("F5"));
+        Debug.Log("10 test: " + Input.GetAxisRaw("10 test").ToString("F5"));
 
     }
 }
