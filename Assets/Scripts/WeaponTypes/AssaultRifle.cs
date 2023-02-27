@@ -6,7 +6,7 @@ using UnityEngine;
 public class AssaultRifle : Weapons
 {
     public override string weaponType { get; } = "Assault Rifle";
-    public override float shootPower { get; } = 100f;
+    public override float shootPower { get; } = 120f;
     public override float shootCooldown { get; } = 0.3f;
     public override int magazineSize { get; } = 30;
     public override float reloadSpeed { get; } = 1.2f;
