@@ -36,6 +36,18 @@ public class GameStats : MonoBehaviour
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
         countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
 
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        Debug.Log(players.Length);
+
+        if(players.Length == 2){
+            GameObject four_playerUI = GameObject.Find("2v2 UI");
+            four_playerUI.SetActive(false);
+        } else {
+            GameObject two_playerUI = GameObject.Find("1v1 UI");
+            two_playerUI.SetActive(false);
+        }
+
         StartCoroutine(Countdown());
 
     }

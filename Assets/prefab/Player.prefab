@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 5155603571499715764}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,7 @@ MonoBehaviour:
   playerNum: 0
   weapon: {fileID: 0}
   cam: {fileID: 7724132453709515023}
+  allowPlayerInput: 0
 --- !u!114 &66192549074824378
 MonoBehaviour:
   m_ObjectHideFlags: 0

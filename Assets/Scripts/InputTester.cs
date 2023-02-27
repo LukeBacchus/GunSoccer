@@ -21,6 +21,14 @@ public class InputTester : MonoBehaviour
             Debug.Log("Jump2");
         }
 
+        if(Input.GetButtonDown("Jump3")){
+            Debug.Log("Jump3");
+        }
+
+        if(Input.GetButtonDown("Jump4")){
+            Debug.Log("Jump4");
+        }
+
         if(Input.GetButtonDown("Fire11")){
             Debug.Log("Fire11");
         }
@@ -29,12 +37,12 @@ public class InputTester : MonoBehaviour
             Debug.Log("Fire12");
         }
         
-        if(Input.GetButtonDown("Fire2")){
-            Debug.Log("Fire2");
+        if(Input.GetButtonDown("Fire13")){
+            Debug.Log("Fire13");
         }
 
-        if(Input.GetButtonDown("Fire3")){
-            Debug.Log("Fire3");
+        if(Input.GetButtonDown("Fire14")){
+            Debug.Log("Fire14");
         }
 
         // float h1 = Input.GetAxisRaw("Horizontal1");
@@ -62,14 +70,14 @@ public class InputTester : MonoBehaviour
         // Debug.Log("Y test: " + Input.GetAxis("Y test").ToString("F5"));
         // Debug.Log("X test 2: " + Input.GetAxis("X test 2").ToString("F5"));
         // Debug.Log("Y test 2: " + Input.GetAxis("Y test 2").ToString("F5"));
-        Debug.Log("3 test: " + Input.GetAxisRaw("3 test").ToString("F5"));
-        Debug.Log("4 test: " + Input.GetAxisRaw("4 test").ToString("F5"));
-        Debug.Log("5 test: " + Input.GetAxisRaw("5 test").ToString("F5"));
-        Debug.Log("6 test: " + Input.GetAxisRaw("6 test").ToString("F5"));
-        Debug.Log("7 test: " + Input.GetAxisRaw("7 test").ToString("F5"));
-        Debug.Log("8 test: " + Input.GetAxisRaw("8 test").ToString("F5"));
-        Debug.Log("9 test: " + Input.GetAxisRaw("9 test").ToString("F5"));
-        Debug.Log("10 test: " + Input.GetAxisRaw("10 test").ToString("F5"));
+        // Debug.Log("3 test: " + Input.GetAxisRaw("3 test").ToString("F5"));
+        // Debug.Log("4 test: " + Input.GetAxisRaw("4 test").ToString("F5"));
+        // Debug.Log("5 test: " + Input.GetAxisRaw("5 test").ToString("F5"));
+        // Debug.Log("6 test: " + Input.GetAxisRaw("6 test").ToString("F5"));
+        // Debug.Log("7 test: " + Input.GetAxisRaw("7 test").ToString("F5"));
+        // Debug.Log("8 test: " + Input.GetAxisRaw("8 test").ToString("F5"));
+        // Debug.Log("9 test: " + Input.GetAxisRaw("9 test").ToString("F5"));
+        // Debug.Log("10 test: " + Input.GetAxisRaw("10 test").ToString("F5"));
 
     }
 }
