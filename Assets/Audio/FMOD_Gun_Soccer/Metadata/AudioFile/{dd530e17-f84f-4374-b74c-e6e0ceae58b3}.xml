@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{dd530e17-f84f-4374-b74c-e6e0ceae58b3}">
+		<property name="assetPath">
+			<value>sfx_ball_Collision_05.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.704125</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{05439778-1492-4af6-8ba9-52ce5152a91e}</destination>
+		</relationship>
+	</object>
+</objects>
