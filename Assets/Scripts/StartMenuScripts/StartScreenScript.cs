@@ -14,13 +14,13 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private GameObject gamemodePanel;
     [SerializeField]
-    private Button tutorialButton;
-    [SerializeField]
-    private Button practiceButton;
-    [SerializeField]
     private Button twoPlayerButton;
     [SerializeField]
     private Button fourPlayerButton;
+    [SerializeField]
+    private Button creditsButton;
+    [SerializeField]
+    private Button settingsButton;
     private MenuSelectionHelper gameModeSelector;
 
     [SerializeField]
@@ -85,10 +85,10 @@ public class StartScreenScript : MonoBehaviour
     void Start()
     {
         // Gamemode menu button onclick events
-        tutorialButton.onClick.AddListener(SelectedTutorial);
-        practiceButton.onClick.AddListener(SelectedPractice);
         twoPlayerButton.onClick.AddListener(SelectedTwoPlayerMode);
         fourPlayerButton.onClick.AddListener(SelectedFourPlayerMode);
+        creditsButton.onClick.AddListener(SelectedCredits);
+        settingsButton.onClick.AddListener(SelectedSettings);
 
         // Map menu button onclick events
         stadiumButton.onClick.AddListener(delegate { LoadMap(stadiumButton.name); });
@@ -98,11 +98,11 @@ public class StartScreenScript : MonoBehaviour
         loadoutPanel.SetActive(false);
         mapPanel.SetActive(false);
 
-        List<Button> gamemodeButtons = new List<Button> { tutorialButton, practiceButton, twoPlayerButton, fourPlayerButton };
-        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 3);
+        List<List<Button>> gamemodeButtons = new List<List<Button>> { new List<Button> { twoPlayerButton }, new List<Button> { fourPlayerButton }, new List<Button> { creditsButton }, new List<Button>{ settingsButton } };
+        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3);
 
-        List<Button> mapButtons = new List<Button> { stadiumButton };
-        mapSelector = new MenuSelectionHelper(mapButtons, 0);
+        List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton } };
+        mapSelector = new MenuSelectionHelper(mapButtons, 0, 0);
     }
 
     // Update is called once per frame
@@ -133,7 +133,7 @@ public class StartScreenScript : MonoBehaviour
 
     private void GamemodeMenuInput()
     {
-        gameModeSelector.HorizontalSelection();
+        gameModeSelector.SelectionInput();
         if (gameModeSelector.Select())
         {
             gameModeSelector.InvokeSelection();
@@ -160,21 +160,21 @@ public class StartScreenScript : MonoBehaviour
 
     private void MapMenuInput()
     {
-        mapSelector.HorizontalSelection();
+        mapSelector.SelectionInput();
         if (mapSelector.Select())
         {
             mapSelector.InvokeSelection();
         }
     }
 
-    private void SelectedTutorial()
+    private void SelectedCredits()
     {
-        Debug.Log("Selected tutorial. Tutorial Not Implemented yet.");
+        Debug.Log("Selected credits. Credits Not Implemented yet.");
     }
 
-    private void SelectedPractice()
+    private void SelectedSettings()
     {
-        Debug.Log("Selected practice. Practice Not Implemented yet.");
+        Debug.Log("Selected settings. Settings Not Implemented yet.");
     }
 
     private void SelectedTwoPlayerMode()
