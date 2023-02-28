@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InitializeMap : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class InitializeMap : MonoBehaviour
         }
 
         ResetPlayerLocs();
+        MovePlayersIntoScene();
     }
 
     public void ResetPlayerLocs()
@@ -39,6 +41,14 @@ public class InitializeMap : MonoBehaviour
         {
             players[i].transform.position = spawnLocations[i].position + new Vector3(0, 1, 0);
             players[i].transform.rotation = spawnLocations[i].rotation;
+        }
+    }
+
+    private void MovePlayersIntoScene()
+    {
+        foreach (GameObject player in players)
+        {
+            SceneManager.MoveGameObjectToScene(player, SceneManager.GetActiveScene());
         }
     }
 }
