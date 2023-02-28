@@ -317,6 +317,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: PlayEvent
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/Ambience
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -1291754587
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1251463967
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 1941805493
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1063692204
+      objectReference: {fileID: 0}
     - target: {fileID: 4341748448517819315, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -365,8 +389,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+--- !u!1 &1127321930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7495662286258062877, guid: d28d7978c5ade59448f1cd6a27a0cdef, type: 3}
+  m_PrefabInstance: {fileID: 3602513787715394327}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1133796691
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,6 +956,65 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7724132453207544368, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
   m_PrefabInstance: {fileID: 371905239}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1960141833 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1223150685802612376, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
+  m_PrefabInstance: {fileID: 1287263872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2038936203 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4341748448517819317, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+  m_PrefabInstance: {fileID: 705340597}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2038936206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038936203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab236bc6c46ca774eaeb317203acb6d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambience: {fileID: 2038936207}
+  goal: {fileID: 1127321930}
+  ball: {fileID: 1960141833}
+--- !u!114 &2038936207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038936203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1291754587
+      Data2: 1251463967
+      Data3: 1941805493
+      Data4: -1063692204
+    Path: event:/Ambience
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params:
+  - Name: Dissapointment
+    Value: 0
+  - Name: Intensity
+    Value: 0
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &3602513787715394327
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,14 +5,19 @@ using FMODUnity;
 
 public class BallDistance : MonoBehaviour
 {
+
+    public StudioEventEmitter ambience;
+
+
     [SerializeField] private GameObject goal;
     [SerializeField] private GameObject ball;
-    [SerializeField] private StudioEventEmitter soundEmitter;
-    [SerializeField] private string Intensity;
+  
 
     // Start is called before the first frame update
     void Start()
     {
+        ambience = GetComponent<StudioEventEmitter>();
+        ambience.Play();
         
     }
 
@@ -22,8 +27,25 @@ public class BallDistance : MonoBehaviour
 
         float distance = Vector3.Distance(goal.transform.position, ball.transform.position);
 
-        soundEmitter.SetParameter(Intensity, distance);
-
         Debug.Log("Dist to ball: " + distance);
+
+        if (distance < 20)
+        {
+            ambience.SetParameter("Intensity", 100);
+
+
+        }
+
+        if (distance > 20)
+        {
+            ambience.SetParameter("Intensity", 0);
+
+
+        }
+
     }
 }
+
+
+
+  
