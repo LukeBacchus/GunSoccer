@@ -145,7 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1419731190}
   m_Layer: 5
-  m_Name: 1v1
+  m_Name: 1v1 UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1843335929}
   m_Layer: 5
-  m_Name: 2v2
+  m_Name: 2v2 UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
