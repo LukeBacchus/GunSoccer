@@ -22,7 +22,6 @@ public class PlayerLoadoutMenu : MonoBehaviour
     [SerializeField]
     private Button grenadeLauncherButton;
 
-    private float cellWidth = 155;
     private MenuSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
@@ -50,8 +49,10 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { rifleButton, sniperButton, smgButton, shotgunButton, grenadeLauncherButton } };
         weaponGrid.offsetMin = Vector2.zero;
+        viewport.offsetMin = Vector2.zero;
 
         Canvas.ForceUpdateCanvases();
+        float cellWidth = rifleButton.gameObject.GetComponent<RectTransform>().rect.width + 5;
         int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
         float widthOffset = viewport.rect.width % cellWidth;
 

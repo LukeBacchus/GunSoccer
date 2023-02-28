@@ -24,7 +24,7 @@ public class MenuSelectionHelper
     private int lastVisible = 0;
     private RectTransform grid = null;
     private float widthOffset = 0;
-    private float cellWidth = 105;
+    private float cellWidth;
     private bool offsetOnRight = true;
 
     public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, int playerNum = 1, int defaultCol = -1, int defaultRow = -1)
@@ -80,7 +80,6 @@ public class MenuSelectionHelper
             {
                 int prevCol = currentCol;
                 currentCol += 1;
-                Debug.Log("selected horizontal");
                 if (hScrollable && currentCol > lastVisible)
                 {
                     MoveGridRight();
@@ -94,6 +93,8 @@ public class MenuSelectionHelper
                         ResetGridLeft();
                     }
                 }
+                Debug.Log("offsetRight: " + offsetOnRight);
+                Debug.Log("first: " + firstVisible + " | last: " + lastVisible);
 
                 HideBorderHover(currentRow, prevCol);
                 ShowBorderHover(currentRow, currentCol);
@@ -216,7 +217,7 @@ public class MenuSelectionHelper
 
     private void MoveGridRight()
     {
-        grid.position += new Vector3(offsetOnRight ? widthOffset - cellWidth : -cellWidth, 0, 0);
+        grid.offsetMin += new Vector2(offsetOnRight ? widthOffset - cellWidth : -cellWidth, 0);
         offsetOnRight = false;
 
         firstVisible += 1;
@@ -225,7 +226,7 @@ public class MenuSelectionHelper
 
     private void MoveGridLeft()
     {
-        grid.position += new Vector3(!offsetOnRight ? cellWidth - widthOffset : cellWidth, 0, 0);
+        grid.offsetMin += new Vector2(!offsetOnRight ? cellWidth - widthOffset : cellWidth, 0);
         offsetOnRight = true;
 
         firstVisible -= 1;

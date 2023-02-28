@@ -392,6 +392,7 @@ GameObject:
   - component: {fileID: 7036298572072538546}
   - component: {fileID: 3990758469355415769}
   - component: {fileID: 6342881962311306874}
+  - component: {fileID: 7844301521932082433}
   - component: {fileID: 6906895057374538034}
   m_Layer: 5
   m_Name: Sniper Button
@@ -419,10 +420,10 @@ RectTransform:
   m_Father: {fileID: 8308355789807972624}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257.69482, y: -47.899994}
+  m_SizeDelta: {x: 0, y: 95.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7036298572072538546
 CanvasRenderer:
@@ -506,6 +507,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7844301521932082433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629037209814308015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.6387475
 --- !u!114 &6906895057374538034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,6 +548,7 @@ GameObject:
   - component: {fileID: 4648086462289948092}
   - component: {fileID: 8457363992823814018}
   - component: {fileID: 6497012887244551672}
+  - component: {fileID: 3923738419451270356}
   - component: {fileID: 7834548123442818410}
   m_Layer: 5
   m_Name: Grenade Launcher Button
@@ -560,10 +576,10 @@ RectTransform:
   m_Father: {fileID: 8308355789807972624}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 778.0845, y: -47.899994}
+  m_SizeDelta: {x: 0, y: 95.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4648086462289948092
 CanvasRenderer:
@@ -647,6 +663,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3923738419451270356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2364009932981360838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.6387475
 --- !u!114 &7834548123442818410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,6 +1911,7 @@ GameObject:
   - component: {fileID: 523806614515080435}
   - component: {fileID: 6625700414982221687}
   - component: {fileID: 7472050754339314387}
+  - component: {fileID: 5303354276892407959}
   - component: {fileID: 5450410357017348129}
   m_Layer: 5
   m_Name: Smg Button
@@ -1908,10 +1939,10 @@ RectTransform:
   m_Father: {fileID: 8308355789807972624}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 431.15802, y: -47.899994}
+  m_SizeDelta: {x: 0, y: 95.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &523806614515080435
 CanvasRenderer:
@@ -1995,6 +2026,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5303354276892407959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7037835566782115506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.6387475
 --- !u!114 &5450410357017348129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2233,6 +2278,7 @@ GameObject:
   - component: {fileID: 5209515737419034125}
   - component: {fileID: 6817939785016865208}
   - component: {fileID: 2190339488870512814}
+  - component: {fileID: 1193123710725124308}
   - component: {fileID: 8766636813545193714}
   m_Layer: 5
   m_Name: Rifle Button
@@ -2260,10 +2306,10 @@ RectTransform:
   m_Father: {fileID: 8308355789807972624}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 84.231606, y: -47.899994}
+  m_SizeDelta: {x: 0, y: 95.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5209515737419034125
 CanvasRenderer:
@@ -2347,6 +2393,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1193123710725124308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8287235199983855939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.6387475
 --- !u!114 &8766636813545193714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2720,7 +2780,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8308355789472256141}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.541645
+  m_Size: 0.5220051
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3115,6 +3175,7 @@ GameObject:
   - component: {fileID: 9119425210406583849}
   - component: {fileID: 8918363357936245646}
   - component: {fileID: 8936426367960522288}
+  - component: {fileID: 6625055076645558309}
   - component: {fileID: 2708544249940511801}
   m_Layer: 5
   m_Name: Shotgun button
@@ -3142,10 +3203,10 @@ RectTransform:
   m_Father: {fileID: 8308355789807972624}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 604.6213, y: -47.899994}
+  m_SizeDelta: {x: 0, y: 95.79999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9119425210406583849
 CanvasRenderer:
@@ -3229,6 +3290,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6625055076645558309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069033587581418764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.6387475
 --- !u!114 &2708544249940511801
 MonoBehaviour:
   m_ObjectHideFlags: 0
