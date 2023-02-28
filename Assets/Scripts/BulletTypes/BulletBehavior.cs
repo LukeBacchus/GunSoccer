@@ -42,7 +42,14 @@ public class BulletBehavior : MonoBehaviour
             Rigidbody rb = hitObj.GetComponent<Rigidbody>();
 
             if (rb != null && hitObj.gameObject.name != "Player " + (playerNum).ToString()){
-                rb.AddExplosionForce(bullet.blastForce * rb.mass, collision.contacts[0].point, bullet.blastRadius, 1, ForceMode.Impulse);
+                if (hitObj.tag == "Soccer")
+                {
+                    rb.AddExplosionForce(bullet.blastForce * rb.mass, collision.contacts[0].point, bullet.blastRadius, 0, ForceMode.Impulse);
+                }
+                else
+                {
+                    rb.AddExplosionForce(bullet.blastForce * rb.mass, collision.contacts[0].point, bullet.blastRadius, 1, ForceMode.Impulse);
+                }
             }
         }
 
