@@ -22,7 +22,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     [SerializeField]
     private Button grenadeLauncherButton;
 
-    private float cellWidth = 105;
+    private float cellWidth = 155;
     private MenuSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
@@ -48,14 +48,14 @@ public class PlayerLoadoutMenu : MonoBehaviour
         shotgunButton.onClick.AddListener(SelectShotgun);
         grenadeLauncherButton.onClick.AddListener(SelectGrenadeLauncher);
 
-        List<Button> buttons = new List<Button> { rifleButton, sniperButton, smgButton, shotgunButton, grenadeLauncherButton };
+        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { rifleButton, sniperButton, smgButton, shotgunButton, grenadeLauncherButton } };
         weaponGrid.offsetMin = Vector2.zero;
 
         Canvas.ForceUpdateCanvases();
         int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
         float widthOffset = viewport.rect.width % cellWidth;
 
-        weaponSelector = new MenuSelectionHelper(buttons, 4, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, playerNum);
+        weaponSelector = new MenuSelectionHelper(buttons, 4, 0, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, 0, playerNum);
     }
 
     public void LoadoutInput()
@@ -67,7 +67,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
         if (!ready)
         {
-            weaponSelector.HorizontalSelection();
+            weaponSelector.SelectionInput();
             if (weaponSelector.Select())
             {
                 weaponSelector.InvokeSelection();
