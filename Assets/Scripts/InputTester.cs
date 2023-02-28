@@ -7,43 +7,46 @@ public class InputTester : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        foreach (string joystick in Input.GetJoystickNames())
+        {
+            print(joystick);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Jump1")){
-            Debug.Log("Jump1");
-        }
+        // if(Input.GetButtonDown("Jump1")){
+        //     Debug.Log("Jump1");
+        // }
 
-        if(Input.GetButtonDown("Jump2")){
-            Debug.Log("Jump2");
-        }
+        // if(Input.GetButtonDown("Jump2")){
+        //     Debug.Log("Jump2");
+        // }
 
-        if(Input.GetButtonDown("Jump3")){
-            Debug.Log("Jump3");
-        }
+        // if(Input.GetButtonDown("Jump3")){
+        //     Debug.Log("Jump3");
+        // }
 
-        if(Input.GetButtonDown("Jump4")){
-            Debug.Log("Jump4");
-        }
+        // if(Input.GetButtonDown("Jump4")){
+        //     Debug.Log("Jump4");
+        // }
 
-        if(Input.GetButtonDown("Fire11")){
-            Debug.Log("Fire11");
-        }
+        // if(Input.GetButtonDown("Fire11")){
+        //     Debug.Log("Fire11");
+        // }
         
-        if(Input.GetButtonDown("Fire12")){
-            Debug.Log("Fire12");
-        }
+        // if(Input.GetButtonDown("Fire12")){
+        //     Debug.Log("Fire12");
+        // }
         
-        if(Input.GetButtonDown("Fire13")){
-            Debug.Log("Fire13");
-        }
+        // if(Input.GetButtonDown("Fire13")){
+        //     Debug.Log("Fire13");
+        // }
 
-        if(Input.GetButtonDown("Fire14")){
-            Debug.Log("Fire14");
-        }
+        // if(Input.GetButtonDown("Fire14")){
+        //     Debug.Log("Fire14");
+        // }
 
         // float h1 = Input.GetAxisRaw("Horizontal1");
         // float v1 = Input.GetAxisRaw("Vertical1");
