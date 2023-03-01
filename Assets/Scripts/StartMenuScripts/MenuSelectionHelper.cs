@@ -93,8 +93,6 @@ public class MenuSelectionHelper
                         ResetGridLeft();
                     }
                 }
-                Debug.Log("offsetRight: " + offsetOnRight);
-                Debug.Log("first: " + firstVisible + " | last: " + lastVisible);
 
                 HideBorderHover(currentRow, prevCol);
                 ShowBorderHover(currentRow, currentCol);
@@ -154,7 +152,6 @@ public class MenuSelectionHelper
             verticalHoldTime += Time.deltaTime;
             if (verticalHoldTime >= holdTime)
             {
-                Debug.Log("selected vertical");
                 int prevRow = currentRow;
                 currentRow -= 1;
 
