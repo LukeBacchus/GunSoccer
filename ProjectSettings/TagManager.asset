@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Soccer
+  - Bullet
+  - Stadium Surface
   layers:
   - Default
   - TransparentFX

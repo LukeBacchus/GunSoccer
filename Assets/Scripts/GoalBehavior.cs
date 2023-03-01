@@ -7,32 +7,40 @@ public class GoalBehavior : MonoBehaviour
 {
     private TMPro.TextMeshProUGUI teamOneScoreText;
     private TMPro.TextMeshProUGUI teamTwoScoreText;
+    [SerializeField]
+    private InitializeMap mapInit;
 
     public int team;
-    private Scores scores;
+    private GameStats gameStats;
 
     // Start is called before the first frame update
     private void Start()
     {
-        scores = GameObject.Find("GameManager").GetComponent<Scores>();
+        gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
         teamOneScoreText = GameObject.Find("Team 1 Score").GetComponent<TMPro.TextMeshProUGUI>();
         teamTwoScoreText = GameObject.Find("Team 2 Score").GetComponent<TMPro.TextMeshProUGUI>();
     }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Soccer")
         {
             collision.gameObject.transform.position = new Vector3(0, 5, 0);
+            collision.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 
             if (team == 1)
             {
-                scores.teamTwoScore += 1;
-                teamTwoScoreText.text = "Team 2 Score: " + scores.teamTwoScore;
+                gameStats.teamTwoScore += 1;
+                teamTwoScoreText.text = "Team 2 Score: " + gameStats.teamTwoScore;
             } else
             {
-                scores.teamOneScore += 1;
-                teamOneScoreText.text = "Team 1 Score: " + scores.teamOneScore;
+                gameStats.teamOneScore += 1;
+                teamOneScoreText.text = "Team 1 Score: " + gameStats.teamOneScore;
             }
+
+            mapInit.ResetPlayerLocs();
+            StartCoroutine(gameStats.Countdown());
         }
     }
+
 }
