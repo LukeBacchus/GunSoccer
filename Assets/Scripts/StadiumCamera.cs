@@ -34,9 +34,20 @@ public class StadiumCamera : MonoBehaviour
         transform.localEulerAngles = new Vector3(35, 0, 0);
         transform.SetParent(rotateTarget.transform);
 
-        yield return new WaitForSeconds(4);
-        blackScreenAnimator.SetTrigger("fade_in");
-        yield return fadeWait;
+        float count = 6;
+        bool fadein = false;
+        while (count > 0)
+        {
+            count -= Time.deltaTime;
+            rotateTarget.transform.Rotate(0, -15 * Time.deltaTime, 0);
+
+            if (count <= 1 && !fadein)
+            {
+                blackScreenAnimator.SetTrigger("fade_in");
+                fadein = true;
+            }
+            yield return null;
+        }
 
         // View red team
         transform.SetParent(redTeamTarget.transform);
@@ -44,8 +55,8 @@ public class StadiumCamera : MonoBehaviour
         transform.localEulerAngles = Vector3.zero;
         blackScreenAnimator.SetTrigger("fade_out");
 
-        float count = 4;
-        bool fadein = false;
+        count = 4;
+        fadein = false;
         while (count > 0)
         {
             count -= Time.deltaTime;
