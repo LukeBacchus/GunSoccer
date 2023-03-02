@@ -12,6 +12,7 @@ public class GameStats : MonoBehaviour
     public float updateInterval = 0.5F;
     private double lastInterval;
     private int frames;
+    private GameObject winUI;
     
     private TMPro.TextMeshProUGUI timerText;
     private TMPro.TextMeshProUGUI countDownText;
@@ -35,6 +36,8 @@ public class GameStats : MonoBehaviour
         gameTime = 5*30 + 1;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
         countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
+        winUI = GameObject.Find("WinScreen");
+        winUI.SetActive(false);
 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
@@ -67,7 +70,7 @@ public class GameStats : MonoBehaviour
             else {
                 Scores.TeamScores = "No One";
             }
-            SceneManager.LoadScene("WinScreen"); 
+            winUI.SetActive(true);
         }
 
     }
