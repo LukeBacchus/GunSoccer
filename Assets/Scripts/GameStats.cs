@@ -10,12 +10,15 @@ public class GameStats : MonoBehaviour
     public int teamTwoScore;
     public float gameTime;
     public float updateInterval = 0.5F;
+    public bool overtime = false;
     private double lastInterval;
     private int frames;
     private GameObject winUI;
     
     private TMPro.TextMeshProUGUI timerText;
     private TMPro.TextMeshProUGUI countDownText;
+    [SerializeField]
+    private InitializeMap mapInit;
 
 
     public enum GameStatus
@@ -60,7 +63,18 @@ public class GameStats : MonoBehaviour
         {
             gameTime -= Time.deltaTime;
             timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
-        } else {
+        } 
+        else if (teamOneScore == teamTwoScore && !overtime) {
+            overtime = true;
+            mapInit.ResetPlayerLocs();
+            GameObject ball = GameObject.Find("pasted__Soccer_Ball");
+            ball.transform.position = new Vector3(0, 5, 0);
+            ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            StartCoroutine(Countdown(true));
+            gameTime += 10 + 1;
+            timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
+        }
+        else {
             if (teamOneScore > teamTwoScore) {
                 Scores.TeamScores = "Team 1";
             }
@@ -87,20 +101,33 @@ public class GameStats : MonoBehaviour
         Time.timeScale = 1;
     }
     
-    public IEnumerator Countdown(){
-        PauseGame();
-        int count = 5;
-        int i = count;
-        float startTime = UnityEngine.Time.realtimeSinceStartup;
-        while (UnityEngine.Time.realtimeSinceStartup - startTime < count + 1) {
-            countDownText.text = i.ToString();
-            i = count - (int)(UnityEngine.Time.realtimeSinceStartup - startTime);
+    public IEnumerator Countdown(bool overtime = false){
+        if (overtime) {
+            PauseGame();
+            int count = 5;
+            int i = count;
+            float startTime = UnityEngine.Time.realtimeSinceStartup;
+            while (UnityEngine.Time.realtimeSinceStartup - startTime < count + 1) {
+                countDownText.text = "OVERTIME: " + i.ToString();
+                i = count - (int)(UnityEngine.Time.realtimeSinceStartup - startTime);
             yield return null;
+            }
+            countDownText.text = "";
+            ResumeGame();
         }
-
-        countDownText.text = "";
-
-        ResumeGame();
+        else {
+            PauseGame();
+            int count = 5;
+            int i = count;
+            float startTime = UnityEngine.Time.realtimeSinceStartup;
+            while (UnityEngine.Time.realtimeSinceStartup - startTime < count + 1) {
+                countDownText.text = i.ToString();
+                i = count - (int)(UnityEngine.Time.realtimeSinceStartup - startTime);
+                yield return null;
+            }
+            countDownText.text = "";
+            ResumeGame();
+        }
     }
 
 
