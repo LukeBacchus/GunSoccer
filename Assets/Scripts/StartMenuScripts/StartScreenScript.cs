@@ -147,7 +147,10 @@ public class StartScreenScript : MonoBehaviour
             int numReady = 0;
             foreach (PlayerLoadoutMenu script in loadoutMenuScripts)
             {
-                script.LoadoutInput();
+                if (script.menuLoaded)
+                {
+                    script.LoadoutInput();
+                }
                 numReady += script.ready ? 1 : 0;
             }
 
@@ -247,14 +250,17 @@ public class StartScreenScript : MonoBehaviour
         GameObject menu = Instantiate(playerLoadoutMenu);
         menu.transform.SetParent(loadoutPanel.transform);
         menu.name = "Player " + playerNum + " Loadout Menu";
-        PlayerLoadoutMenu menuScript = menu.GetComponent<PlayerLoadoutMenu>();
-        menuScript.playerNum = playerNum;
-        menuScript.UpdateTitle();
         RectTransform rTransform = menu.GetComponent<RectTransform>();
         rTransform.anchorMin = new Vector2(menuLocs[playerNum - 1][0], menuLocs[playerNum - 1][1]);
         rTransform.anchorMax = new Vector2(menuLocs[playerNum - 1][2], menuLocs[playerNum - 1][3]);
         rTransform.offsetMin = Vector2.zero;
         rTransform.offsetMax = Vector2.zero;
+
+        PlayerLoadoutMenu menuScript = menu.GetComponent<PlayerLoadoutMenu>();
+        menuScript.playerNum = playerNum;
+        menuScript.weapons = weaponScriptableObjects;
+        menuScript.Init();
+        menuScript.UpdateTitle();
 
         loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
     }
@@ -265,7 +271,7 @@ public class StartScreenScript : MonoBehaviour
         player.name = "Player " + (playerNum).ToString();
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
         playerStats.playerNum = playerNum;
-        playerStats.weapon = weaponScriptableObjects[(int)loadoutMenuScripts[playerNum - 1].currentSelection];
+        playerStats.weapon = loadoutMenuScripts[playerNum - 1].currentSelection;
 
         if (numPlayers == 2)
         {
