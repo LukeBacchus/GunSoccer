@@ -9,7 +9,7 @@ public class MenuSelectionHelper
     private int currentRow = 0;
     private int selectedCol = -1;
     private int selectedRow = -1;
-    private float holdTime = 0.5f;
+    private float holdTime = 0.1f; // this is the threshold for how long to hold when moving horizontally
     private float horizontalHoldTime = 0;
     private float verticalHoldTime = 0;
 
@@ -73,6 +73,8 @@ public class MenuSelectionHelper
 
     private void HorizontalSelection()
     {
+        //TODO: will need to add long hold doesn't over shoot
+        //or doesn't shoot too fast (resetting after one move)
         if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
         {
             horizontalHoldTime += Time.deltaTime;
