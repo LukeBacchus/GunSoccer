@@ -37,9 +37,10 @@ public class GoalBehavior : MonoBehaviour
                 gameStats.teamOneScore += 1;
                 teamOneScoreText.text = "Team 1 Score: " + gameStats.teamOneScore;
             }
-
-            mapInit.ResetPlayerLocs();
-            StartCoroutine(gameStats.Countdown());
+            if (gameStats.gameStatus != GameStats.GameStatus.OVERTIME) {
+                mapInit.ResetPlayerLocs();
+                StartCoroutine(gameStats.Countdown());
+            }
         }
     }
 

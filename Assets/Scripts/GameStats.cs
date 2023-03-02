@@ -10,11 +10,11 @@ public class GameStats : MonoBehaviour
     public int teamTwoScore;
     public float gameTime;
     public float updateInterval = 0.5F;
-    public bool overtime = false;
     private double lastInterval;
     private int frames;
     private GameObject winUI;
-    
+    private string overtimeText = "";
+    private bool keepOvertime;
     private TMPro.TextMeshProUGUI timerText;
     private TMPro.TextMeshProUGUI countDownText;
     [SerializeField]
@@ -59,31 +59,26 @@ public class GameStats : MonoBehaviour
     }
     void Update()
     {
-        if (gameTime > 0)
+        if (teamOneScore != teamTwoScore && gameStatus == GameStatus.OVERTIME) {
+            winUI.SetActive(true);
+        }
+        else if (gameTime > 0)
         {
             gameTime -= Time.deltaTime;
             timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
         } 
-        else if (teamOneScore == teamTwoScore && !overtime) {
-            overtime = true;
+        else if (teamOneScore == teamTwoScore && gameStatus != GameStatus.OVERTIME) {
+            gameStatus = GameStatus.OVERTIME;
             mapInit.ResetPlayerLocs();
             GameObject ball = GameObject.Find("pasted__Soccer_Ball");
             ball.transform.position = new Vector3(0, 5, 0);
             ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-            StartCoroutine(Countdown(true));
-            gameTime += 60 + 1;
+            StartCoroutine(Countdown());
+            gameTime = 60;
             timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
+            gameStatus = GameStatus.OVERTIME;
         }
         else {
-            if (teamOneScore > teamTwoScore) {
-                Scores.TeamScores = "Team 1";
-            }
-            else if (teamTwoScore > teamOneScore) {
-                Scores.TeamScores = "Team 2";
-            }
-            else {
-                Scores.TeamScores = "No One";
-            }
             winUI.SetActive(true);
         }
 
@@ -101,34 +96,24 @@ public class GameStats : MonoBehaviour
         Time.timeScale = 1;
     }
     
-    public IEnumerator Countdown(bool overtime = false){
-        if (overtime) {
-            PauseGame();
-            int count = 5;
-            int i = count;
-            float startTime = UnityEngine.Time.realtimeSinceStartup;
-            while (UnityEngine.Time.realtimeSinceStartup - startTime < count + 1) {
-                countDownText.text = "OVERTIME: " + i.ToString();
-                i = count - (int)(UnityEngine.Time.realtimeSinceStartup - startTime);
-            yield return null;
-            }
-            countDownText.text = "";
-            ResumeGame();
+    public IEnumerator Countdown(){
+        if (gameStatus == GameStatus.OVERTIME) {
+            overtimeText = "OVERTIME: ";
+            keepOvertime = true;
         }
-        else {
-            PauseGame();
-            int count = 5;
-            int i = count;
-            float startTime = UnityEngine.Time.realtimeSinceStartup;
-            while (UnityEngine.Time.realtimeSinceStartup - startTime < count + 1) {
-                countDownText.text = i.ToString();
-                i = count - (int)(UnityEngine.Time.realtimeSinceStartup - startTime);
-                yield return null;
-            }
-            countDownText.text = "";
-            ResumeGame();
+        PauseGame();
+        int count = 5;
+        int i = count;
+        float startTime = UnityEngine.Time.realtimeSinceStartup;
+        while (UnityEngine.Time.realtimeSinceStartup - startTime < count + 1) {
+            countDownText.text = overtimeText + i.ToString();
+            i = count - (int)(UnityEngine.Time.realtimeSinceStartup - startTime);
+            yield return null;
+        }
+        countDownText.text = "";
+        ResumeGame();
+        if (keepOvertime) {
+            gameStatus = GameStatus.OVERTIME;
         }
     }
-
-
 }
