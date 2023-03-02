@@ -71,7 +71,7 @@ public class GameStats : MonoBehaviour
             ball.transform.position = new Vector3(0, 5, 0);
             ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             StartCoroutine(Countdown(true));
-            gameTime += 10 + 1;
+            gameTime += 60 + 1;
             timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
         }
         else {
