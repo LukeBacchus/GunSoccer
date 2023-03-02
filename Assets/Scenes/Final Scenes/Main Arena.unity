@@ -218,10 +218,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 7610385624108770691, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
 --- !u!114 &151100833 stripped
@@ -579,10 +575,6 @@ PrefabInstance:
     - target: {fileID: 2919294526943426487, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3389472856299081814, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
