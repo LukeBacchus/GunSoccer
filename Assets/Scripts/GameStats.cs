@@ -12,7 +12,6 @@ public class GameStats : MonoBehaviour
     public float updateInterval = 0.5F;
     private double lastInterval;
     private int frames;
-    private float currentGameTime;
     private GameObject winUI;
     private string overtimeText = "";
     private TMPro.TextMeshProUGUI timerText;
@@ -36,7 +35,7 @@ public class GameStats : MonoBehaviour
 
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 5*30 + 1;
+        gameTime = 5;//5*30 + 1;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
         countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
         winUI = GameObject.Find("WinScreen");
@@ -68,11 +67,9 @@ public class GameStats : MonoBehaviour
             gameTime -= Time.deltaTime;
             timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
         } 
-        else if (gameTime > 0 && gameStatus == GameStatus.OVERTIME)
+        else if (gameStatus == GameStatus.OVERTIME)
         {
-            gameTime -= Time.deltaTime;
-            timerText.text = "Overtime!"; // We can have a timer too, or just display Overtime- not sure which is the best way
-            // + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
+            timerText.text = "Overtime!";
         } 
         else if (teamOneScore == teamTwoScore && gameStatus != GameStatus.OVERTIME) {
             gameStatus = GameStatus.OVERTIME;
@@ -81,8 +78,6 @@ public class GameStats : MonoBehaviour
             ball.transform.position = new Vector3(0, 5, 0);
             ball.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             StartCoroutine(Countdown());
-            gameTime = 60;
-            timerText.text = "Overtime: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
             gameStatus = GameStatus.OVERTIME;
         }
         else {
@@ -110,7 +105,6 @@ public class GameStats : MonoBehaviour
     }
 
     public IEnumerator Countdown(){
-        currentGameTime = gameTime;
         if (gameStatus == GameStatus.OVERTIME) {
             overtimeText = "OVERTIME: ";
         }
@@ -124,7 +118,7 @@ public class GameStats : MonoBehaviour
             yield return null;
         }
         countDownText.text = "";
-        if (currentGameTime <= 0) {
+        if (gameTime <= 0) {
             ResumeOverTime();
         } else {
             ResumeGame();
