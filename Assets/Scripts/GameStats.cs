@@ -36,7 +36,7 @@ public class GameStats : MonoBehaviour
 
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 5; //5*30 + 1;
+        gameTime = 5*30 + 1;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
         countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
         winUI = GameObject.Find("WinScreen");
