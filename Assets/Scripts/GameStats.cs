@@ -35,7 +35,7 @@ public class GameStats : MonoBehaviour
 
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 5;//5*30 + 1;
+        gameTime = 5*30 + 1;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
         countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
         winUI = GameObject.Find("WinScreen");
@@ -58,21 +58,12 @@ public class GameStats : MonoBehaviour
     }
     void Update()
     {
-        // Debug.Log(gameStatus);
-        if (teamOneScore != teamTwoScore && gameStatus == GameStatus.OVERTIME) {
-            winUI.SetActive(true);
-        }
-        else if (gameTime > 0 && gameStatus != GameStatus.OVERTIME)
-        {
+        if (gameTime > 0) {
             gameTime -= Time.deltaTime;
             timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
-        } 
-        else if (gameStatus == GameStatus.OVERTIME)
-        {
-            timerText.text = "Overtime!";
-        } 
+        }
         else if (teamOneScore == teamTwoScore && gameStatus != GameStatus.OVERTIME) {
-            gameStatus = GameStatus.OVERTIME;
+            timerText.text = "Overtime!";
             mapInit.ResetPlayerLocs();
             GameObject ball = GameObject.Find("pasted__Soccer_Ball");
             ball.transform.position = new Vector3(0, 5, 0);
@@ -80,10 +71,9 @@ public class GameStats : MonoBehaviour
             StartCoroutine(Countdown());
             gameStatus = GameStatus.OVERTIME;
         }
-        else {
+        else if (teamOneScore != teamTwoScore) {
             winUI.SetActive(true);
         }
-
     }
 
     void PauseGame ()
@@ -105,7 +95,7 @@ public class GameStats : MonoBehaviour
     }
 
     public IEnumerator Countdown(){
-        if (gameStatus == GameStatus.OVERTIME) {
+        if (gameTime <= 0) {
             overtimeText = "OVERTIME: ";
         }
         PauseGame();
