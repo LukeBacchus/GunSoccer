@@ -24,7 +24,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (gameStats != null)
         {
-            allowPlayerInput = gameStats.gameStatus != GameStats.GameStatus.PAUSED;
+            allowPlayerInput = gameStats.gameStatus != GameStats.GameStatus.COUNTDOWN;
         }
     }
 
