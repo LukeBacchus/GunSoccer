@@ -36,7 +36,7 @@ public class GameStats : MonoBehaviour
 
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 5; //5*30;
+        gameTime = 5*30;
         timerText = GameObject.Find("Timer").GetComponent<TMPro.TextMeshProUGUI>();
         timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
         countDownText = GameObject.Find("CountDown").GetComponent<TMPro.TextMeshProUGUI>();
