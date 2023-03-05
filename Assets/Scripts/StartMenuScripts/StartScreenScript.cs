@@ -125,7 +125,7 @@ public class StartScreenScript : MonoBehaviour
 
     private void CoverMenuInput()
     {
-        if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2"))
+        if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2") || Input.GetButtonDown("Jump3") || Input.GetButtonDown("Jump4"))
         {
             TransitionTogamemodeMenu();
         }
@@ -270,6 +270,14 @@ public class StartScreenScript : MonoBehaviour
         GameObject player = Object.Instantiate(playerPrefab);
         player.name = "Player " + (playerNum).ToString();
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
+
+
+        if(playerNum % 2 == 0){
+            playerStats.team = "Blue";
+        } else {
+            playerStats.team = "Red";
+        }
+
         playerStats.playerNum = playerNum;
         playerStats.weapon = loadoutMenuScripts[playerNum - 1].currentSelection;
 

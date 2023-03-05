@@ -169,7 +169,7 @@ public class MenuSelectionHelper
 
     public bool Select()
     {
-        if (Input.GetButtonDown("Jump" + (playerNum).ToString()))
+        if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2") || Input.GetButtonDown("Jump3") || Input.GetButtonDown("Jump4"))
         {
             HideBorderSelect(selectedRow, selectedCol);
             selectedCol = currentCol;
