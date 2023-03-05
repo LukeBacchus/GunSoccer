@@ -25,7 +25,7 @@ public class GoalBehavior : MonoBehaviour
     
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Soccer")
+        if (collision.gameObject.tag == "Soccer" && gameState.currentState.stateType == GameStates.StateTypes.INGAME)
         {
             if (team == 1)
             {

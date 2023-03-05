@@ -46,7 +46,7 @@ public class CountdownState : GameStates
 
     private GameStates GetNextState(GameStateManager gameStateManager)
     {
-        if (gameStats.gameTime > 0)
+        if (!gameStats.TimeIsUp())
         {
             return gameStateManager.ongoingGameState;
         }

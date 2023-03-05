@@ -56,7 +56,7 @@ public class GameStateManager : MonoBehaviour
         countdownState = new CountdownState(gameStats, countDownText, initMap, soccerBall);
         ongoingGameState = new OngoingGameState(gameStats, timerText);
         overtimeState = new OvertimeState();
-        goalState = new GoalState();
+        goalState = new GoalState(gameStats);
         gameOverState = new GameOverState(winUI);
         settingsState = new SettingsState(2);
 

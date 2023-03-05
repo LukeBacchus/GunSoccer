@@ -19,4 +19,14 @@ public class GameStats : MonoBehaviour
         teamTwoScore = 0;
         gameTime = 5 * 60;
     }
+
+    public bool TimeIsUp()
+    {
+        return gameTime <= 0;
+    }
+
+    public bool ScoreTied()
+    {
+        return teamOneScore == teamTwoScore;
+    }
 }
