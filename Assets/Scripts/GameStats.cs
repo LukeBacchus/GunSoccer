@@ -47,6 +47,9 @@ public class GameStats : MonoBehaviour
             GameObject two_playerUI = GameObject.Find("1v1 UI");
             two_playerUI.SetActive(false);
         }
+        GameObject pauseMenu = GameObject.Find("PauseMenu");
+        // set this object to active so that it keeps detecting inputs for menu
+        pauseMenu.SetActive(true);
 
         StartCoroutine(Countdown());
 
@@ -72,13 +75,13 @@ public class GameStats : MonoBehaviour
 
     }
 
-    void PauseGame ()
+    public void PauseGame ()
     {
         gameStatus = GameStatus.PAUSED;
         Time.timeScale = 0;
     }
     
-    void ResumeGame ()
+    public void ResumeGame ()
     {
         gameStatus = GameStatus.ONGOING;
         Time.timeScale = 1;

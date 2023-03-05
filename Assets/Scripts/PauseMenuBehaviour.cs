@@ -5,36 +5,37 @@ using UnityEngine;
 public class PauseMenuBehaviour : MonoBehaviour
 {
     [SerializeField]
-    GameObject pauseMenu;
+    GameObject pauseMenuPanel;
 
     private GameStats gameStats;
 
     // Start is called before the first frame update
     void Start()
     {
+        // set the panel within this object to be inactive
+        pauseMenuPanel.SetActive(false);
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
-        // in the beginning, if active, set it to be false
-        if (pauseMenu.activeSelf)
-        {
-            pauseMenu.SetActive(false);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("listening for menu...");
         if(Input.GetButtonDown("Menu"))
         {
-            if (!pauseMenu.activeSelf)
+            Debug.Log("Menu pressed");
+            if (!pauseMenuPanel.activeSelf)
             {
                 //if the menu is not active yet, set it to be active
-                pauseMenu.SetActive(true);
+                pauseMenuPanel.SetActive(true);
+                //TODO: pause the game
+                gameStats.PauseGame();
             }
             else
             {
-                Debug.Log("Menu already open, do we want to implement pressing then closing it?");
+                pauseMenuPanel.SetActive(false);
+                gameStats.ResumeGame();
             }
+            
         }
 
     }
