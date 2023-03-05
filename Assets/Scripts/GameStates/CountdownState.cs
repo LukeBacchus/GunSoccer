@@ -10,9 +10,9 @@ public class CountdownState : GameStates
     private GameStats gameStats;
     private TMPro.TextMeshProUGUI countDownText;
     private InitializeMap initMap;
-    private GameObject soccerBall;
+    private SoccerBallBehavior soccerBall;
 
-    public CountdownState(GameStats gameStats, TextMeshProUGUI countDownText, InitializeMap initMap, GameObject soccerBall)
+    public CountdownState(GameStats gameStats, TextMeshProUGUI countDownText, InitializeMap initMap, SoccerBallBehavior soccerBall)
     {
         this.gameStats = gameStats;
         this.countDownText = countDownText;
@@ -23,10 +23,7 @@ public class CountdownState : GameStates
     public override void EnterState(GameStateManager gameStateManager) 
     {
         initMap.ResetPlayerLocs(gameStateManager.players);
-        soccerBall.transform.position = new Vector3(0, 5, 0);
-        soccerBall.transform.rotation = Quaternion.identity;
-        soccerBall.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        soccerBall.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        soccerBall.ResetBall();
         gameStateManager.StartCoroutine(Countdown(gameStateManager));
     }
 

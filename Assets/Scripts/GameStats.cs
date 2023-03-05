@@ -13,11 +13,8 @@ public class GameStats : MonoBehaviour
     private double lastInterval;
     private int frames;
 
-    void Start()
+    void Awake()
     {
-        lastInterval = Time.realtimeSinceStartup;
-        frames = 0;
-
         teamOneScore = 0;
         teamTwoScore = 0;
         gameTime = 5 * 60;

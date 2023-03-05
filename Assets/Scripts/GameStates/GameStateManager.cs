@@ -34,7 +34,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private InitializeMap initMap;
     [SerializeField]
-    private GameObject soccerBall;
+    private SoccerBallBehavior soccerBall;
 
     void Awake()
     {
@@ -81,7 +81,6 @@ public class GameStateManager : MonoBehaviour
     {
         prevState = currentState;
         currentState = nextState;
-        Debug.Log(currentState);
         currentState.EnterState(this);
     }
 }
