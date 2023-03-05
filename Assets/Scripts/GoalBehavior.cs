@@ -27,9 +27,6 @@ public class GoalBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Soccer")
         {
-            collision.gameObject.transform.position = new Vector3(0, 5, 0);
-            collision.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-
             if (team == 1)
             {
                 gameStats.teamTwoScore += 1;
