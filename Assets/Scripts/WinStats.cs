@@ -9,7 +9,8 @@ public class WinStats: MonoBehaviour
     public float timer;
     private GameStats gameStats;
     private string winner;
-    void Start () 
+
+    public void DisplayWinner () 
     {
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
         if (gameStats.teamOneScore > gameStats.teamTwoScore) {
@@ -22,19 +23,21 @@ public class WinStats: MonoBehaviour
             winner = "No One";
         }
         winnerText = GameObject.Find("Win Text").GetComponent<TMPro.TextMeshProUGUI>();
-        timer = 15;
+        timer = 15.99f;
         winnerText.text = winner + " Won!!! Congrats!!! Returning To Main Menu In: 15";
+
+        StartCoroutine(UpdateWinScreen());
     }
-    void Update()
+    private IEnumerator UpdateWinScreen()
     {
-        if (timer > 0)
+        while (timer > 0)
         {
             timer -= Time.deltaTime;
-            winnerText.text = winner + " Won!!! Congrats!!! Returning To Main Menu In: " + System.Math.Round(timer).ToString();
-        } else {
-            SceneManager.LoadScene("Start Screen"); 
+            winnerText.text = winner + " Won!!! Congrats!!! Returning To Main Menu In: " + (int) timer;
+            yield return null;
         }
 
+        SceneManager.LoadScene("Start Screen"); 
     }
 
 

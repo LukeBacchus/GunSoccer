@@ -20,14 +20,8 @@ public class PlayerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerStats.allowPlayerInput)
-        {
-            PlayerInput();
-        }
-        else
-        {
-            RotateInput();
-        }
+        PlayerInput();
+        RotateInput();
     }
 
     void PlayerInput()

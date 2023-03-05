@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SettingsState : GameStates
 {
+    public override StateTypes stateType { get; } = StateTypes.MENU;
+
     private List<bool> playersInSettings = new List<bool>();
 
     public SettingsState(int numPlayers)

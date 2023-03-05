@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class OngoingGameState : GameStates
 {
+    public override StateTypes stateType { get; } = StateTypes.INGAME;
+
     private GameStats gameStats;
     private TMPro.TextMeshProUGUI timerText;
 
@@ -28,12 +30,19 @@ public class OngoingGameState : GameStates
         {
             if (gameStats.teamOneScore == gameStats.teamTwoScore)
             {
+                timerText.text = "Overtime!";
                 gameStateManager.SwitchState(gameStateManager.countdownState);
             }
             else
             {
+                timerText.text = "Times Up!";
                 gameStateManager.SwitchState(gameStateManager.gameOverState);
             }
         }
+    }
+
+    private void OnGoal(GameStateManager gameStateManager)
+    {
+        gameStateManager.SwitchState(gameStateManager.goalState);
     }
 }

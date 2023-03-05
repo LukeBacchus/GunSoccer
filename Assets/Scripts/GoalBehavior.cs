@@ -12,11 +12,13 @@ public class GoalBehavior : MonoBehaviour
 
     public int team;
     private GameStats gameStats;
+    private GameStateManager gameState;
 
     // Start is called before the first frame update
     private void Start()
     {
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
+        gameState = GameObject.Find("GameManager").GetComponent<GameStateManager>();
         teamOneScoreText = GameObject.Find("Team 1 Score").GetComponent<TMPro.TextMeshProUGUI>();
         teamTwoScoreText = GameObject.Find("Team 2 Score").GetComponent<TMPro.TextMeshProUGUI>();
     }
@@ -37,10 +39,8 @@ public class GoalBehavior : MonoBehaviour
                 gameStats.teamOneScore += 1;
                 teamOneScoreText.text = "Team 1 Score: " + gameStats.teamOneScore;
             }
-            if (gameStats.gameStatus != GameStats.GameStatus.OVERTIME) {
-                mapInit.ResetPlayerLocs();
-                StartCoroutine(gameStats.Countdown());
-            }
+
+            gameState.SwitchState(gameState.goalState);
         }
     }
 
