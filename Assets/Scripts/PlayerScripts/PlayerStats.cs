@@ -8,28 +8,30 @@ public class PlayerStats : MonoBehaviour
     public int playerNum;
     public Weapons weapon;
     public Camera cam;
-    public bool allowPlayerInput = false;
+    public bool allowPlayerMovement = false;
+    public bool allowPlayerShoot = false;
 
 #nullable enable
-    private GameStats? gameStats = null;
+    private GameStateManager? gameState = null;
 
     private void Start()
     {
-        gameStats = GameObject.Find("GameManager")?.GetComponent<GameStats>();
+        gameState = GameObject.Find("GameManager")?.GetComponent<GameStateManager>();
 
         SceneManager.sceneLoaded += Init;
     }
 
     private void Update()
     {
-        if (gameStats != null)
+        if (gameState != null)
         {
-            allowPlayerInput = gameStats.gameStatus != GameStats.GameStatus.COUNTDOWN;
+            allowPlayerMovement = gameState.currentState.stateType == GameStates.StateTypes.INGAME;
+            allowPlayerShoot = gameState.currentState.stateType == GameStates.StateTypes.INGAME;
         }
     }
 
     private void Init(Scene scene, LoadSceneMode mode)
     {
-        gameStats = GameObject.Find("GameManager")?.GetComponent<GameStats>();
+        gameState = GameObject.Find("GameManager")?.GetComponent<GameStateManager>();
     }
 }

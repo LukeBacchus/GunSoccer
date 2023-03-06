@@ -37,7 +37,7 @@ public class PlayerGunController : MonoBehaviour
 
         if (shoot)
         {
-            if (currCooldown == 0 && !reloading)
+            if (currCooldown == 0 && !reloading && playerStats.allowPlayerShoot)
             {
                 ShootGun();
                 currCooldown += playerStats.weapon.shootCooldown;

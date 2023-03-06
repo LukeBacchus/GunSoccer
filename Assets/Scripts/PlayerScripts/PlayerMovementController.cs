@@ -41,10 +41,14 @@ public class PlayerMovementController : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyGravity();
-        Move();
-        if (jump)
+
+        if (playerStats.allowPlayerMovement)
         {
-            Jump();
+            Move();
+            if (jump)
+            {
+                Jump();
+            }
         }
     }
 
