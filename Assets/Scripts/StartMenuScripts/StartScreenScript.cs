@@ -99,10 +99,10 @@ public class StartScreenScript : MonoBehaviour
         mapPanel.SetActive(false);
 
         List<List<Button>> gamemodeButtons = new List<List<Button>> { new List<Button> { twoPlayerButton }, new List<Button> { fourPlayerButton }, new List<Button> { creditsButton }, new List<Button>{ settingsButton } };
-        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3);
+        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
         List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton } };
-        mapSelector = new MenuSelectionHelper(mapButtons, 0, 0);
+        mapSelector = new MenuSelectionHelper(mapButtons, 0, 0, new List<int> { 1, 2, 3, 4 });
     }
 
     // Update is called once per frame
@@ -127,7 +127,7 @@ public class StartScreenScript : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2") || Input.GetButtonDown("Jump3") || Input.GetButtonDown("Jump4"))
         {
-            TransitionTogamemodeMenu();
+            TransitionToGamemodeMenu();
         }
     }
 
@@ -192,7 +192,7 @@ public class StartScreenScript : MonoBehaviour
         TransitionToLoadoutMenu();
     }
 
-    private void TransitionTogamemodeMenu()
+    private void TransitionToGamemodeMenu()
     {
         gamemodePanel.SetActive(true);
         currentMenu = MenuTypes.GamemodeMenu;

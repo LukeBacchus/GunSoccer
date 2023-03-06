@@ -16,7 +16,7 @@ public class MenuSelectionHelper
     private List<List<Button>> buttons;
     private int maxCol = 0;
     private int maxRow = 0;
-    private int playerNum = 1;
+    private List<int> playerNums = new List<int> { 1 };
 
     // For horizontal scrollable menus
     private bool hScrollable = false;
@@ -27,20 +27,20 @@ public class MenuSelectionHelper
     private float cellWidth;
     private bool offsetOnRight = true;
 
-    public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, int playerNum = 1, int defaultCol = -1, int defaultRow = -1)
+    public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
     {
         this.buttons = buttons;
         this.maxCol = maxCol;
         this.maxRow = maxRow;
         selectedCol = defaultCol;
         selectedRow = defaultRow;
-        this.playerNum = playerNum;
+        this.playerNums = playerNums ?? this.playerNums;
 
         Init();
     }
 
     public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, int firstVisible, int lastVisible, 
-        RectTransform grid, float widthOffset, float cellWidth, int defaultCol = -1, int defaultRow = -1, int playerNum = 1)
+        RectTransform grid, float widthOffset, float cellWidth, int defaultCol = -1, int defaultRow = -1, List<int> playerNums = null)
     {
         this.buttons = buttons;
         this.maxCol = maxCol;
@@ -52,7 +52,7 @@ public class MenuSelectionHelper
         this.grid = grid;
         this.widthOffset = widthOffset;
         this.cellWidth = cellWidth;
-        this.playerNum = playerNum;
+        this.playerNums = playerNums ?? this.playerNums;
 
         hScrollable = true;
         Init();
@@ -73,109 +73,118 @@ public class MenuSelectionHelper
 
     private void HorizontalSelection()
     {
-        if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
+        foreach (int playerNum in playerNums)
         {
-            horizontalHoldTime += Time.deltaTime;
-            if (horizontalHoldTime >= holdTime)
+            if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
             {
-                int prevCol = currentCol;
-                currentCol += 1;
-                if (hScrollable && currentCol > lastVisible)
+                horizontalHoldTime += Time.deltaTime;
+                if (horizontalHoldTime >= holdTime)
                 {
-                    MoveGridRight();
-                }
-
-                if (currentCol > maxCol)
-                {
-                    currentCol = 0;
-                    if (hScrollable)
+                    int prevCol = currentCol;
+                    currentCol += 1;
+                    if (hScrollable && currentCol > lastVisible)
                     {
-                        ResetGridLeft();
+                        MoveGridRight();
                     }
-                }
 
-                HideBorderHover(currentRow, prevCol);
-                ShowBorderHover(currentRow, currentCol);
-                horizontalHoldTime = 0;
+                    if (currentCol > maxCol)
+                    {
+                        currentCol = 0;
+                        if (hScrollable)
+                        {
+                            ResetGridLeft();
+                        }
+                    }
+
+                    HideBorderHover(currentRow, prevCol);
+                    ShowBorderHover(currentRow, currentCol);
+                    horizontalHoldTime = 0;
+                }
             }
-        }
-        else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
-        {
-            horizontalHoldTime += Time.deltaTime;
-            if (horizontalHoldTime >= holdTime)
+            else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
             {
-                int prevCol = currentCol;
-                currentCol -= 1;
-                if (hScrollable && currentCol < firstVisible)
+                horizontalHoldTime += Time.deltaTime;
+                if (horizontalHoldTime >= holdTime)
                 {
-                    MoveGridLeft();
-                }
-
-                if (currentCol < 0)
-                {
-                    currentCol = maxCol;
-                    if (hScrollable)
+                    int prevCol = currentCol;
+                    currentCol -= 1;
+                    if (hScrollable && currentCol < firstVisible)
                     {
-                        ResetGridRight();
+                        MoveGridLeft();
                     }
-                }
 
-                HideBorderHover(currentRow, prevCol);
-                ShowBorderHover(currentRow, currentCol);
-                horizontalHoldTime = 0;
+                    if (currentCol < 0)
+                    {
+                        currentCol = maxCol;
+                        if (hScrollable)
+                        {
+                            ResetGridRight();
+                        }
+                    }
+
+                    HideBorderHover(currentRow, prevCol);
+                    ShowBorderHover(currentRow, currentCol);
+                    horizontalHoldTime = 0;
+                }
             }
         }
     }
 
     private void VerticalSelection()
     {
-        if (Input.GetAxis("Vertical" + (playerNum).ToString()) <= -0.9f)
+        foreach (int playerNum in playerNums)
         {
-            verticalHoldTime += Time.deltaTime;
-            if (verticalHoldTime >= holdTime)
+            if (Input.GetAxis("Vertical" + (playerNum).ToString()) <= -0.9f)
             {
-                int prevRow = currentRow;
-                currentRow += 1;
-
-                if (currentRow > maxRow)
+                verticalHoldTime += Time.deltaTime;
+                if (verticalHoldTime >= holdTime)
                 {
-                    currentRow = 0;
-                }
+                    int prevRow = currentRow;
+                    currentRow += 1;
 
-                HideBorderHover(prevRow, currentCol);
-                ShowBorderHover(currentRow, currentCol);
-                verticalHoldTime = 0;
+                    if (currentRow > maxRow)
+                    {
+                        currentRow = 0;
+                    }
+
+                    HideBorderHover(prevRow, currentCol);
+                    ShowBorderHover(currentRow, currentCol);
+                    verticalHoldTime = 0;
+                }
             }
-        }
-        else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
-        {
-            verticalHoldTime += Time.deltaTime;
-            if (verticalHoldTime >= holdTime)
+            else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
             {
-                int prevRow = currentRow;
-                currentRow -= 1;
-
-                if (currentRow < 0)
+                verticalHoldTime += Time.deltaTime;
+                if (verticalHoldTime >= holdTime)
                 {
-                    currentRow = maxRow;
-                }
+                    int prevRow = currentRow;
+                    currentRow -= 1;
 
-                HideBorderHover(prevRow, currentCol);
-                ShowBorderHover(currentRow, currentCol);
-                verticalHoldTime = 0;
+                    if (currentRow < 0)
+                    {
+                        currentRow = maxRow;
+                    }
+
+                    HideBorderHover(prevRow, currentCol);
+                    ShowBorderHover(currentRow, currentCol);
+                    verticalHoldTime = 0;
+                }
             }
         }
     }
 
     public bool Select()
     {
-        if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2") || Input.GetButtonDown("Jump3") || Input.GetButtonDown("Jump4"))
+        foreach (int playerNum in playerNums)
         {
-            HideBorderSelect(selectedRow, selectedCol);
-            selectedCol = currentCol;
-            selectedRow = currentRow;
-            ShowBorderSelect(selectedRow, selectedCol);
-            return true;
+            if (Input.GetButtonDown("Jump" + (playerNum).ToString()))
+            {
+                HideBorderSelect(selectedRow, selectedCol);
+                selectedCol = currentCol;
+                selectedRow = currentRow;
+                ShowBorderSelect(selectedRow, selectedCol);
+                return true;
+            }
         }
 
         return false;

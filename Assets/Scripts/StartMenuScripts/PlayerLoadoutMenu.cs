@@ -49,7 +49,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
         int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
         float widthOffset = viewport.rect.width % cellWidth;
 
-        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, 0, playerNum);
+        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, 0, new List<int> { playerNum });
         currentSelection = weapons[0];
         menuLoaded = true;
     }
