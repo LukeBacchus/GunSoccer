@@ -1731,7 +1731,9 @@ MonoBehaviour:
   playerNum: 0
   weapon: {fileID: 0}
   cam: {fileID: 7724132453709515023}
-  allowPlayerInput: 0
+  allowPlayerMovement: 0
+  allowPlayerShoot: 0
+  allowPlayerRotate: 0
   team: Red
   redModel: {fileID: 1396249569689665674}
   blueModel: {fileID: 3581074817820531441}
@@ -1764,7 +1766,7 @@ MonoBehaviour:
   camJoyStickX: 0
   camJoyStickY: 0
   jump: 0
-  speed: 50
+  speed: 500
   rotationSpeed: 2
 --- !u!114 &5155603571499715764
 MonoBehaviour:

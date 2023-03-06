@@ -20,9 +20,9 @@ public class PlayerMovementController : MonoBehaviour
     private float maxFallSpeed = 20;
     private float maxSlope = 60;
     private Vector3 slopeNormal = new Vector3(0, 1, 0);
-    private float sensitivityX = 10;
-    private float sensitivityY = 5;
-    [SerializeField] private float rotationSpeed = 2.0f;
+    private float sensitivityX = 0.7f;
+    private float sensitivityY = 0.35f;
+    [SerializeField] private float rotationSpeed = 0.125f;
 
 
     // Start is called before the first frame update
