@@ -8,7 +8,6 @@ public class GameStats : MonoBehaviour
     public int teamOneScore;
     public int teamTwoScore;
     public float gameTime;
-    //public bool setOT;
     public float updateInterval = 0.5F;
     private double lastInterval;
     private int frames;

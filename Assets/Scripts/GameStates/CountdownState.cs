@@ -5,25 +5,26 @@ using UnityEngine;
 
 public class CountdownState : GameStates
 {
-    public override StateTypes stateType { get; } = StateTypes.CINEMATIC;
+    public override StateTypes stateType { get; } = StateTypes.PREGAME;
 
     private GameStats gameStats;
     private TMPro.TextMeshProUGUI countDownText;
     private InitializeMap initMap;
-    private SoccerBallBehavior soccerBall;
+    private SoccerBallBehavior soccerBallBehavior;
 
-    public CountdownState(GameStats gameStats, TextMeshProUGUI countDownText, InitializeMap initMap, SoccerBallBehavior soccerBall)
+    public CountdownState(GameStats gameStats, TextMeshProUGUI countDownText, InitializeMap initMap, SoccerBallBehavior soccerBallBehavior)
     {
         this.gameStats = gameStats;
         this.countDownText = countDownText;
         this.initMap = initMap;
-        this.soccerBall = soccerBall;
+        this.soccerBallBehavior = soccerBallBehavior;
     }
 
     public override void EnterState(GameStateManager gameStateManager) 
     {
         initMap.ResetPlayerLocs(gameStateManager.players);
-        soccerBall.ResetBall();
+        soccerBallBehavior.DisableGravity();
+        soccerBallBehavior.ResetBall();
         gameStateManager.StartCoroutine(Countdown(gameStateManager));
     }
 
@@ -39,6 +40,7 @@ public class CountdownState : GameStates
             yield return null;
         }
 
+        soccerBallBehavior.EnableGravity();
         countDownText.text = "";
 
         gameStateManager.SwitchState(GetNextState(gameStateManager));

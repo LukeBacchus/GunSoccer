@@ -7,8 +7,6 @@ public class GoalBehavior : MonoBehaviour
 {
     private TMPro.TextMeshProUGUI teamOneScoreText;
     private TMPro.TextMeshProUGUI teamTwoScoreText;
-    [SerializeField]
-    private InitializeMap mapInit;
 
     public int team;
     private GameStats gameStats;

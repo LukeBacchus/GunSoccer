@@ -32,9 +32,13 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private GameObject scoreBoard;
     [SerializeField]
+    private GameObject blackScreen;
+    [SerializeField]
     private InitializeMap initMap;
     [SerializeField]
-    private SoccerBallBehavior soccerBall;
+    private SoccerBallBehavior soccerBallBehavior;
+    [SerializeField]
+    private StadiumCamera stadiumCamera;
 
     void Awake()
     {
@@ -52,11 +56,11 @@ public class GameStateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        introState = new IntroState(twoPlayerUI, fourPlayerUI, scoreBoard);
-        countdownState = new CountdownState(gameStats, countDownText, initMap, soccerBall);
+        introState = new IntroState(twoPlayerUI, fourPlayerUI, scoreBoard, stadiumCamera, blackScreen);
+        countdownState = new CountdownState(gameStats, countDownText, initMap, soccerBallBehavior);
         ongoingGameState = new OngoingGameState(gameStats, timerText);
         overtimeState = new OvertimeState();
-        goalState = new GoalState(gameStats);
+        goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI);
         settingsState = new SettingsState(2);
 
@@ -65,6 +69,7 @@ public class GameStateManager : MonoBehaviour
         twoPlayerUI.SetActive(false);
         fourPlayerUI.SetActive(false);
         scoreBoard.SetActive(false);
+        soccerBallBehavior.DisableGravity();
 
         currentState = introState;
         prevState = null;
