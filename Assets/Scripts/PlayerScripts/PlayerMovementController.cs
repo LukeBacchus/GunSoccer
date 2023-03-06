@@ -96,10 +96,10 @@ public class PlayerMovementController : MonoBehaviour
         Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
         Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
 
-        playerStats.cam.transform.rotation *= camRotation;
+        playerStats.camParent.transform.rotation *= camRotation;
         transform.rotation *= bodyRotation;
-
-        float camX = playerStats.cam.transform.localEulerAngles.x;
+        
+        float camX = playerStats.camParent.transform.localEulerAngles.x;
 
         if (60f < camX && camX < 310f)
         {
@@ -113,7 +113,7 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
-        playerStats.cam.transform.localEulerAngles = new Vector3(camX, 0, 0);
+        playerStats.camParent.transform.localEulerAngles = new Vector3(camX, 0, 0);
     }
 
     void ApplyGravity()

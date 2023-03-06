@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour
     public int playerNum;
     public Weapons weapon;
     public Camera cam;
+    public GameObject camParent;
     public bool allowPlayerInput = false;
 
 #nullable enable
