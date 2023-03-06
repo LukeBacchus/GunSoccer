@@ -584,11 +584,11 @@ PrefabInstance:
     - target: {fileID: 3056292820133721263, guid: d28d7978c5ade59448f1cd6a27a0cdef, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4164511204261677510, guid: 67c9df5da70f0744ab4067a3b3d9aa68, type: 3}
+      objectReference: {fileID: 4164511204261677510, guid: 57f8a19a5064dc84894069b4d797431c, type: 3}
     - target: {fileID: 3602513787439450074, guid: d28d7978c5ade59448f1cd6a27a0cdef, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4164511204261677510, guid: 46f44892cc806ab4cafd6d0fb69c9cab, type: 3}
+      objectReference: {fileID: 4164511204261677510, guid: 57f8a19a5064dc84894069b4d797431c, type: 3}
     - target: {fileID: 3666439149675064855, guid: d28d7978c5ade59448f1cd6a27a0cdef, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.2
