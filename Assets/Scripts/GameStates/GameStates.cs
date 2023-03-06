@@ -7,6 +7,7 @@ public abstract class GameStates
     public enum StateTypes
     {
         INGAME,
+        PREGAME,
         CINEMATIC,
         MENU
     }
