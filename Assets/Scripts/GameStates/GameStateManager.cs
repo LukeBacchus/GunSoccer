@@ -38,8 +38,6 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private SoccerBallBehavior soccerBallBehavior;
     [SerializeField]
-    private Rigidbody soccerBallRB;
-    [SerializeField]
     private StadiumCamera stadiumCamera;
 
     void Awake()
@@ -62,7 +60,7 @@ public class GameStateManager : MonoBehaviour
         countdownState = new CountdownState(gameStats, countDownText, initMap, soccerBallBehavior);
         ongoingGameState = new OngoingGameState(gameStats, timerText);
         overtimeState = new OvertimeState();
-        goalState = new GoalState(gameStats, soccerBallRB);
+        goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI);
         settingsState = new SettingsState(2);
 
@@ -71,6 +69,7 @@ public class GameStateManager : MonoBehaviour
         twoPlayerUI.SetActive(false);
         fourPlayerUI.SetActive(false);
         scoreBoard.SetActive(false);
+        soccerBallBehavior.DisableGravity();
 
         currentState = introState;
         prevState = null;

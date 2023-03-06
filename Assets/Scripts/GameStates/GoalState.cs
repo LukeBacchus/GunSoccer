@@ -7,12 +7,12 @@ public class GoalState : GameStates
     public override StateTypes stateType { get; } = StateTypes.CINEMATIC;
 
     private GameStats gameStats;
-    private Rigidbody soccerBallRB;
+    private SoccerBallBehavior soccerBallBehavior;
 
-    public GoalState(GameStats gameStats, Rigidbody soccerBallRB)
+    public GoalState(GameStats gameStats, SoccerBallBehavior soccerBallBehavior)
     {
         this.gameStats = gameStats;
-        this.soccerBallRB = soccerBallRB;
+        this.soccerBallBehavior = soccerBallBehavior;
     }
 
     public override void EnterState(GameStateManager gameStateManager) 
@@ -43,7 +43,7 @@ public class GoalState : GameStates
             foreach (GameObject player in gameStateManager.players)
             {
                 Transform playerCam = player.transform.GetChild(0);
-                Quaternion targetRotation = Quaternion.LookRotation(soccerBallRB.transform.position - playerCam.position);
+                Quaternion targetRotation = Quaternion.LookRotation(soccerBallBehavior.GetPosition() - playerCam.position);
                 playerCam.rotation = Quaternion.Slerp(playerCam.rotation, targetRotation, Mathf.Log(3 * (2 - count) + 1));
             }
             yield return null;

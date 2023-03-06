@@ -19,4 +19,19 @@ public class SoccerBallBehavior : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public void DisableGravity()
+    {
+        GetComponent<Rigidbody>().useGravity = false;
+    }
+
+    public void EnableGravity()
+    {
+        GetComponent<Rigidbody>().useGravity = true;
+    }
 }
