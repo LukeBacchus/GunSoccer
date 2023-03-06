@@ -9,18 +9,26 @@ public class IntroState : GameStates
     private GameObject fourPlayerUI;
     private GameObject twoPlayerUI;
     private GameObject scoreBoard;
+    private GameObject blackScreen;
+    private StadiumCamera introCamera;
 
-    public IntroState(GameObject twoPlayerUI, GameObject fourPlayerUI, GameObject scoreBoard)
+    public IntroState(GameObject twoPlayerUI, GameObject fourPlayerUI, GameObject scoreBoard, StadiumCamera introCamera, GameObject blackScreen)
     {
         this.fourPlayerUI = fourPlayerUI;
         this.twoPlayerUI = twoPlayerUI;
         this.scoreBoard = scoreBoard;
+        this.introCamera = introCamera;
+        this.blackScreen = blackScreen;
     }
 
     public override void EnterState(GameStateManager gameStateManager) 
     {
-        Debug.Log("IntroState not implemented yet.");
+        gameStateManager.StartCoroutine(introCamera.IntroPan(delegate { CompletedIntroCameraPan(gameStateManager); }));
+    }
+    public override void UpdateState(GameStateManager gameStateManager) { }
 
+    private void CompletedIntroCameraPan(GameStateManager gameStateManager)
+    {
         if (gameStateManager.players.Count == 2)
         {
             twoPlayerUI.SetActive(true);
@@ -33,8 +41,8 @@ public class IntroState : GameStates
         }
 
         scoreBoard.SetActive(true);
+        blackScreen.SetActive(false);
 
         gameStateManager.SwitchState(gameStateManager.countdownState);
     }
-    public override void UpdateState(GameStateManager gameStateManager) { }
 }

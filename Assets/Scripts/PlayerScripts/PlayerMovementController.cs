@@ -42,13 +42,10 @@ public class PlayerMovementController : MonoBehaviour
     {
         ApplyGravity();
 
-        if (playerStats.allowPlayerMovement)
+        Move();
+        if (jump)
         {
-            Move();
-            if (jump)
-            {
-                Jump();
-            }
+            Jump();
         }
     }
 
@@ -67,46 +64,55 @@ public class PlayerMovementController : MonoBehaviour
 
     void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddRelativeForce(new Vector3(0, jumpForce * rb.mass, 0), ForceMode.Impulse);
+        if (playerStats.allowPlayerMovement)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddRelativeForce(new Vector3(0, jumpForce * rb.mass, 0), ForceMode.Impulse);
+        }
         jump = false;
     }
 
     void Move()
     {
-        Vector3 step = transform.TransformDirection(new Vector3(moveX, 0, moveZ));
-        if (OnSlope() && IsGrounded())
+        if (playerStats.allowPlayerMovement)
         {
-            step = Vector3.ProjectOnPlane(step, slopeNormal);
-        }
-        Vector3 move = step.normalized * rb.mass * speed;
-        rb.AddForce(move, ForceMode.Force);
+            Vector3 step = transform.TransformDirection(new Vector3(moveX, 0, moveZ));
+            if (OnSlope() && IsGrounded())
+            {
+                step = Vector3.ProjectOnPlane(step, slopeNormal);
+            }
+            Vector3 move = step.normalized * rb.mass * speed;
+            rb.AddForce(move, ForceMode.Force);
 
-        LimitSpeed();
+            LimitSpeed();
+        }
     }
 
     void Rotate(){
-        Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
-        Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
-
-        playerStats.cam.transform.rotation *= camRotation;
-        transform.rotation *= bodyRotation;
-
-        float camX = playerStats.cam.transform.localEulerAngles.x;
-
-        if (60f < camX && camX < 310f)
+        if (playerStats.allowPlayerRotate)
         {
-            if (camX - 60f < 310f - camX)
-            {
-                camX = 60f;
-            }
-            else
-            {
-                camX = 310f;
-            }
-        }
+            Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
+            Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
 
-        playerStats.cam.transform.localEulerAngles = new Vector3(camX, 0, 0);
+            playerStats.cam.transform.rotation *= camRotation;
+            transform.rotation *= bodyRotation;
+
+            float camX = playerStats.cam.transform.localEulerAngles.x;
+
+            if (60f < camX && camX < 310f)
+            {
+                if (camX - 60f < 310f - camX)
+                {
+                    camX = 60f;
+                }
+                else
+                {
+                    camX = 310f;
+                }
+            }
+
+            playerStats.cam.transform.localEulerAngles = new Vector3(camX, 0, 0);
+        }
     }
 
     void ApplyGravity()

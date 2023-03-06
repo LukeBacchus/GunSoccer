@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,30 +17,22 @@ public class StadiumCamera : MonoBehaviour
     private GameObject panOutTarget;
     [SerializeField]
     private Animator blackScreenAnimator;
-    [SerializeField]
-    private GameStats gameStats;
 
     private WaitForSeconds fadeWait = new WaitForSeconds(1);
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartCoroutine(IntroPan());
-    }
-
-    private IEnumerator IntroPan()
+    public IEnumerator IntroPan(Action action)
     {
         // Circle view stadium
         transform.localPosition = new Vector3(0, 4, -6);
         transform.localEulerAngles = new Vector3(35, 0, 0);
         transform.SetParent(rotateTarget.transform);
 
-        float count = 6;
+        float count = 4.5f;
         bool fadein = false;
         while (count > 0)
         {
             count -= Time.deltaTime;
-            rotateTarget.transform.Rotate(0, -15 * Time.deltaTime, 0);
+            rotateTarget.transform.Rotate(0, -20 * Time.deltaTime, 0);
 
             if (count <= 1 && !fadein)
             {
@@ -55,12 +48,12 @@ public class StadiumCamera : MonoBehaviour
         transform.localEulerAngles = Vector3.zero;
         blackScreenAnimator.SetTrigger("fade_out");
 
-        count = 4;
+        count = 3.5f;
         fadein = false;
         while (count > 0)
         {
             count -= Time.deltaTime;
-            transform.Translate((redTeamTarget.transform.right * 10 + redTeamTarget.transform.forward * 4) * Time.deltaTime);
+            transform.Translate((redTeamTarget.transform.right * 13 + redTeamTarget.transform.forward * 4.5f) * Time.deltaTime);
 
             if (count <= 1 && !fadein)
             {
@@ -76,12 +69,12 @@ public class StadiumCamera : MonoBehaviour
         transform.localEulerAngles = Vector3.zero;
         blackScreenAnimator.SetTrigger("fade_out");
 
-        count = 4;
+        count = 3.5f;
         fadein = false;
         while (count > 0)
         {
             count -= Time.deltaTime;
-            transform.Translate((-blueTeamTarget.transform.right * 10 + -blueTeamTarget.transform.forward * 4) * Time.deltaTime);
+            transform.Translate((-blueTeamTarget.transform.right * 13 + -blueTeamTarget.transform.forward * 4.5f) * Time.deltaTime);
 
             if (count <= 1 && !fadein)
             {
@@ -97,19 +90,19 @@ public class StadiumCamera : MonoBehaviour
         transform.localEulerAngles = Vector3.zero;
         blackScreenAnimator.SetTrigger("fade_out");
 
-        count = 2.5f;
+        count = 2;
         fadein = false;
         while (count > 0)
         {
             count -= Time.deltaTime;
-            transform.Translate(panOutTarget.transform.right * 15 * Time.deltaTime);
+            transform.Translate(panOutTarget.transform.right * 20 * Time.deltaTime);
             yield return null;
         }
-        count = 6;
+        count = 5;
         while (count > 0)
         {
             count -= Time.deltaTime;
-            transform.Translate(Vector3.up * (50 - count * 3) * Time.deltaTime, Space.World);
+            transform.Translate(Vector3.up * (60 - count * 3) * Time.deltaTime, Space.World);
             transform.LookAt(panOutTarget.transform);
 
             if (count <= 1 && !fadein)
@@ -122,6 +115,7 @@ public class StadiumCamera : MonoBehaviour
 
         // Done intro scene, get rid of camera.
         yield return fadeWait;
+        action();
         gameObject.SetActive(false);
     }
 }

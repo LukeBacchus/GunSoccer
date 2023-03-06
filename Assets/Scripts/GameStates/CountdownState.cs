@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CountdownState : GameStates
 {
-    public override StateTypes stateType { get; } = StateTypes.CINEMATIC;
+    public override StateTypes stateType { get; } = StateTypes.PREGAME;
 
     private GameStats gameStats;
     private TMPro.TextMeshProUGUI countDownText;

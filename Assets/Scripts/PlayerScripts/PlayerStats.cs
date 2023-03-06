@@ -10,6 +10,7 @@ public class PlayerStats : MonoBehaviour
     public Camera cam;
     public bool allowPlayerMovement = false;
     public bool allowPlayerShoot = false;
+    public bool allowPlayerRotate = false;
 
 #nullable enable
     private GameStateManager? gameState = null;
@@ -27,6 +28,7 @@ public class PlayerStats : MonoBehaviour
         {
             allowPlayerMovement = gameState.currentState.stateType == GameStates.StateTypes.INGAME;
             allowPlayerShoot = gameState.currentState.stateType == GameStates.StateTypes.INGAME;
+            allowPlayerRotate = gameState.currentState.stateType == GameStates.StateTypes.PREGAME || gameState.currentState.stateType == GameStates.StateTypes.INGAME;
         }
     }
 
