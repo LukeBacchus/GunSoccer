@@ -48,8 +48,10 @@ public class PlayerInputManager : MonoBehaviour
 
     void MoveInput()
     {
-        float x = Input.GetAxisRaw("Horizontal" + (playerStats.playerNum).ToString());
-        float z = Input.GetAxisRaw("Vertical" + (playerStats.playerNum).ToString());
+        float x = Input.GetAxisRaw("X joy" + (playerStats.playerNum).ToString());
+        float z = Input.GetAxisRaw("Y joy" + (playerStats.playerNum).ToString());
+        // float x = Input.GetAxisRaw("Horizontal" + (playerStats.playerNum).ToString());
+        // float z = Input.GetAxisRaw("Vertical" + (playerStats.playerNum).ToString());
 
         playerController.moveX = x;
         playerController.moveZ = z;
@@ -57,8 +59,15 @@ public class PlayerInputManager : MonoBehaviour
 
     void RotateInput()
     {
-        playerController.camJoyStickY = Input.GetAxis("Mouse Y" + (playerStats.playerNum).ToString());
-        playerController.camJoyStickX = Input.GetAxis("Mouse X" + (playerStats.playerNum).ToString());
+        // Gyro
+        playerController.camGyroY = Input.GetAxis("Mouse Y" + (playerStats.playerNum).ToString());
+        playerController.camGyroX = Input.GetAxis("Mouse X" + (playerStats.playerNum).ToString());
+
+        // Joystick
+        playerController.camJoyStickX = Input.GetAxisRaw("Horizontal" + (playerStats.playerNum).ToString());
+        playerController.camJoyStickY = Input.GetAxisRaw("Vertical" + (playerStats.playerNum).ToString());
+        // playerController.camJoyStickY = Input.GetAxis("Y joy" + (playerStats.playerNum).ToString());
+        // playerController.camJoyStickX = Input.GetAxis("X joy" + (playerStats.playerNum).ToString());
     }
 
     void ShootInput()

@@ -8,21 +8,23 @@ public class PlayerMovementController : MonoBehaviour
     public float moveZ;
     public float camJoyStickX = 0;
     public float camJoyStickY = 0;
+    public float camGyroX = 0;
+    public float camGyroY = 0;
     public bool jump = false;
 
     private PlayerStats playerStats;
     private Rigidbody rb;
     private Collider col;
     private float jumpForce = 10;
-    [SerializeField] private float speed = 50;
+    [SerializeField] private float speed = 100;
     private float maxSpeed = 10;
     private float maxUpSpeed = 15;
     private float maxFallSpeed = 20;
     private float maxSlope = 60;
     private Vector3 slopeNormal = new Vector3(0, 1, 0);
-    private float sensitivityX = 10;
-    private float sensitivityY = 5;
-    [SerializeField] private float rotationSpeed = 2.0f;
+    private float sensitivityX = 1.0f;
+    private float sensitivityY = 0.5f;
+    [SerializeField] private float rotationSpeed = 0.25f;
 
 
     // Start is called before the first frame update
@@ -36,6 +38,7 @@ public class PlayerMovementController : MonoBehaviour
     private void Update()
     {
         Rotate();
+        // SetRotate();
     }
 
     private void FixedUpdate()
@@ -79,6 +82,14 @@ public class PlayerMovementController : MonoBehaviour
         rb.AddForce(move, ForceMode.Force);
 
         LimitSpeed();
+    }
+
+    void SetRotate(){
+        float turnTime = 150f;
+        Quaternion target = Quaternion.Euler(camGyroY * 70, camGyroX * 70, 0f);
+        playerStats.cam.transform.rotation = Quaternion.RotateTowards(playerStats.cam.transform.rotation, target, turnTime * Time.deltaTime);
+
+        // playerStats.cam.transform.eulerAngles = new Vector3(camGyroY * 70, camGyroX * 70, 0);
     }
 
     void Rotate(){
