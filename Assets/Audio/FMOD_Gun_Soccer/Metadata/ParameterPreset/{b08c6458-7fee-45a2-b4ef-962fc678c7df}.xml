@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{b08c6458-7fee-45a2-b4ef-962fc678c7df}">
+		<property name="name">
+			<value>Dissapointment</value>
+		</property>
+		<relationship name="folder">
+			<destination>{8bb28bbb-7e02-4e9f-80f3-ad4e9382c313}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{2a1bb4fb-3929-4b0e-b9dc-bbd948fd4efb}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{2a1bb4fb-3929-4b0e-b9dc-bbd948fd4efb}">
+		<property name="maximum">
+			<value>100</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

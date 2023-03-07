@@ -52,7 +52,14 @@ namespace FMODUnity
                 headerRect.width = EditorGUIUtility.labelWidth;
                 headerRect.height = baseHeight;
 
-                property.isExpanded = EditorGUI.Foldout(headerRect, property.isExpanded, label, true);
+                if (editorEventRef != null)
+                {
+                    property.isExpanded = EditorGUI.Foldout(headerRect, property.isExpanded, label, true);
+                }
+                else
+                {
+                    EditorGUI.LabelField(headerRect, label);
+                }
 
                 Rect addRect = new Rect(position.xMax - addIcon.width - 7, position.y, addIcon.width + 7, baseHeight);
                 Rect openRect = new Rect(addRect.x - openIcon.width - 7, position.y, openIcon.width + 6, baseHeight);
@@ -83,7 +90,6 @@ namespace FMODUnity
                     windowRect.xMin = pathRect.xMin;
                     windowRect.position = GUIUtility.GUIToScreenPoint(windowRect.position);
                     windowRect.height = openRect.height + 1;
-                    windowRect.width = Mathf.Max(windowRect.width, 300f);
                     eventBrowser.ShowAsDropDown(windowRect, new Vector2(windowRect.width, 400));
 
                 }
@@ -96,7 +102,6 @@ namespace FMODUnity
                     windowRect.xMin = pathRect.xMin;
                     windowRect.position = GUIUtility.GUIToScreenPoint(windowRect.position);
                     windowRect.height = openRect.height + 1;
-                    windowRect.width = Mathf.Max(windowRect.width, 300f);
                     addDropdown.ShowAsDropDown(windowRect, new Vector2(windowRect.width, 500));
 
                 }
