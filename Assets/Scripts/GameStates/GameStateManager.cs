@@ -22,15 +22,15 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI countDownText;
     [SerializeField]
-    private TMPro.TextMeshProUGUI timerText;
-    [SerializeField]
     private GameObject winUI;
     [SerializeField]
     private GameObject twoPlayerUI;
     [SerializeField]
     private GameObject fourPlayerUI;
     [SerializeField]
-    private GameObject scoreBoard;
+    private GameObject gameUI;
+    [SerializeField]
+    private RectTransform scoreBoard;
     [SerializeField]
     private GameObject blackScreen;
     [SerializeField]
@@ -56,19 +56,21 @@ public class GameStateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        introState = new IntroState(twoPlayerUI, fourPlayerUI, scoreBoard, stadiumCamera, blackScreen);
+        introState = new IntroState(twoPlayerUI, fourPlayerUI, gameUI, stadiumCamera, blackScreen);
         countdownState = new CountdownState(gameStats, countDownText, initMap, soccerBallBehavior);
-        ongoingGameState = new OngoingGameState(gameStats, timerText);
+        ongoingGameState = new OngoingGameState(gameStats);
         overtimeState = new OvertimeState();
         goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI);
         settingsState = new SettingsState(2);
 
-        timerText.text = "Timer: " + string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameStats.gameTime / 60), Mathf.FloorToInt(gameStats.gameTime % 60));
+        gameStats.UpdateTimerUI();
+        SetScoreBoardLocation();
+
         winUI.SetActive(false);
         twoPlayerUI.SetActive(false);
         fourPlayerUI.SetActive(false);
-        scoreBoard.SetActive(false);
+        gameUI.SetActive(false);
         soccerBallBehavior.DisableGravity();
 
         currentState = introState;
@@ -87,5 +89,21 @@ public class GameStateManager : MonoBehaviour
         prevState = currentState;
         currentState = nextState;
         currentState.EnterState(this);
+    }
+
+    private void SetScoreBoardLocation()
+    {
+        if (players.Count == 2)
+        {
+            scoreBoard.anchorMin = new Vector2(0, 1);
+            scoreBoard.anchorMax = new Vector2(1, 1);
+            scoreBoard.anchoredPosition = new Vector3(0, -scoreBoard.rect.height / 2, 0);
+        }
+        else
+        {
+            scoreBoard.anchorMin = new Vector2(0, 0.5f);
+            scoreBoard.anchorMax = new Vector2(1, 0.5f);
+            scoreBoard.anchoredPosition = Vector3.zero;
+        }
     }
 }
