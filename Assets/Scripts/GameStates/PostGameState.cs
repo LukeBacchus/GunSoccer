@@ -39,7 +39,6 @@ public class PostGameState : GameStates
         else if (gameStateManager.prevState is GoalState)
         {
             text = "Game Set!";
-            Debug.Log("ok");
         }
 
         announcement.GetComponent<TMPro.TextMeshProUGUI>().text = text;
