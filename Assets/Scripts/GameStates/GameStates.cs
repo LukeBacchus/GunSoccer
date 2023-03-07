@@ -8,6 +8,7 @@ public abstract class GameStates
     {
         INGAME,
         PREGAME,
+        POSTGAME,
         CINEMATIC,
         MENU
     }

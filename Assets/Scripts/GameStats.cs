@@ -24,7 +24,7 @@ public class GameStats : MonoBehaviour
     {
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 3 * 60;
+        gameTime = 10;
     }
 
     public bool TimeIsUp()
@@ -47,5 +47,9 @@ public class GameStats : MonoBehaviour
     {
         gameTime = Mathf.Max(gameTime, 0);
         timerText.text = string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
+        if (gameTime <= 10)
+        {
+            timerText.color = Color.red;
+        }
     }
 }

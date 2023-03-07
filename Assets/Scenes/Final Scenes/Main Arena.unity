@@ -222,10 +222,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 5772529288483023069, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
 --- !u!114 &151100833 stripped
@@ -440,6 +436,10 @@ PrefabInstance:
       propertyPath: twoPlayerUI
       value: 
       objectReference: {fileID: 151100837}
+    - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
+      propertyPath: announcement
+      value: 
+      objectReference: {fileID: 1987345001}
     - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: fourPlayerUI
       value: 
@@ -774,6 +774,11 @@ MonoBehaviour:
 --- !u!95 &1927680167 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1927680167, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+  m_PrefabInstance: {fileID: 151100832}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1987345001 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 373622498013475258, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
   m_PrefabInstance: {fileID: 151100832}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2039173071
