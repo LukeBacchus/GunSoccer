@@ -6,7 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-<<<<<<< HEAD
     path: Assets/Scenes/Final Scenes/Start Screen.unity
     guid: 62ae652d762ecce42bc8519cda519887
   - enabled: 1
@@ -14,14 +13,5 @@ EditorBuildSettings:
     guid: 3f3bc54a1260db3469fc418d5aa1fb60
   - enabled: 1
     path: Assets/Scenes/Final Scenes/WinScreen.unity
-=======
-    path: Assets/Scenes/Start Screen.unity
-    guid: 62ae652d762ecce42bc8519cda519887
-  - enabled: 1
-    path: Assets/Scenes/Main Arena 2v2.unity
-    guid: 3f3bc54a1260db3469fc418d5aa1fb60
-  - enabled: 1
-    path: Assets/Scenes/WinScreen.unity
->>>>>>> Audience_Behavior
     guid: dab44389a01565d4b82f4ac33cdb6a53
   m_configObjects: {}
