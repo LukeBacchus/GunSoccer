@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{142f31fd-208c-4ef5-beef-e25668cc3acb}">
+		<property name="assetPath">
+			<value>Ammo Pickup/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{05439778-1492-4af6-8ba9-52ce5152a91e}</destination>
+		</relationship>
+	</object>
+</objects>
