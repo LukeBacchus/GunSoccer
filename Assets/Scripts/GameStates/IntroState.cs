@@ -8,15 +8,15 @@ public class IntroState : GameStates
 
     private GameObject fourPlayerUI;
     private GameObject twoPlayerUI;
-    private GameObject scoreBoard;
+    private GameObject gameUI;
     private GameObject blackScreen;
     private StadiumCamera introCamera;
 
-    public IntroState(GameObject twoPlayerUI, GameObject fourPlayerUI, GameObject scoreBoard, StadiumCamera introCamera, GameObject blackScreen)
+    public IntroState(GameObject twoPlayerUI, GameObject fourPlayerUI, GameObject gameUI, StadiumCamera introCamera, GameObject blackScreen)
     {
         this.fourPlayerUI = fourPlayerUI;
         this.twoPlayerUI = twoPlayerUI;
-        this.scoreBoard = scoreBoard;
+        this.gameUI = gameUI;
         this.introCamera = introCamera;
         this.blackScreen = blackScreen;
     }
@@ -40,7 +40,7 @@ public class IntroState : GameStates
             fourPlayerUI.SetActive(true);
         }
 
-        scoreBoard.SetActive(true);
+        gameUI.SetActive(true);
         blackScreen.SetActive(false);
 
         gameStateManager.SwitchState(gameStateManager.countdownState);

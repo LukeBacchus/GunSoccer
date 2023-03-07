@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class GoalBehavior : MonoBehaviour
 {
-    private TMPro.TextMeshProUGUI teamOneScoreText;
-    private TMPro.TextMeshProUGUI teamTwoScoreText;
-
     public int team;
     private GameStats gameStats;
     private GameStateManager gameState;
@@ -17,8 +14,6 @@ public class GoalBehavior : MonoBehaviour
     {
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
         gameState = GameObject.Find("GameManager").GetComponent<GameStateManager>();
-        teamOneScoreText = GameObject.Find("Team 1 Score").GetComponent<TMPro.TextMeshProUGUI>();
-        teamTwoScoreText = GameObject.Find("Team 2 Score").GetComponent<TMPro.TextMeshProUGUI>();
     }
     
     private void OnCollisionEnter(Collision collision)
@@ -28,12 +23,11 @@ public class GoalBehavior : MonoBehaviour
             if (team == 1)
             {
                 gameStats.teamTwoScore += 1;
-                teamTwoScoreText.text = "Team 2 Score: " + gameStats.teamTwoScore;
             } else
             {
                 gameStats.teamOneScore += 1;
-                teamOneScoreText.text = "Team 1 Score: " + gameStats.teamOneScore;
             }
+            gameStats.UpdateScoresUI();
 
             gameState.SwitchState(gameState.goalState);
         }
