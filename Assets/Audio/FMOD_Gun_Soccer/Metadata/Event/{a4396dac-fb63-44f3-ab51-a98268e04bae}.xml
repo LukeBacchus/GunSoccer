@@ -32,6 +32,9 @@
 		<relationship name="timeline">
 			<destination>{d0929078-a04d-47d1-92b9-3b61bc7526d0}</destination>
 		</relationship>
+		<relationship name="banks">
+			<destination>{7b461d82-1f17-4a49-b803-524801dc7ab8}</destination>
+		</relationship>
 	</object>
 	<object class="EventMixer" id="{a3cf5b62-3ab2-4b9a-b978-4d1005a9ad45}">
 		<relationship name="masterBus">
@@ -113,9 +116,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{424b8ef5-7348-4696-bbca-883445332b8f}">
-		<property name="volume">
-			<value>-1</value>
-		</property>
 		<property name="name">
 			<value>Fire</value>
 		</property>
@@ -148,7 +148,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{7b341e77-3dcd-4736-b169-41a54e02a127}">
 		<property name="volume">
-			<value>-8.5</value>
+			<value>-13.5</value>
 		</property>
 		<property name="name">
 			<value>Whistle</value>
