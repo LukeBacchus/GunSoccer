@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1219,8 +1219,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuPanel: {fileID: 2064155319}
-  settingsButton: {fileID: 0}
-  quitButton: {fileID: 0}
+  settingsButton: {fileID: 1443776159}
+  quitButton: {fileID: 1720479816}
+  settingsPanel: {fileID: 955830252}
+  backButton: {fileID: 0}
+  volumeUpButton: {fileID: 0}
+  volumeDownButton: {fileID: 0}
 --- !u!114 &1679031688
 MonoBehaviour:
   m_ObjectHideFlags: 0
