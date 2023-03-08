@@ -30,6 +30,7 @@ public class PauseMenuBehaviour : MonoBehaviour
 
     private PauseStatus currentPanel;
 
+    int num_players;
     public enum PauseStatus
     {
         NONE,
@@ -44,39 +45,41 @@ public class PauseMenuBehaviour : MonoBehaviour
 
         // set the panel within this object to be inactive at the beginning
         pauseMenuPanel.SetActive(false);
-        settingsPanel.SetActive(false);
-
         
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
 
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { quitButton }};
         menuSelector = new MenuSelectionHelper(buttons, 0, 1);
 
-        // TODO: this is not updated with correct buttons: change 
-        SetupSettings();
-        
+        SetupSettings(); // set up buttons and panel
+
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        num_players = players.Length; 
+        // save the length of players for easier toggling of UI later
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Menu"))
+        if(currentPanel == PauseStatus.NONE)
         {
-            Debug.Log("Menu pressed");
-            if (currentPanel == PauseStatus.NONE)
+            if (Input.GetButtonDown("Menu"))
             {
                 TransitionToPause();
             }
-            else if (currentPanel == PauseStatus.PAUSE)
+        }
+        else if(currentPanel == PauseStatus.PAUSE)
+        {
+            if (Input.GetButtonDown("Menu"))
             {
                 TransitionBackToGame();
             }
-            // if menu button pressed when in menu, can't immediately unpause
-        }
-
-        if(currentPanel == PauseStatus.PAUSE)
-        {
-            PauseInput();
+            else
+            {
+                PauseInput();
+            }
+            
         }
         else if (currentPanel == PauseStatus.SETTINGS)
         {
@@ -90,10 +93,10 @@ public class PauseMenuBehaviour : MonoBehaviour
         volumeUpButton.onClick.AddListener(SettingBehaviour.IncreaseVolume);
         volumeDownButton.onClick.AddListener(SettingBehaviour.DecreaseVolume);
         
-        List<List<Button>> buttons = new List<List<Button>> { new List<Button> {volumeUpButton, volumeDownButton}, new List<Button> { quitButton} };
-
+        List<List<Button>> buttons = new List<List<Button>> { new List<Button> {volumeUpButton}, new List<Button> { volumeDownButton}, new List<Button> {backButton} };
         settingsSelector = new MenuSelectionHelper(buttons, 0, 3);
 
+        settingsPanel.SetActive(false);
     }
     void PauseInput()
     {
@@ -119,11 +122,11 @@ public class PauseMenuBehaviour : MonoBehaviour
         currentPanel = PauseStatus.PAUSE;
         settingsPanel.SetActive(false);
         pauseMenuPanel.SetActive(true);
-        //TODO: add the 
     }
 
     void TransitionBackToGame()
     {
+        //showUI();
         currentPanel = PauseStatus.NONE;
         //if the menu is not active yet, set it to be active
         pauseMenuPanel.SetActive(false);
@@ -133,6 +136,7 @@ public class PauseMenuBehaviour : MonoBehaviour
 
     void TransitionToPause()
     {
+        //hideUI();
         currentPanel = PauseStatus.PAUSE;
         //if the menu is not active yet, set it to be active
         pauseMenuPanel.SetActive(true);
@@ -149,5 +153,43 @@ public class PauseMenuBehaviour : MonoBehaviour
     void TransitionToQuit()
     {
         Debug.Log("quiting not implemented yet");
+    }
+
+    void hideUI()
+    {   
+        // currently hiding and showing UI objects by SetActive()
+        // which might not be the best choice
+        if (num_players == 2)
+        {
+            GameObject two_playerUI = GameObject.Find("1v1 UI");
+            two_playerUI.SetActive(false);
+        }
+        else
+        {
+            GameObject four_playerUI = GameObject.Find("2v2 UI");
+            four_playerUI.SetActive(false);
+        }
+
+        GameObject scoreboard = GameObject.Find("ScoreBoard");
+        scoreboard.SetActive(false);
+
+    }
+
+    void showUI()
+    {
+        if (num_players == 2)
+        {
+            GameObject two_playerUI = GameObject.Find("1v1 UI");
+            two_playerUI.SetActive(true);
+        }
+        else
+        {
+            GameObject four_playerUI = GameObject.Find("2v2 UI");
+            four_playerUI.SetActive(true);
+        }
+
+        GameObject scoreboard = GameObject.Find("ScoreBoard");
+        scoreboard.SetActive(true);
+
     }
 }
