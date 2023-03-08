@@ -11,6 +11,8 @@ public class SniperRifle : Weapons
     public override int magazineSize { get; } = 5;
     public override float reloadSpeed { get; } = 2f;
 
+    public override string sfx_name { get; } = "event:/Sniper";
+
     public override void ShootGun(Transform muzzle, int playerNum)
     {
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);

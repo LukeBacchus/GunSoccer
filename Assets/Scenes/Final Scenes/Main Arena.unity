@@ -308,6 +308,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/Ambience
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -1291754587
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1251463967
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 1941805493
+      objectReference: {fileID: 0}
+    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1063692204
+      objectReference: {fileID: 0}
     - target: {fileID: 4341748448517819315, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
       propertyPath: m_RootOrder
       value: 4

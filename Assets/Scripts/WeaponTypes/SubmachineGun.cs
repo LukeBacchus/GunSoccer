@@ -12,6 +12,8 @@ public class SubmachineGun : Weapons
     public override float reloadSpeed { get; } = 0.8f;
     private float randomAccuracy = 0.05f;
 
+    public override string sfx_name { get; } = "event:/Rifle Shoot";
+
     public override void ShootGun(Transform muzzle, int playerNum)
     {
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);

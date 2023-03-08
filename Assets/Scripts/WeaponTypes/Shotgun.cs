@@ -13,6 +13,8 @@ public class Shotgun : Weapons
     private float numberBullets = 10;
     private float spread = 0.1f;
 
+    public override string sfx_name { get; } = "event:/Shotgun Shoot";
+
     public override void ShootGun(Transform muzzle, int playerNum)
     {
         for (int i = 0; i < numberBullets; i++)
@@ -27,6 +29,8 @@ public class Shotgun : Weapons
             Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
             Vector3 shotDirection = muzzle.forward + muzzle.TransformDirection(new Vector3(Random.Range(-spread, spread), Random.Range(-spread, spread), 0));
             bulletRB.velocity = shotDirection * shootPower * bulletRB.mass;
+
+         
         }
     }
 }

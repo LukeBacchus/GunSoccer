@@ -163,7 +163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 114.533325, y: 0}
+  m_AnchoredPosition: {x: 207, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &20606233
@@ -1298,7 +1298,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 114.533325, y: 0}
+  m_AnchoredPosition: {x: 207, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &753300977
@@ -2274,7 +2274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 114.533325, y: 0}
+  m_AnchoredPosition: {x: 207, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1238782450
@@ -3399,7 +3399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 114.533325, y: 0}
+  m_AnchoredPosition: {x: 207, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1923986558
@@ -4097,7 +4097,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2063341685}
   - component: {fileID: 2063341684}
-  - component: {fileID: 2063341683}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4105,14 +4104,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2063341683
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2063341682}
-  m_Enabled: 1
 --- !u!20 &2063341684
 Camera:
   m_ObjectHideFlags: 0
@@ -4327,6 +4318,7 @@ MonoBehaviour:
   mapPanel: {fileID: 47743316}
   stadiumButton: {fileID: 1493449409}
   playerPrefab: {fileID: 7724132453207544368, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
+  gunsfx: {fileID: 0}
 --- !u!4 &2141058742
 Transform:
   m_ObjectHideFlags: 0

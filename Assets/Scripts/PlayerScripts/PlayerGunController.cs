@@ -42,7 +42,8 @@ public class PlayerGunController : MonoBehaviour
                 ShootGun();
                 currCooldown += playerStats.weapon.shootCooldown;
 
-                RuntimeManager.PlayOneShot("event:/Gunshot");
+                RuntimeManager.PlayOneShot(playerStats.weapon.sfx_name);
+
             }
 
             shoot = false;
