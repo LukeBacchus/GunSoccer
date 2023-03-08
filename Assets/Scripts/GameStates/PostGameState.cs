@@ -36,10 +36,6 @@ public class PostGameState : GameStates
             text = "Overtime!";
             nextState = gameStateManager.countdownState;
         }
-        else if (gameStateManager.prevState is GoalState)
-        {
-            text = "Game Set!";
-        }
 
         announcement.GetComponent<TMPro.TextMeshProUGUI>().text = text;
         announcement.GetComponent<Animator>().SetTrigger("broadcast_announcement");

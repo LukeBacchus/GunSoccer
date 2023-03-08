@@ -63,7 +63,7 @@ public class GoalState : GameStates
     {
         if (gameStats.TimeIsUp() && !gameStats.ScoreTied())
         {
-            return gameStateManager.postGameState;
+            return gameStateManager.gameOverState;
         }
         else
         {
