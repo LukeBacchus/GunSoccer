@@ -39,7 +39,9 @@ public class PauseMenuBehaviour : MonoBehaviour
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { quitButton }};
         menuSelector = new MenuSelectionHelper(buttons, 0, 1);
 
-
+        //TODO: this is not updated with correct buttons: change 
+        settingsSelector = new MenuSelectionHelper(buttons, 0, 3);
+        
     }
 
     // Update is called once per frame
@@ -86,9 +88,14 @@ public class PauseMenuBehaviour : MonoBehaviour
         }
         
     }
+
     void SettingsInput()
     {
-        Debug.Log("settings input not dealt with yet"); 
+        settingsSelector.SelectionInput();
+        if (settingsSelector.Select())
+        {
+            settingsSelector.InvokeSelection();
+        }
     }
 
     void TransitionToSettings()
@@ -97,6 +104,7 @@ public class PauseMenuBehaviour : MonoBehaviour
         currentPanel = PauseStatus.SETTINGS;
         settingsPanel.SetActive(true);
     }
+
     void TransitionToQuit()
     {
         Debug.Log("quiting not implemented yet");
