@@ -47,5 +47,9 @@ public class GameStats : MonoBehaviour
     {
         gameTime = Mathf.Max(gameTime, 0);
         timerText.text = string.Format("{0:0}:{1:00}", Mathf.FloorToInt(gameTime / 60), Mathf.FloorToInt(gameTime % 60));
+        if (gameTime <= 10)
+        {
+            timerText.color = Color.red;
+        }
     }
 }

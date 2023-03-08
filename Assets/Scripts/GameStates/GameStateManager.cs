@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour
     public CountdownState countdownState;
     public OngoingGameState ongoingGameState;
     public OvertimeState overtimeState;
+    public PostGameState postGameState;
     public GoalState goalState;
     public GameOverState gameOverState;
     public SettingsState settingsState;
@@ -33,6 +34,8 @@ public class GameStateManager : MonoBehaviour
     private RectTransform scoreBoard;
     [SerializeField]
     private GameObject blackScreen;
+    [SerializeField]
+    private GameObject announcement;
     [SerializeField]
     private InitializeMap initMap;
     [SerializeField]
@@ -60,6 +63,7 @@ public class GameStateManager : MonoBehaviour
         countdownState = new CountdownState(gameStats, countDownText, initMap, soccerBallBehavior);
         ongoingGameState = new OngoingGameState(gameStats);
         overtimeState = new OvertimeState();
+        postGameState = new PostGameState(gameStats, announcement);
         goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI);
         settingsState = new SettingsState(2);
