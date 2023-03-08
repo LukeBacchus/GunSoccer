@@ -9,10 +9,11 @@ public class MenuSelectionHelper
     private int currentRow = 0;
     private int selectedCol = -1;
     private int selectedRow = -1;
-    private float holdTime = 0.5f;
+    private float holdTime = 0.1f;
+    private float coolDownTime = 0.5f;
     private float horizontalHoldTime = 0;
     private float verticalHoldTime = 0;
-
+    private List<float> thresholdTimes;
     private List<List<Button>> buttons;
     private int maxCol = 0;
     private int maxRow = 0;
@@ -62,6 +63,7 @@ public class MenuSelectionHelper
     {
         ShowBorderHover(currentRow, currentCol);
         ShowBorderSelect(selectedRow, selectedCol);
+        thresholdTimes = new List<float> { holdTime, holdTime, holdTime, holdTime };
     }
 
 
@@ -75,10 +77,13 @@ public class MenuSelectionHelper
     {
         foreach (int playerNum in playerNums)
         {
-            if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
+            int pIndex = playerNum - 1;
+            float thresholdTime = thresholdTimes[pIndex]; //obtain the threshold to move left/right
+            if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.8f)
             {
                 horizontalHoldTime += Time.deltaTime;
-                if (horizontalHoldTime >= holdTime)
+
+                if (horizontalHoldTime >= thresholdTime)
                 {
                     int prevCol = currentCol;
                     currentCol += 1;
@@ -99,12 +104,14 @@ public class MenuSelectionHelper
                     HideBorderHover(currentRow, prevCol);
                     ShowBorderHover(currentRow, currentCol);
                     horizontalHoldTime = 0;
+                    // if player continues to hold, threshold changes to cooldown time
+                    thresholdTimes[pIndex] = coolDownTime;
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
             {
                 horizontalHoldTime += Time.deltaTime;
-                if (horizontalHoldTime >= holdTime)
+                if (horizontalHoldTime >= thresholdTime)
                 {
                     int prevCol = currentCol;
                     currentCol -= 1;
@@ -125,7 +132,14 @@ public class MenuSelectionHelper
                     HideBorderHover(currentRow, prevCol);
                     ShowBorderHover(currentRow, currentCol);
                     horizontalHoldTime = 0;
+                    // if player continues to hold, threshold changes to cooldown time
+                    thresholdTimes[pIndex] = coolDownTime;
                 }
+            }
+            else
+            {
+                // player "let go" of controller resets first contact, making threshold shorter = more respondant
+                thresholdTimes[pIndex] = holdTime;
             }
         }
     }
