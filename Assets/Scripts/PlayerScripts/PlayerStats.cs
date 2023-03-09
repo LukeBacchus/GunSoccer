@@ -12,8 +12,13 @@ public class PlayerStats : MonoBehaviour
     public bool allowPlayerShoot = false;
     public bool allowPlayerRotate = false;
     public string team = "Red";
-    public GameObject redModel;
-    public GameObject blueModel;
+
+    [SerializeField]
+    private GameObject playerMesh;
+    [SerializeField]
+    private Material[] redTeamColors;
+    [SerializeField]
+    private Material[] blueTeamColors;
 
 #nullable enable
     private GameStateManager? gameState = null;
@@ -42,9 +47,9 @@ public class PlayerStats : MonoBehaviour
 
     private void AssignTeam(){
         if(team == "Red"){
-            blueModel.SetActive(false);
+            playerMesh.GetComponent<Renderer>().materials = redTeamColors;
         } else {
-            redModel.SetActive(true);
+            playerMesh.GetComponent<Renderer>().materials = blueTeamColors;
         }
     }
 }
