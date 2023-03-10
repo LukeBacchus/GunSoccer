@@ -22,6 +22,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         PlayerInput();
         RotateInput();
+        TargetLockInput();
     }
 
     void PlayerInput()
@@ -53,6 +54,11 @@ public class PlayerInputManager : MonoBehaviour
     {
         playerController.camJoyStickY = Input.GetAxis("Mouse Y" + (playerStats.playerNum).ToString());
         playerController.camJoyStickX = Input.GetAxis("Mouse X" + (playerStats.playerNum).ToString());
+
+        if (playerController.targetLocked && (Mathf.Abs(playerController.camJoyStickX) >= 0.1f || Mathf.Abs(playerController.camJoyStickY) >= 0.1f))
+        {
+            playerController.targetLocked = false;
+        }
     }
 
     void ShootInput()
@@ -60,6 +66,13 @@ public class PlayerInputManager : MonoBehaviour
         if (Input.GetButton("Fire1" + (playerStats.playerNum).ToString()))
         {
             playerGunController.shoot = true;
+        }
+    }
+
+    void TargetLockInput()
+    {
+        if (Input.GetButtonDown("Fire2" + (playerStats.playerNum).ToString())){
+            playerController.targetLocked = true;
         }
     }
 }
