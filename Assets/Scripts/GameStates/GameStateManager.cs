@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class GameStateManager : MonoBehaviour
     public PostGameState postGameState;
     public GoalState goalState;
     public GameOverState gameOverState;
-    public SettingsState settingsState;
+    public PauseState pauseState;
 
     public List<GameObject> players;
 
@@ -43,6 +44,23 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private StadiumCamera stadiumCamera;
 
+    [SerializeField]
+    GameObject pauseMenuPanel;
+    [SerializeField]
+    private Button settingsButton;
+    [SerializeField]
+    private Button restartButton;
+    [SerializeField]
+    private Button quitButton;
+    [SerializeField]
+    GameObject settingsPanel;
+    [SerializeField]
+    private Button backButton;
+    [SerializeField]
+    private Button volumeUpButton;
+    [SerializeField]
+    private Button volumeDownButton;
+
     void Awake()
     {
         for (int i = 1; i <= 4; i++)
@@ -66,7 +84,7 @@ public class GameStateManager : MonoBehaviour
         postGameState = new PostGameState(gameStats, announcement);
         goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI);
-        settingsState = new SettingsState(2);
+        pauseState = new PauseState(players.Count, pauseMenuPanel, settingsButton, quitButton, restartButton, settingsPanel, backButton, volumeUpButton, volumeDownButton);
 
         gameStats.UpdateTimerUI();
         SetScoreBoardLocation();
@@ -85,6 +103,10 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Menu") && currentState != pauseState)
+        {
+            SwitchState(pauseState);
+        }
         currentState.UpdateState(this);
     }
 
