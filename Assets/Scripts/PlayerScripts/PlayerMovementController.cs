@@ -6,6 +6,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     public float moveX;
     public float moveZ;
+    public float sprint;
     public float camJoyStickX = 0;
     public float camJoyStickY = 0;
     public bool jump = false;
@@ -13,8 +14,9 @@ public class PlayerMovementController : MonoBehaviour
     private PlayerStats playerStats;
     private Rigidbody rb;
     private Collider col;
-    private float jumpForce = 10;
-    [SerializeField] private float speed = 50;
+    [SerializeField] private float jumpForce = 10;
+    [SerializeField] private float speed = 500;
+    [SerializeField] private float sprintSpeed = 500;
     private float maxSpeed = 10;
     private float maxUpSpeed = 15;
     private float maxFallSpeed = 20;
@@ -81,7 +83,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 step = Vector3.ProjectOnPlane(step, slopeNormal);
             }
-            Vector3 move = step.normalized * rb.mass * speed;
+            Vector3 move = step.normalized * rb.mass * (speed + sprint * sprintSpeed);
             rb.AddForce(move, ForceMode.Force);
 
             LimitSpeed();

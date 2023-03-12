@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839272488610875754}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.001, y: 0.005, z: -0.04319999}
+  m_LocalPosition: {x: 0, y: 0.005, z: -0.04319999}
   m_LocalScale: {x: 0.020000001, y: 0.020000001, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -991,11 +991,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveX: 0
   moveZ: 0
+  sprint: 0
   camJoyStickX: 0
   camJoyStickY: 0
   jump: 0
+  jumpForce: 50
   speed: 500
-  rotationSpeed: 2
+  sprintSpeed: 500
+  rotationSpeed: 3
 --- !u!114 &5155603571499715764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,7 +1073,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1

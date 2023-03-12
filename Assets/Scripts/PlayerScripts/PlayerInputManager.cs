@@ -45,6 +45,8 @@ public class PlayerInputManager : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal" + (playerStats.playerNum).ToString());
         float z = Input.GetAxisRaw("Vertical" + (playerStats.playerNum).ToString());
 
+        playerController.sprint = Input.GetAxisRaw("Sprint " + (playerStats.playerNum).ToString());
+
         playerController.moveX = x;
         playerController.moveZ = z;
     }
@@ -57,7 +59,8 @@ public class PlayerInputManager : MonoBehaviour
 
     void ShootInput()
     {
-        if (Input.GetButton("Fire1" + (playerStats.playerNum).ToString()))
+        
+        if (Input.GetAxisRaw("Fire1" + (playerStats.playerNum).ToString()) > 0.0f)
         {
             playerGunController.shoot = true;
         }
