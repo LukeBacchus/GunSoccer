@@ -15,9 +15,11 @@ public class PauseState : GameStates
 
     private PauseStatus currentStatus;
 
+    GameObject pUI;
     GameObject pauseMenuPanel;
     private Button settingsButton;
     private Button restartButton;
+    private Button resumeButton;
     private Button quitButton;
 
     GameObject settingsPanel;
@@ -32,9 +34,10 @@ public class PauseState : GameStates
         PAUSE,
         SETTINGS,
     }
+    bool canExit;
 
-    public PauseState(int numPlayers, GameObject pPanel, Button sButton,
-        Button rButton, Button qButton, GameObject sPanel, Button bButton,
+    public PauseState(int numPlayers,GameObject pauseUI, GameObject pPanel, Button sButton,
+        Button restButton,Button resuButton, Button qButton, GameObject sPanel, Button bButton,
         Button vUpButton, Button vDownButton)
     {
         //for (int i = 0; i < numPlayers; i++)
@@ -43,9 +46,11 @@ public class PauseState : GameStates
         //    // so we are always checking when to exit
         //    playersInSettings.Add(true);
         //}
+        pUI = pauseUI;
         pauseMenuPanel = pPanel;
         settingsButton = sButton;
-        restartButton = rButton;
+        restartButton = restButton;
+        resumeButton = resuButton;
         quitButton = qButton;
 
         settingsPanel = sPanel;
@@ -53,17 +58,7 @@ public class PauseState : GameStates
         volumeUpButton = vUpButton;
         volumeDownButton = vDownButton;
 
-
-        settingsButton.onClick.AddListener(TransitionToSettings);
-        restartButton.onClick.AddListener(TransitionToRestart);
-        quitButton.onClick.AddListener(TransitionToQuit);
-
-        // set the panels within this object to be inactive at the beginning
-        pauseMenuPanel.SetActive(false);
-        settingsPanel.SetActive(false);
-
-        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { quitButton } };
-        menuSelector = new MenuSelectionHelper(buttons, 0, 1);
+        SetupPause();
 
         SetupSettings(); // set up buttons and panel
 
@@ -72,7 +67,9 @@ public class PauseState : GameStates
 
     public override void EnterState(GameStateManager gameStateManager) 
     {
+        pUI.SetActive(true);
         TransitionToPause();
+        canExit = false;
     }
 
     public override void UpdateState(GameStateManager gameStateManager) 
@@ -94,18 +91,15 @@ public class PauseState : GameStates
 
         //(currently using one single "Menu" mapping in inputManager,
         //thus code above temporarily not needed)
+        if (canExit)
+        {
+            TransitionBackToGame();
+            gameStateManager.SwitchState(gameStateManager.prevState);
+        }
+
         if (currentStatus == PauseStatus.PAUSE)
         {
-            if (Input.GetButtonDown("Menu"))
-            {
-                TransitionBackToGame();
-                gameStateManager.SwitchState(gameStateManager.prevState);
-            }
-            else
-            {
-                PauseInput();
-            }
-
+            PauseInput();
         }
         else if (currentStatus == PauseStatus.SETTINGS)
         {
@@ -166,6 +160,11 @@ public class PauseState : GameStates
         PauseGame();
     }
 
+    private void SetExit()
+    {
+        canExit = true;
+    }
+
     void PauseInput()
     {
         // deal with menu input
@@ -185,6 +184,21 @@ public class PauseState : GameStates
         }
     }
 
+    private void SetupPause()
+    {
+        settingsButton.onClick.AddListener(TransitionToSettings);
+        restartButton.onClick.AddListener(TransitionToRestart);
+        resumeButton.onClick.AddListener(SetExit);
+        quitButton.onClick.AddListener(TransitionToQuit);
+
+        // set the panels within this object to be inactive at the beginning
+        pauseMenuPanel.SetActive(false);
+        settingsPanel.SetActive(false);
+
+        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { restartButton }, new List<Button> { resumeButton },new List<Button> { quitButton } };
+        menuSelector = new MenuSelectionHelper(buttons, 0, 3);
+    }
+
     private void SetupSettings()
     {
         backButton.onClick.AddListener(TransitionSettingsToPause);
@@ -192,7 +206,7 @@ public class PauseState : GameStates
         volumeDownButton.onClick.AddListener(SettingBehaviour.DecreaseVolume);
 
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { volumeUpButton }, new List<Button> { volumeDownButton }, new List<Button> { backButton } };
-        settingsSelector = new MenuSelectionHelper(buttons, 0, 3);
+        settingsSelector = new MenuSelectionHelper(buttons, 0, 2);
 
         settingsPanel.SetActive(false);
     }

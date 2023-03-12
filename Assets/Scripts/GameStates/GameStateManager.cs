@@ -32,6 +32,8 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private GameObject gameUI;
     [SerializeField]
+    private GameObject pauseUI;
+    [SerializeField]
     private RectTransform scoreBoard;
     [SerializeField]
     private GameObject blackScreen;
@@ -50,6 +52,8 @@ public class GameStateManager : MonoBehaviour
     private Button settingsButton;
     [SerializeField]
     private Button restartButton;
+    [SerializeField]
+    private Button resumeButton;
     [SerializeField]
     private Button quitButton;
     [SerializeField]
@@ -84,7 +88,7 @@ public class GameStateManager : MonoBehaviour
         postGameState = new PostGameState(gameStats, announcement);
         goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI);
-        pauseState = new PauseState(players.Count, pauseMenuPanel, settingsButton, quitButton, restartButton, settingsPanel, backButton, volumeUpButton, volumeDownButton);
+        pauseState = new PauseState(players.Count, pauseUI, pauseMenuPanel, settingsButton,  restartButton, resumeButton, quitButton, settingsPanel, backButton, volumeUpButton, volumeDownButton);
 
         gameStats.UpdateTimerUI();
         SetScoreBoardLocation();
@@ -93,6 +97,7 @@ public class GameStateManager : MonoBehaviour
         twoPlayerUI.SetActive(false);
         fourPlayerUI.SetActive(false);
         gameUI.SetActive(false);
+        pauseUI.SetActive(false);
         soccerBallBehavior.DisableGravity();
 
         currentState = introState;
@@ -103,9 +108,14 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Menu") && currentState != pauseState)
+        if (Input.GetButtonDown("Menu") )
         {
-            SwitchState(pauseState);
+            Debug.Log("Menu Pressed");
+            if (currentState == ongoingGameState || currentState == overtimeState)
+            {
+                //currently can only pause when during game
+                SwitchState(pauseState);
+            }
         }
         currentState.UpdateState(this);
     }
