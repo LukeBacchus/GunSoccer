@@ -45,7 +45,6 @@ public class WinStats: MonoBehaviour
     }
     public void UpdateWinScreen()
     {
-        Debug.Log("Here");
         winSelector.SelectionInput();
         if (winSelector.Select())
         {
