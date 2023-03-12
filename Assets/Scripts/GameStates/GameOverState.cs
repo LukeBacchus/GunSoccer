@@ -19,5 +19,7 @@ public class GameOverState : GameStates
         winUI.GetComponent<WinStats>().DisplayWinner();
     }
 
-    public override void UpdateState(GameStateManager gameStateManager) { }
+    public override void UpdateState(GameStateManager gameStateManager) { 
+        winUI.GetComponent<WinStats>().UpdateWinScreen();
+    }
 }
