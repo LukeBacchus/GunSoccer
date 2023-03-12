@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 121265911238255438, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7edbde4fb9292744ebc2cae429564a31, type: 3}
     - target: {fileID: 1863391629463487699, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -222,6 +226,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 5772529289053249275, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+      propertyPath: m_Name
+      value: Team 2 Score
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772529289078288144, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+      propertyPath: m_Name
+      value: Team 1 Score
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772529289078288146, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
 --- !u!114 &151100833 stripped
@@ -404,11 +420,11 @@ PrefabInstance:
     - target: {fileID: 263114613, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: teamOneScoreText
       value: 
-      objectReference: {fileID: 1651928179}
+      objectReference: {fileID: 1651928178}
     - target: {fileID: 263114613, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: teamTwoScoreText
       value: 
-      objectReference: {fileID: 1651928178}
+      objectReference: {fileID: 1651928179}
     - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: winUI
       value: 
