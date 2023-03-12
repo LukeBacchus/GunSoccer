@@ -23,7 +23,7 @@ public class SettingsState : GameStates
 
     public override void UpdateState(GameStateManager gameStateManager) 
     {
-        bool canExit = true;
+        bool canExit = false;
         for (int i = 0; i < playersInSettings.Count; i++)
         {
             canExit |= !playersInSettings[i];
