@@ -255,6 +255,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1419731189, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
   m_PrefabInstance: {fileID: 151100832}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &445658959 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1043280312, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+  m_PrefabInstance: {fileID: 151100832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &484236031
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,11 +404,11 @@ PrefabInstance:
     - target: {fileID: 263114613, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: teamOneScoreText
       value: 
-      objectReference: {fileID: 1651928179}
+      objectReference: {fileID: 1651928178}
     - target: {fileID: 263114613, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: teamTwoScoreText
       value: 
-      objectReference: {fileID: 1651928178}
+      objectReference: {fileID: 1651928179}
     - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: winUI
       value: 
@@ -416,6 +421,10 @@ PrefabInstance:
       propertyPath: initMap
       value: 
       objectReference: {fileID: 3602513787715394328}
+    - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
+      propertyPath: statsUI
+      value: 
+      objectReference: {fileID: 445658959}
     - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: timerText
       value: 
