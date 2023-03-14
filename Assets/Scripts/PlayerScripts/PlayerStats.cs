@@ -66,9 +66,11 @@ public class PlayerStats : MonoBehaviour
         if (soccerBallBehavior != null)
         {
             float distance = Vector3.Distance(soccerBallBehavior.GetPosition(), cam.transform.position);
-            Debug.Log(distance);
+            
             float angle = Vector3.Angle(cam.transform.forward, soccerBallBehavior.GetPosition() - cam.transform.position);
-            rotationSpeed = Mathf.Min(1, (angle * Mathf.Min(6, Mathf.Ceil(50 / distance)) + 60) / 180);
+            float minSpeed = Mathf.Max(100 - distance, 0) / 4f * 0.013f + 0.25f;
+
+            rotationSpeed = angle > 25 ? 1 : Mathf.Max(minSpeed, angle / 25);
         }
     }
 }

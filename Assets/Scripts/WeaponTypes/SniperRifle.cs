@@ -21,6 +21,6 @@ public class SniperRifle : Weapons
         bulletBehavior.bulletSpeed = shootPower;
 
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
-        bulletRB.velocity = (muzzle.forward * shootPower + playerVelocity) * bulletRB.mass;
+        bulletRB.velocity = (muzzle.forward * shootPower + playerVelocity / 2f) * bulletRB.mass;
     }
 }
