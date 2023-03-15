@@ -180,10 +180,9 @@ public class PauseState : GameStates
 
         // set the panels within this object to be inactive at the beginning
         pauseMenuPanel.SetActive(false);
-        settingsPanel.SetActive(false);
 
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { restartButton }, new List<Button> { resumeButton },new List<Button> { quitButton } };
-        menuSelector = new MenuSelectionHelper(buttons, 0, 3);
+        menuSelector = new MenuSelectionHelper(buttons, 0, 3, new List<int> { 1, 2, 3, 4 });
     }
 
 
