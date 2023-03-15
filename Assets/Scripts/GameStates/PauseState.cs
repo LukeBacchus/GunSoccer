@@ -12,19 +12,10 @@ public class PauseState : GameStates
     private MenuSelectionHelper menuSelector;
 
     private PauseStatus currentStatus;
+    private PauseStatus prevStatus;
 
-    GameObject pUI;
-    GameObject pauseMenuPanel;
-    private Button settingsButton;
-    private Button restartButton;
-    private Button resumeButton;
-    private Button quitButton;
+    private GameObject pauseUI;
 
-    GameObject settingsPanel;
-    SettingsManager settingsManager;
-
-
-    int numPlayers;
     public enum PauseStatus
     {
         NONE,
@@ -33,9 +24,8 @@ public class PauseState : GameStates
     }
     bool canExit;
 
-    public PauseState(int numPlayers,GameObject pauseUI, GameObject pPanel, Button sButton,
-        Button restButton,Button resuButton, Button qButton, GameObject sPanel, Button bButton,
-        Button vUpButton, Button vDownButton)
+
+    public PauseState(GameObject pUI)
     {
         //for (int i = 0; i < numPlayers; i++)
         //{
@@ -43,27 +33,25 @@ public class PauseState : GameStates
         //    // so we are always checking when to exit
         //    playersInSettings.Add(true);
         //}
-        pUI = pauseUI;
-        pauseMenuPanel = pPanel;
-        settingsButton = sButton;
-        restartButton = restButton;
-        resumeButton = resuButton;
-        quitButton = qButton;
 
-        settingsPanel = sPanel;
-        settingsPanel.SetActive(false);
-        settingsManager = GameObject.Find("Settings Panel").GetComponent<SettingsManager>();
+        this.pauseUI = pUI;
 
-        SetupPause();
+        //GameObject settingsPanel = GameObject.Find("Settings Panel").gameObject;
+        //GameObject pausePanel = GameObject.Find("Pause Panel").gameObject;
 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //settingsPanel.SetActive(false);
+        //pausePanel.SetActive(false);
+
+        //GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
     }
 
     public override void EnterState(GameStateManager gameStateManager) 
     {
-        pUI.SetActive(true);
-        TransitionToPause();
+        PauseGame();
+        pauseUI.SetActive(true);
         canExit = false;
+        currentStatus = PauseStatus.PAUSE;
     }
 
     public override void UpdateState(GameStateManager gameStateManager) 
@@ -85,20 +73,23 @@ public class PauseState : GameStates
 
         //(currently using one single "Menu" mapping in inputManager,
         //thus code above temporarily not needed)
+
         if (canExit)
         {
-            TransitionBackToGame();
+            ResumeGame();
+            //pauseUI.SetActive(false);
             gameStateManager.SwitchState(gameStateManager.prevState);
         }
 
         if (currentStatus == PauseStatus.PAUSE)
         {
-            PauseInput();
+            PauseInputManager pauseManager = GameObject.Find("PausePanel").GetComponent<PauseInputManager>();
+            pauseManager.PauseInput();
         }
         else if (currentStatus == PauseStatus.SETTINGS)
         {
+            SettingsManager settingsManager = GameObject.Find("SettingsPanel").GetComponent<SettingsManager>();
             settingsManager.SettingsInput();
-            //SettingsInput();
         }
 
     }
@@ -113,78 +104,20 @@ public class PauseState : GameStates
         Time.timeScale = 1;
     }
 
-    private void TransitionToSettings()
-    {
-        pauseMenuPanel.SetActive(false);
-        currentStatus = PauseStatus.SETTINGS;
-        settingsPanel.SetActive(true);
-    }
-
-    private void TransitionToQuit()
-    {
-        Debug.Log("quiting not implemented yet");
-    }
-
-    private void TransitionToRestart()
-    {
-        Debug.Log("restarting not implemented yet");
-    }
-
-    public static void TransitionSettingsToPause()
-    {
-        currentStatus = PauseStatus.PAUSE;
-        settingsPanel.SetActive(false);
-        pauseMenuPanel.SetActive(true);
-    }
-
-    private void TransitionBackToGame()
-    {
-        currentStatus = PauseStatus.NONE;
-        //if the menu is not active yet, set it to be active
-        pauseMenuPanel.SetActive(false);
-        //pause the game
-        ResumeGame();
-    }
-
-    private void TransitionToPause()
-    {
-        currentStatus = PauseStatus.PAUSE;
-        //if the menu is not active yet, set it to be active
-        pauseMenuPanel.SetActive(true);
-        //pause the game
-        PauseGame();
-    }
-
-    private void SetExit()
+    public void SetExit()
     {
         canExit = true;
     }
 
-    void PauseInput()
+    public void SetPause()
     {
-        // deal with menu input
-        menuSelector.SelectionInput();
-        if (menuSelector.Select())
-        {
-            menuSelector.InvokeSelection();
-        }
+        currentStatus = PauseStatus.PAUSE;
     }
 
-
-    private void SetupPause()
+    public void SetSettings()
     {
-        settingsButton.onClick.AddListener(TransitionToSettings);
-        restartButton.onClick.AddListener(TransitionToRestart);
-        resumeButton.onClick.AddListener(SetExit);
-        quitButton.onClick.AddListener(TransitionToQuit);
-
-        // set the panels within this object to be inactive at the beginning
-        pauseMenuPanel.SetActive(false);
-
-        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { restartButton }, new List<Button> { resumeButton },new List<Button> { quitButton } };
-        menuSelector = new MenuSelectionHelper(buttons, 0, 3, new List<int> { 1, 2, 3, 4 });
+        currentStatus = PauseStatus.SETTINGS;
     }
-
 
 
 }

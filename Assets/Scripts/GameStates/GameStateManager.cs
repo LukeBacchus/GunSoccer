@@ -46,24 +46,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private StadiumCamera stadiumCamera;
 
-    [SerializeField]
-    GameObject pauseMenuPanel;
-    [SerializeField]
-    private Button settingsButton;
-    [SerializeField]
-    private Button restartButton;
-    [SerializeField]
-    private Button resumeButton;
-    [SerializeField]
-    private Button quitButton;
-    [SerializeField]
-    GameObject settingsPanel;
-    [SerializeField]
-    private Button backButton;
-    [SerializeField]
-    private Button volumeUpButton;
-    [SerializeField]
-    private Button volumeDownButton;
+
 
     void Awake()
     {
@@ -88,7 +71,7 @@ public class GameStateManager : MonoBehaviour
         postGameState = new PostGameState(gameStats, announcement);
         goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI);
-        pauseState = new PauseState(players.Count, pauseUI, pauseMenuPanel, settingsButton,  restartButton, resumeButton, quitButton, settingsPanel, backButton, volumeUpButton, volumeDownButton);
+        pauseState = new PauseState(pauseUI);
 
         gameStats.UpdateTimerUI();
         SetScoreBoardLocation();
