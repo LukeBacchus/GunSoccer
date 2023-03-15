@@ -11,8 +11,6 @@ public class PauseState : GameStates
 
     private MenuSelectionHelper menuSelector;
 
-    private MenuSelectionHelper settingsSelector;
-
     private PauseStatus currentStatus;
 
     GameObject pUI;
@@ -23,9 +21,8 @@ public class PauseState : GameStates
     private Button quitButton;
 
     GameObject settingsPanel;
-    private Button backButton;
-    private Button volumeUpButton;
-    private Button volumeDownButton;
+    SettingsManager settingsManager;
+
 
     int numPlayers;
     public enum PauseStatus
@@ -54,13 +51,10 @@ public class PauseState : GameStates
         quitButton = qButton;
 
         settingsPanel = sPanel;
-        backButton = bButton;
-        volumeUpButton = vUpButton;
-        volumeDownButton = vDownButton;
+        settingsPanel.SetActive(false);
+        settingsManager = GameObject.Find("Settings Panel").GetComponent<SettingsManager>();
 
         SetupPause();
-
-        SetupSettings(); // set up buttons and panel
 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
     }
@@ -103,7 +97,8 @@ public class PauseState : GameStates
         }
         else if (currentStatus == PauseStatus.SETTINGS)
         {
-            SettingsInput();
+            settingsManager.SettingsInput();
+            //SettingsInput();
         }
 
     }
@@ -135,7 +130,7 @@ public class PauseState : GameStates
         Debug.Log("restarting not implemented yet");
     }
 
-    private void TransitionSettingsToPause()
+    public static void TransitionSettingsToPause()
     {
         currentStatus = PauseStatus.PAUSE;
         settingsPanel.SetActive(false);
@@ -175,14 +170,6 @@ public class PauseState : GameStates
         }
     }
 
-    void SettingsInput()
-    {
-        settingsSelector.SelectionInput();
-        if (settingsSelector.Select())
-        {
-            settingsSelector.InvokeSelection();
-        }
-    }
 
     private void SetupPause()
     {
@@ -199,16 +186,6 @@ public class PauseState : GameStates
         menuSelector = new MenuSelectionHelper(buttons, 0, 3);
     }
 
-    private void SetupSettings()
-    {
-        backButton.onClick.AddListener(TransitionSettingsToPause);
-        volumeUpButton.onClick.AddListener(SettingBehaviour.IncreaseVolume);
-        volumeDownButton.onClick.AddListener(SettingBehaviour.DecreaseVolume);
 
-        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { volumeUpButton }, new List<Button> { volumeDownButton }, new List<Button> { backButton } };
-        settingsSelector = new MenuSelectionHelper(buttons, 0, 2);
-
-        settingsPanel.SetActive(false);
-    }
 
 }
