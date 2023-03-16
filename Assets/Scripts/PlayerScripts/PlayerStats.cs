@@ -14,7 +14,11 @@ public class PlayerStats : MonoBehaviour
     public string team = "Red";
     public float sensitivityX = 100f;
     public float sensitivityY = 100f;
+    public float minRotationSpeed = 1f;
+    [HideInInspector]
     public float rotationSpeed = 1f;
+    public float assistMultiplier = 1f;
+    public float assistAngle = 25f;
 
     [SerializeField]
     private GameObject playerMesh;
@@ -68,9 +72,9 @@ public class PlayerStats : MonoBehaviour
             float distance = Vector3.Distance(soccerBallBehavior.GetPosition(), cam.transform.position);
             
             float angle = Vector3.Angle(cam.transform.forward, soccerBallBehavior.GetPosition() - cam.transform.position);
-            float minSpeed = Mathf.Max(100 - distance, 0) / 4f * 0.013f + 0.25f;
+            float minSpeed = Mathf.Min(Mathf.Max(100 - distance, 0) / 4f * 0.013f * assistMultiplier + 0.25f, 1);
 
-            rotationSpeed = angle > 25 ? 1 : Mathf.Max(minSpeed, angle / 25);
+            rotationSpeed = (angle > assistAngle ? 1 : Mathf.Max(minSpeed, angle / assistAngle)) * minRotationSpeed;
         }
     }
 }
