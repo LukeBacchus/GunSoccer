@@ -62,7 +62,7 @@ public class PlayerGunController : MonoBehaviour
             muzzle.localEulerAngles = new Vector3(0, 180, 0);
         }
 
-        playerStats.weapon.ShootGun(muzzle, playerStats.playerNum);
+        playerStats.weapon.ShootGun(muzzle, GetComponent<Rigidbody>().velocity, playerStats.playerNum);
         currMagazine -= 1;
     }
 

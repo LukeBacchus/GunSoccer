@@ -954,6 +954,12 @@ MonoBehaviour:
   allowPlayerShoot: 0
   allowPlayerRotate: 0
   team: Red
+  sensitivityX: 150
+  sensitivityY: 150
+  minRotationSpeed: 3
+  rotationSpeed: 1
+  assistMultiplier: 1.5
+  assistAngle: 50
   playerMesh: {fileID: 3794807002066764531}
   redTeamColors:
   - {fileID: -382652638819485698, guid: 5ca5aef562c60fc4d8e6b12f7a30adea, type: 3}
@@ -965,6 +971,7 @@ MonoBehaviour:
   - {fileID: -1580535799172915004, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: -6614231756092104008, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: 4835078630258379571, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
+  soccerBallBehavior: {fileID: 0}
 --- !u!114 &66192549074824378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -996,9 +1003,10 @@ MonoBehaviour:
   camJoyStickY: 0
   jump: 0
   jumpForce: 50
-  speed: 500
   sprintSpeed: 500
   rotationSpeed: 3
+  targetLocked: 0
+  speed: 500
 --- !u!114 &5155603571499715764
 MonoBehaviour:
   m_ObjectHideFlags: 0
