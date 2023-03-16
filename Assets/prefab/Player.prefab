@@ -1002,11 +1002,10 @@ MonoBehaviour:
   camJoyStickX: 0
   camJoyStickY: 0
   jump: 0
-  jumpForce: 50
-  sprintSpeed: 500
-  rotationSpeed: 3
   targetLocked: 0
+  jumpForce: 50
   speed: 500
+  sprintSpeed: 500
 --- !u!114 &5155603571499715764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,7 +1080,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 90
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
