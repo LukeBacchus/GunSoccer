@@ -13,7 +13,7 @@ public class GrenadeLauncher : Weapons
 
     public override string sfx_name { get; } = "event:/Grenade Launcher Shoot";
 
-    public override void ShootGun(Transform muzzle, int playerNum)
+    public override void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum)
     {
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
         BulletBehavior bulletBehavior = bulletInstance.GetComponent<BulletBehavior>();

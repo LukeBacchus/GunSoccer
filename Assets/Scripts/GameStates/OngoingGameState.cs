@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,16 +25,9 @@ public class OngoingGameState : GameStates
         gameStats.gameTime -= Time.deltaTime;
         gameStats.UpdateTimerUI();
 
-        if (gameStats.gameTime <= 0)
+        if (gameStats.TimeIsUp())
         {
-            if (gameStats.teamOneScore == gameStats.teamTwoScore)
-            {
-                gameStateManager.SwitchState(gameStateManager.countdownState);
-            }
-            else
-            {
-                gameStateManager.SwitchState(gameStateManager.gameOverState);
-            }
+            gameStateManager.SwitchState(gameStateManager.postGameState);
         }
     }
 }
