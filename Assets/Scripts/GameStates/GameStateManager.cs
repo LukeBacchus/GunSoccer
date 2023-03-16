@@ -44,6 +44,7 @@ public class GameStateManager : MonoBehaviour
     private SoccerBallBehavior soccerBallBehavior;
     [SerializeField]
     private StadiumCamera stadiumCamera;
+    public GameObject[] arrows;
 
     void Awake()
     {
