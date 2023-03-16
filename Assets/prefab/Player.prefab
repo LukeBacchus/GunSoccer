@@ -954,9 +954,11 @@ MonoBehaviour:
   allowPlayerShoot: 0
   allowPlayerRotate: 0
   team: Red
-  sensitivityX: 125
-  sensitivityY: 125
+  sensitivityX: 150
+  sensitivityY: 150
   rotationSpeed: 1
+  assistMultiplier: 1.25
+  assistAngle: 25
   playerMesh: {fileID: 3794807002066764531}
   redTeamColors:
   - {fileID: -382652638819485698, guid: 5ca5aef562c60fc4d8e6b12f7a30adea, type: 3}
