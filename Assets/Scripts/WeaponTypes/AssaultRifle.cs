@@ -11,6 +11,8 @@ public class AssaultRifle : Weapons
     public override int magazineSize { get; } = 30;
     public override float reloadSpeed { get; } = 1.2f;
 
+    public override string sfx_name { get; } = "event:/Rifle Shoot";
+
     public override void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum)
     {
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);

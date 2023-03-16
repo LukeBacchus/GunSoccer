@@ -13,6 +13,8 @@ public class Shotgun : Weapons
     private float numberBullets = 10;
     private float spread = 0.15f;
 
+    public override string sfx_name { get; } = "event:/Shotgun Shoot";
+
     public override void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum)
     {
         for (int i = 0; i < numberBullets; i++)

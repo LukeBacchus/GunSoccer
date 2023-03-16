@@ -37,7 +37,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
             newbutton.transform.GetChild(1).GetComponent<Image>().sprite = weapons[i].icon;
             int index = i;
             newbutton.onClick.AddListener(delegate { SelectWeapon(index); });
-            
+
             weaponButtons.Add(newbutton);
         }
         List<List<Button>> buttons = new List<List<Button>> { weaponButtons };

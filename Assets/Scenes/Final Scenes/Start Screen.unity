@@ -4404,7 +4404,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2063341685}
   - component: {fileID: 2063341684}
-  - component: {fileID: 2063341683}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4412,14 +4411,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2063341683
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2063341682}
-  m_Enabled: 1
 --- !u!20 &2063341684
 Camera:
   m_ObjectHideFlags: 0
@@ -4634,6 +4625,7 @@ MonoBehaviour:
   mapPanel: {fileID: 47743316}
   stadiumButton: {fileID: 1493449409}
   playerPrefab: {fileID: 7724132453207544368, guid: b581f07166a4f7348b4b8e51bd081b38, type: 3}
+  gunsfx: {fileID: 0}
 --- !u!4 &2141058742
 Transform:
   m_ObjectHideFlags: 0
