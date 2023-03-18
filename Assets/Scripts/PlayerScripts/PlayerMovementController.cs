@@ -102,11 +102,15 @@ public class PlayerMovementController : MonoBehaviour
             else if (playerStats.soccerBallBehavior != null)
             {
                 Vector3 targetPosition = playerStats.soccerBallBehavior.GetPosition() - playerStats.cam.transform.position;
-                Quaternion targetRotationY = Quaternion.LookRotation(new Vector3(0, targetPosition.y, Mathf.Sqrt(Mathf.Pow(targetPosition.z, 2) + Mathf.Pow(targetPosition.x, 2))));
-                Quaternion targetRotationX = Quaternion.LookRotation(new Vector3(targetPosition.x, 0, targetPosition.z));
+                Vector3 lookTargetY = new Vector3(0, targetPosition.y, Mathf.Sqrt(Mathf.Pow(targetPosition.z, 2) + Mathf.Pow(targetPosition.x, 2)));
+                Vector3 lookTargetX = new Vector3(targetPosition.x, 0, targetPosition.z);
+                Quaternion targetRotationY = Quaternion.LookRotation(lookTargetY);
+                Quaternion targetRotationX = Quaternion.LookRotation(lookTargetX);
+                float angleY = Vector3.Angle(playerStats.cam.transform.forward, lookTargetY);
+                float angleX = Vector3.Angle(transform.forward, lookTargetX);
 
-                transform.rotation = targetRotationX;
-                playerStats.cam.transform.rotation = targetRotationY;
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationX, 360 * Time.deltaTime / angleX);
+                playerStats.cam.transform.rotation = Quaternion.Lerp(playerStats.cam.transform.rotation, targetRotationY, 360 * Time.deltaTime / angleY);
             }
             else
             {
