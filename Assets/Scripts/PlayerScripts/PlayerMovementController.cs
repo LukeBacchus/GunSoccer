@@ -119,15 +119,15 @@ public class PlayerMovementController : MonoBehaviour
 
             float camX = playerStats.cam.transform.localEulerAngles.x;
 
-            if (60f < camX && camX < 310f)
+            if (60f < camX && camX < 300f)
             {
-                if (camX - 60f < 310f - camX)
+                if (camX - 60f < 300f - camX)
                 {
                     camX = 60f;
                 }
                 else
                 {
-                    camX = 310f;
+                    camX = 300f;
                 }
             }
 
