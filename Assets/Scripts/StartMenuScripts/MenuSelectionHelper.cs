@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class MenuSelectionHelper
 {
@@ -229,6 +230,7 @@ private List<List<Button>> buttons;
     public void ShowBorderHover(int row, int col)
     {
         buttons[row][col].GetComponent<ButtonComponents>().hover.SetActive(true);
+        RuntimeManager.PlayOneShot("event:/Menu Scroll");
     }
 
     public void HideBorderHover(int row, int col)
