@@ -6,12 +6,14 @@ using UnityEngine;
 public class AssaultRifle : Weapons
 {
     public override string weaponType { get; } = "Assault Rifle";
-    public override float shootPower { get; } = 120f;
+    public override float shootPower { get; } = 180f;
     public override float shootCooldown { get; } = 0.3f;
     public override int magazineSize { get; } = 30;
     public override float reloadSpeed { get; } = 1.2f;
 
-    public override void ShootGun(Transform muzzle, int playerNum)
+    public override string sfx_name { get; } = "event:/Rifle Shoot";
+
+    public override void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum)
     {
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
         BulletBehavior bulletBehavior = bulletInstance.GetComponent<BulletBehavior>();
@@ -21,6 +23,6 @@ public class AssaultRifle : Weapons
         bulletBehavior.bulletSpeed = shootPower;
         
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
-        bulletRB.velocity = muzzle.forward * shootPower * bulletRB.mass;
+        bulletRB.velocity = (muzzle.forward * shootPower + playerVelocity / 2f) * bulletRB.mass;
     }
 }

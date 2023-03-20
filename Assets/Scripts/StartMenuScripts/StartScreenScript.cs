@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using FMODUnity;
 
 
 public class StartScreenScript : MonoBehaviour
@@ -43,6 +44,8 @@ public class StartScreenScript : MonoBehaviour
 
     private int numPlayers = 1;
     private MenuTypes currentMenu = MenuTypes.CoverMenu;
+
+    public StudioEventEmitter gunsfx;
 
     private List<List<float>> twoPlayerMenuLocations = new List<List<float>>
     {
@@ -147,6 +150,9 @@ public class StartScreenScript : MonoBehaviour
             int numReady = 0;
             foreach (PlayerLoadoutMenu script in loadoutMenuScripts)
             {
+
+                gunsfx = GetComponent<StudioEventEmitter>();
+
                 if (script.menuLoaded)
                 {
                     script.LoadoutInput();

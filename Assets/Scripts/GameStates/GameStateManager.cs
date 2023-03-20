@@ -24,6 +24,8 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI countDownText;
     [SerializeField]
+    private GameObject statsUI;
+    [SerializeField]
     private GameObject winUI;
     [SerializeField]
     private GameObject twoPlayerUI;
@@ -45,6 +47,7 @@ public class GameStateManager : MonoBehaviour
     private SoccerBallBehavior soccerBallBehavior;
     [SerializeField]
     private StadiumCamera stadiumCamera;
+    public GameObject[] arrows;
 
 
 
@@ -70,12 +73,14 @@ public class GameStateManager : MonoBehaviour
         overtimeState = new OvertimeState();
         postGameState = new PostGameState(gameStats, announcement);
         goalState = new GoalState(gameStats, soccerBallBehavior);
-        gameOverState = new GameOverState(winUI);
+        gameOverState = new GameOverState(winUI, statsUI);
         pauseState = new PauseState(pauseUI);
+
 
         gameStats.UpdateTimerUI();
         SetScoreBoardLocation();
 
+        statsUI.SetActive(false);
         winUI.SetActive(false);
         twoPlayerUI.SetActive(false);
         fourPlayerUI.SetActive(false);

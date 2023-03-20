@@ -11,7 +11,9 @@ public class SniperRifle : Weapons
     public override int magazineSize { get; } = 5;
     public override float reloadSpeed { get; } = 2f;
 
-    public override void ShootGun(Transform muzzle, int playerNum)
+    public override string sfx_name { get; } = "event:/Sniper";
+
+    public override void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum)
     {
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
         BulletBehavior bulletBehavior = bulletInstance.GetComponent<BulletBehavior>();
@@ -21,6 +23,6 @@ public class SniperRifle : Weapons
         bulletBehavior.bulletSpeed = shootPower;
 
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
-        bulletRB.velocity = muzzle.forward * shootPower * bulletRB.mass;
+        bulletRB.velocity = (muzzle.forward * shootPower + playerVelocity / 2f) * bulletRB.mass;
     }
 }

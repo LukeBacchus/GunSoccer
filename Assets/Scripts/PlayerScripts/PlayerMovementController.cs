@@ -6,23 +6,23 @@ public class PlayerMovementController : MonoBehaviour
 {
     public float moveX;
     public float moveZ;
+    public float sprint;
     public float camJoyStickX = 0;
     public float camJoyStickY = 0;
     public bool jump = false;
+    public bool targetLocked = false;
 
     private PlayerStats playerStats;
     private Rigidbody rb;
     private Collider col;
-    private float jumpForce = 10;
-    [SerializeField] private float speed = 50;
+    [SerializeField] private float jumpForce = 10;
+    [SerializeField] private float speed = 500;
+    [SerializeField] private float sprintSpeed = 500;
     private float maxSpeed = 10;
     private float maxUpSpeed = 15;
     private float maxFallSpeed = 20;
     private float maxSlope = 60;
     private Vector3 slopeNormal = new Vector3(0, 1, 0);
-    private float sensitivityX = 0.7f;
-    private float sensitivityY = 0.35f;
-    [SerializeField] private float rotationSpeed = 0.125f;
 
 
     // Start is called before the first frame update
@@ -81,7 +81,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 step = Vector3.ProjectOnPlane(step, slopeNormal);
             }
-            Vector3 move = step.normalized * rb.mass * speed;
+            Vector3 move = step.normalized * rb.mass * (speed + sprint * sprintSpeed);
             rb.AddForce(move, ForceMode.Force);
 
             LimitSpeed();
@@ -91,11 +91,27 @@ public class PlayerMovementController : MonoBehaviour
     void Rotate(){
         if (playerStats.allowPlayerRotate)
         {
-            Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
-            Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
+            if (!targetLocked)
+            {
+                Quaternion camRotation = Quaternion.Euler(playerStats.rotationSpeed * camJoyStickY * playerStats.sensitivityY * Time.deltaTime, 0, 0);
+                Quaternion bodyRotation = Quaternion.Euler(0, playerStats.rotationSpeed * camJoyStickX * playerStats.sensitivityX * Time.deltaTime, 0);
 
-            playerStats.cam.transform.rotation *= camRotation;
-            transform.rotation *= bodyRotation;
+                playerStats.cam.transform.rotation *= camRotation;
+                transform.rotation *= bodyRotation;
+            }
+            else if (playerStats.soccerBallBehavior != null)
+            {
+                Vector3 targetPosition = playerStats.soccerBallBehavior.GetPosition() - playerStats.cam.transform.position;
+                Quaternion targetRotationY = Quaternion.LookRotation(new Vector3(0, targetPosition.y, Mathf.Sqrt(Mathf.Pow(targetPosition.z, 2) + Mathf.Pow(targetPosition.x, 2))));
+                Quaternion targetRotationX = Quaternion.LookRotation(new Vector3(targetPosition.x, 0, targetPosition.z));
+
+                transform.rotation = targetRotationX;
+                playerStats.cam.transform.rotation = targetRotationY;
+            }
+            else
+            {
+                targetLocked = false;
+            }
 
             float camX = playerStats.cam.transform.localEulerAngles.x;
 
