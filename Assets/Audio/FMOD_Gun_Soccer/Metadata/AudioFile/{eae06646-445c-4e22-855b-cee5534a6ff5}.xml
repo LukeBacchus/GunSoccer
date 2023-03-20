@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{25259edc-ee0e-40f9-b439-c332a8789d52}">
+	<object class="AudioFile" id="{eae06646-445c-4e22-855b-cee5534a6ff5}">
 		<property name="assetPath">
-			<value>Sniper/sfx_sniper_shoot_01 - Trimmed.wav</value>
+			<value>Goals/mus_CentreGoalv2_120bpm.wav</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>48</value>
+			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>1.0348958333333333</value>
+			<value>4.4171882086167802</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{05439778-1492-4af6-8ba9-52ce5152a91e}</destination>
