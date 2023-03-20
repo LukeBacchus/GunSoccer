@@ -94,6 +94,7 @@ private List<List<Button>> buttons;
                     if (hScrollable && currentCol > lastVisible)
                     {
                         MoveGridRight();
+               
                     }
 
                     if (currentCol > maxCol)
@@ -110,6 +111,10 @@ private List<List<Button>> buttons;
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+
+
+                    RuntimeManager.PlayOneShot("event:/Menu Scroll");
+
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
@@ -123,6 +128,7 @@ private List<List<Button>> buttons;
                     if (hScrollable && currentCol < firstVisible)
                     {
                         MoveGridLeft();
+                       
                     }
 
                     if (currentCol < 0)
@@ -139,6 +145,9 @@ private List<List<Button>> buttons;
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+
+                    RuntimeManager.PlayOneShot("event:/Menu Scroll");
+
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Horizontal" + (playerNum).ToString()) <= 0.1f)
@@ -174,6 +183,9 @@ private List<List<Button>> buttons;
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+
+
+
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
@@ -194,6 +206,9 @@ private List<List<Button>> buttons;
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+
+             
+
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Vertical" + (playerNum).ToString()) <= 0.1f)
@@ -215,6 +230,7 @@ private List<List<Button>> buttons;
                 selectedCol = currentCol;
                 selectedRow = currentRow;
                 ShowBorderSelect(selectedRow, selectedCol);
+                RuntimeManager.PlayOneShot("event:/Menu Select");
                 return true;
             }
         }
@@ -229,8 +245,7 @@ private List<List<Button>> buttons;
 
     public void ShowBorderHover(int row, int col)
     {
-        buttons[row][col].GetComponent<ButtonComponents>().hover.SetActive(true);
-        RuntimeManager.PlayOneShot("event:/Menu Scroll");
+        buttons[row][col].GetComponent<ButtonComponents>().hover.SetActive(true); 
     }
 
     public void HideBorderHover(int row, int col)
@@ -243,6 +258,7 @@ private List<List<Button>> buttons;
         if (row >= 0 && col >= 0)
         {
             buttons[row][col].GetComponent<ButtonComponents>().select.SetActive(true);
+        
         }
     }
 
@@ -261,6 +277,7 @@ private List<List<Button>> buttons;
 
         firstVisible += 1;
         lastVisible += 1;
+        
     }
 
     private void MoveGridLeft()
@@ -270,6 +287,7 @@ private List<List<Button>> buttons;
 
         firstVisible -= 1;
         lastVisible -= 1;
+     
     }
 
     private void ResetGridLeft()
