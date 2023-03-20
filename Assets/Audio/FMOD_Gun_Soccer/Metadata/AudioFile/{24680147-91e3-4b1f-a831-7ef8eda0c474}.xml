@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{0be1a1bc-cc27-4413-8c0f-0d50ada0c00d}">
+	<object class="AudioFile" id="{24680147-91e3-4b1f-a831-7ef8eda0c474}">
 		<property name="assetPath">
-			<value>Sniper/sfx_sniper_shoot_01.wav</value>
+			<value>Footsteps/Footstep-001.wav</value>
 		</property>
 		<property name="frequencyInKHz">
-			<value>48</value>
+			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>2.931</value>
+			<value>0.28993197278911564</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{05439778-1492-4af6-8ba9-52ce5152a91e}</destination>
