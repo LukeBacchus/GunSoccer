@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class PlayerStats : MonoBehaviour
     private Material[] blueTeamColors;
 
 #nullable enable
-    private GameStateManager? gameState = null;
+    public GameStateManager? gameState = null;
     public SoccerBallBehavior? soccerBallBehavior = null;
 
     private void Start()

@@ -17,6 +17,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     public bool menuLoaded = false;
     public int playerNum;
     public bool ready = false;
+    private bool justPressed = false;
     public Weapons currentSelection;
     public List<Weapons> weapons;
 
@@ -36,7 +37,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
             newbutton.transform.GetChild(1).GetComponent<Image>().sprite = weapons[i].icon;
             int index = i;
             newbutton.onClick.AddListener(delegate { SelectWeapon(index); });
-            
+
             weaponButtons.Add(newbutton);
         }
         List<List<Button>> buttons = new List<List<Button>> { weaponButtons };
@@ -56,9 +57,14 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
     public void LoadoutInput()
     {
-        if (Input.GetButtonDown("Fire1" + (playerNum).ToString()))
+        if (Input.GetAxisRaw("Fire1" + (playerNum).ToString()) > 0.0f)
         {
-            ToggleReady();
+            if(!justPressed){
+                justPressed = true;
+                ToggleReady();
+            }
+        } else {
+            justPressed = false;
         }
 
         if (!ready)

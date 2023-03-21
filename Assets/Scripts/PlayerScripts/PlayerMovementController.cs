@@ -6,6 +6,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     public float moveX;
     public float moveZ;
+    public float sprint;
     public float camJoyStickX = 0;
     public float camJoyStickY = 0;
     public bool jump = false;
@@ -15,9 +16,10 @@ public class PlayerMovementController : MonoBehaviour
     private Rigidbody rb;
     private Collider col;
     private float jumpForce = 10;
-    [SerializeField] private float speed = 50;
     [SerializeField] private float lookMin = 60f;
     [SerializeField] private float lookMax = 310f;
+    [SerializeField] private float speed = 500;
+    [SerializeField] private float sprintSpeed = 500;
     private float maxSpeed = 10;
     private float maxUpSpeed = 15;
     private float maxFallSpeed = 20;
@@ -81,7 +83,7 @@ public class PlayerMovementController : MonoBehaviour
             {
                 step = Vector3.ProjectOnPlane(step, slopeNormal);
             }
-            Vector3 move = step.normalized * rb.mass * speed;
+            Vector3 move = step.normalized * rb.mass * (speed + sprint * sprintSpeed);
             rb.AddForce(move, ForceMode.Force);
 
             LimitSpeed();
@@ -102,11 +104,15 @@ public class PlayerMovementController : MonoBehaviour
             else if (playerStats.soccerBallBehavior != null)
             {
                 Vector3 targetPosition = playerStats.soccerBallBehavior.GetPosition() - playerStats.cam.transform.position;
-                Quaternion targetRotationY = Quaternion.LookRotation(new Vector3(0, targetPosition.y, Mathf.Sqrt(Mathf.Pow(targetPosition.z, 2) + Mathf.Pow(targetPosition.x, 2))));
-                Quaternion targetRotationX = Quaternion.LookRotation(new Vector3(targetPosition.x, 0, targetPosition.z));
+                Vector3 lookTargetY = new Vector3(0, targetPosition.y, Mathf.Sqrt(Mathf.Pow(targetPosition.z, 2) + Mathf.Pow(targetPosition.x, 2)));
+                Vector3 lookTargetX = new Vector3(targetPosition.x, 0, targetPosition.z);
+                Quaternion targetRotationY = Quaternion.LookRotation(lookTargetY);
+                Quaternion targetRotationX = Quaternion.LookRotation(lookTargetX);
+                float angleY = Vector3.Angle(playerStats.cam.transform.forward, lookTargetY);
+                float angleX = Vector3.Angle(transform.forward, lookTargetX);
 
-                transform.rotation = targetRotationX;
-                playerStats.cam.transform.rotation = targetRotationY;
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationX, 360 * Time.deltaTime / angleX);
+                playerStats.cam.transform.rotation = Quaternion.Lerp(playerStats.cam.transform.rotation, targetRotationY, 360 * Time.deltaTime / angleY);
             }
             else
             {
