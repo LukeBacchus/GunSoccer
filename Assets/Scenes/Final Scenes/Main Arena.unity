@@ -585,6 +585,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2269563948105955998, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2578515618550787341, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
       propertyPath: m_Name
       value: Soccer
@@ -633,6 +637,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6659225557598839963, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 1287263874}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
 --- !u!114 &1287263873 stripped
@@ -646,6 +654,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195959dae52159248aa6be89d8a8e810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &1287263874 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2269563948105955998, guid: 16d663c0febce4d4a9a43faa07a89005, type: 3}
+  m_PrefabInstance: {fileID: 1287263872}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1352514000 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5772529289050776232, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
