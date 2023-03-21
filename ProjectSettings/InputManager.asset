@@ -452,7 +452,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 9
-    joyNum: 2
+    joyNum: 3
   - serializedVersion: 3
     m_Name: Fire14
     descriptiveName: 
@@ -468,7 +468,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 9
-    joyNum: 2
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Fire21
     descriptiveName: 
