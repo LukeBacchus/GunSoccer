@@ -17,6 +17,7 @@ public class GoalState : GameStates
 
     public override void EnterState(GameStateManager gameStateManager) 
     {
+        soccerBallBehavior.Explode();
         gameStateManager.StartCoroutine(GoalSlowMo(gameStateManager));
     }
 
