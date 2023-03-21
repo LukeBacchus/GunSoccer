@@ -15,7 +15,9 @@ public class PlayerMovementController : MonoBehaviour
     private PlayerStats playerStats;
     private Rigidbody rb;
     private Collider col;
-    [SerializeField] private float jumpForce = 10;
+    private float jumpForce = 10;
+    [SerializeField] private float lookMin = 60f;
+    [SerializeField] private float lookMax = 310f;
     [SerializeField] private float speed = 500;
     [SerializeField] private float sprintSpeed = 500;
     private float maxSpeed = 10;
@@ -119,15 +121,15 @@ public class PlayerMovementController : MonoBehaviour
 
             float camX = playerStats.cam.transform.localEulerAngles.x;
 
-            if (60f < camX && camX < 300f)
+            if (lookMin < camX && camX < lookMax)
             {
-                if (camX - 60f < 300f - camX)
+                if (camX - lookMin < lookMax - camX)
                 {
-                    camX = 60f;
+                    camX = lookMin;
                 }
                 else
                 {
-                    camX = 300f;
+                    camX = lookMax;
                 }
             }
 

@@ -950,6 +950,7 @@ MonoBehaviour:
   playerNum: 0
   weapon: {fileID: 0}
   cam: {fileID: 7724132453709515023}
+  model: {fileID: 3794807002066764531}
   allowPlayerMovement: 0
   allowPlayerShoot: 0
   allowPlayerRotate: 0

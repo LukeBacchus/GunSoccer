@@ -296,6 +296,7 @@ public class StartScreenScript : MonoBehaviour
             playerStats.cam.rect = new Rect(playerNum % 2 == 1 ? 0 : 0.5f, playerNum >= 3 ? 0.5f : 0, 0.5f, 0.5f);
         }
 
+        playerStats.AssignLayer(playerNum);
         DontDestroyOnLoad(player);
     }
 }
