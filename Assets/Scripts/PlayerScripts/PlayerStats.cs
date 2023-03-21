@@ -2,16 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
     public int playerNum;
     public Weapons weapon;
     public Camera cam;
+    [SerializeField]
+    private GameObject model;
     public bool allowPlayerMovement = false;
     public bool allowPlayerShoot = false;
     public bool allowPlayerRotate = false;
     public string team = "Red";
+    public float sensitivityX = 100f;
+    public float sensitivityY = 100f;
+    public float minRotationSpeed = 1f;
+    [HideInInspector]
+    public float rotationSpeed = 1f;
+    public float assistMultiplier = 1f;
+    public float assistAngle = 25f;
 
     [SerializeField]
     private GameObject playerMesh;
@@ -21,13 +31,16 @@ public class PlayerStats : MonoBehaviour
     private Material[] blueTeamColors;
 
 #nullable enable
-    private GameStateManager? gameState = null;
+    public GameStateManager? gameState = null;
+    public SoccerBallBehavior? soccerBallBehavior = null;
 
     private void Start()
     {
         gameState = GameObject.Find("GameManager")?.GetComponent<GameStateManager>();
+        soccerBallBehavior = GameObject.FindWithTag("Soccer")?.GetComponentInChildren<SoccerBallBehavior>();
         AssignTeam();
         SceneManager.sceneLoaded += Init;
+
     }
 
     private void Update()
@@ -38,11 +51,14 @@ public class PlayerStats : MonoBehaviour
             allowPlayerShoot = gameState.currentState.stateType == GameStates.StateTypes.INGAME;
             allowPlayerRotate = gameState.currentState.stateType == GameStates.StateTypes.PREGAME || gameState.currentState.stateType == GameStates.StateTypes.INGAME;
         }
+
+        UpdateRotationSpeed();
     }
 
     private void Init(Scene scene, LoadSceneMode mode)
     {
         gameState = GameObject.Find("GameManager")?.GetComponent<GameStateManager>();
+        soccerBallBehavior = GameObject.FindWithTag("Soccer")?.GetComponentInChildren<SoccerBallBehavior>();
     }
 
     private void AssignTeam(){
@@ -50,6 +66,32 @@ public class PlayerStats : MonoBehaviour
             playerMesh.GetComponent<Renderer>().materials = redTeamColors;
         } else {
             playerMesh.GetComponent<Renderer>().materials = blueTeamColors;
+        }
+    }
+
+    public void AssignLayer(int playerNumVal){
+        int playerLayer = LayerMask.NameToLayer("Player" + playerNumVal);
+
+        Debug.Log("Layer of " + playerNum.ToString() + " : " + LayerMask.NameToLayer("Player" + playerNumVal).ToString());
+        Debug.Log("Mask of " + playerNum.ToString() + " : " + cam.cullingMask.ToString());
+        Debug.Log("change layer of " + playerNum.ToString() + " : " + ~(1 << playerLayer));
+
+        cam.cullingMask = cam.cullingMask & ~(1 << playerLayer);
+        model.layer = playerLayer;
+
+        Debug.Log(cam.cullingMask.ToString());
+    }
+
+    private void UpdateRotationSpeed()
+    {
+        if (soccerBallBehavior != null)
+        {
+            float distance = Vector3.Distance(soccerBallBehavior.GetPosition(), cam.transform.position);
+            
+            float angle = Vector3.Angle(cam.transform.forward, soccerBallBehavior.GetPosition() - cam.transform.position);
+            float minSpeed = Mathf.Min(Mathf.Max(100 - distance, 0) / 4f * 0.013f * assistMultiplier + 0.25f, 1);
+
+            rotationSpeed = (angle > assistAngle ? 1 : Mathf.Max(minSpeed, angle / assistAngle)) * minRotationSpeed;
         }
     }
 }

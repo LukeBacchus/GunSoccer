@@ -6,16 +6,14 @@ public class IntroState : GameStates
 {
     public override StateTypes stateType { get; } = StateTypes.CINEMATIC;
 
-    private GameObject fourPlayerUI;
-    private GameObject twoPlayerUI;
+    private GameObject currPlayerUI;
     private GameObject gameUI;
     private GameObject blackScreen;
     private StadiumCamera introCamera;
 
-    public IntroState(GameObject twoPlayerUI, GameObject fourPlayerUI, GameObject gameUI, StadiumCamera introCamera, GameObject blackScreen)
+    public IntroState(GameObject currPlayerUI, GameObject gameUI, StadiumCamera introCamera, GameObject blackScreen)
     {
-        this.fourPlayerUI = fourPlayerUI;
-        this.twoPlayerUI = twoPlayerUI;
+        this.currPlayerUI = currPlayerUI;
         this.gameUI = gameUI;
         this.introCamera = introCamera;
         this.blackScreen = blackScreen;
@@ -29,16 +27,7 @@ public class IntroState : GameStates
 
     private void CompletedIntroCameraPan(GameStateManager gameStateManager)
     {
-        if (gameStateManager.players.Count == 2)
-        {
-            twoPlayerUI.SetActive(true);
-            fourPlayerUI.SetActive(false);
-        }
-        else
-        {
-            twoPlayerUI.SetActive(false);
-            fourPlayerUI.SetActive(true);
-        }
+        currPlayerUI.SetActive(true);
 
         gameUI.SetActive(true);
         blackScreen.SetActive(false);

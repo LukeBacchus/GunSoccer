@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839272488610875754}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -0.001, y: 0.005, z: -0.04319999}
+  m_LocalPosition: {x: 0, y: 0.005, z: -0.04319999}
   m_LocalScale: {x: 0.020000001, y: 0.020000001, z: 0.02}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -950,10 +950,17 @@ MonoBehaviour:
   playerNum: 0
   weapon: {fileID: 0}
   cam: {fileID: 7724132453709515023}
+  model: {fileID: 3794807002066764531}
   allowPlayerMovement: 0
   allowPlayerShoot: 0
   allowPlayerRotate: 0
   team: Red
+  sensitivityX: 150
+  sensitivityY: 150
+  minRotationSpeed: 3
+  rotationSpeed: 1
+  assistMultiplier: 1.5
+  assistAngle: 50
   playerMesh: {fileID: 3794807002066764531}
   redTeamColors:
   - {fileID: -382652638819485698, guid: 5ca5aef562c60fc4d8e6b12f7a30adea, type: 3}
@@ -965,6 +972,8 @@ MonoBehaviour:
   - {fileID: -1580535799172915004, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: -6614231756092104008, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: 4835078630258379571, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
+  gameState: {fileID: 0}
+  soccerBallBehavior: {fileID: 0}
 --- !u!114 &66192549074824378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,11 +1000,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveX: 0
   moveZ: 0
+  sprint: 0
   camJoyStickX: 0
   camJoyStickY: 0
   jump: 0
+  targetLocked: 0
+  jumpForce: 50
+  lookMin: 60
+  lookMax: 290
   speed: 500
-  rotationSpeed: 2
+  sprintSpeed: 500
 --- !u!114 &5155603571499715764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1070,7 +1084,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1259,7 +1273,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6907362182002117011, guid: 6e39f098e5ec28e469aa63bb5dd23c9a, type: 3}
+  - {fileID: 2100000, guid: aebd78f5c39519c4993ec2cfd967e07b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -24,11 +24,14 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private TMPro.TextMeshProUGUI countDownText;
     [SerializeField]
+    private GameObject statsUI;
+    [SerializeField]
     private GameObject winUI;
     [SerializeField]
     private GameObject twoPlayerUI;
     [SerializeField]
     private GameObject fourPlayerUI;
+    private GameObject currPlayerUI;
     [SerializeField]
     private GameObject gameUI;
     [SerializeField]
@@ -46,7 +49,10 @@ public class GameStateManager : MonoBehaviour
     [SerializeField]
     private StadiumCamera stadiumCamera;
 
-
+    public List<GameObject> arrows;
+    public List<Image> playerGunIcons;
+    public List<Transform> playerCrosshairs;
+    public List<TMPro.TextMeshProUGUI> playerMagazineTexts;
 
     void Awake()
     {
@@ -59,23 +65,27 @@ public class GameStateManager : MonoBehaviour
 
         initMap.ResetPlayerLocs(players);
         initMap.MovePlayersIntoScene(players);
+        setUpCurrPlayerUI();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        introState = new IntroState(twoPlayerUI, fourPlayerUI, gameUI, stadiumCamera, blackScreen);
+        introState = new IntroState(currPlayerUI, gameUI, stadiumCamera, blackScreen);
         countdownState = new CountdownState(gameStats, countDownText, initMap, soccerBallBehavior);
         ongoingGameState = new OngoingGameState(gameStats);
         overtimeState = new OvertimeState();
         postGameState = new PostGameState(gameStats, announcement);
         goalState = new GoalState(gameStats, soccerBallBehavior);
-        gameOverState = new GameOverState(winUI);
+        gameOverState = new GameOverState(winUI, statsUI);
         pauseState = new PauseState(pauseUI);
 
         gameStats.UpdateTimerUI();
         SetScoreBoardLocation();
+        UpdateLoadoutGunIcon();
 
+        // Set UI stuff to false
+        statsUI.SetActive(false);
         winUI.SetActive(false);
         twoPlayerUI.SetActive(false);
         fourPlayerUI.SetActive(false);
@@ -123,6 +133,36 @@ public class GameStateManager : MonoBehaviour
             scoreBoard.anchorMin = new Vector2(0, 0.5f);
             scoreBoard.anchorMax = new Vector2(1, 0.5f);
             scoreBoard.anchoredPosition = Vector3.zero;
+        }
+    }
+
+    private void setUpCurrPlayerUI()
+    {
+        if (players.Count == 2)
+        {
+            currPlayerUI = twoPlayerUI;
+            Destroy(fourPlayerUI);
+        }
+        else
+        {
+            currPlayerUI = fourPlayerUI;
+            Destroy(twoPlayerUI);
+        }
+
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerGunIcons.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/LoadoutIcon/GunIcon").GetComponent<Image>());
+            playerCrosshairs.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/Crosshair"));
+            playerMagazineTexts.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/LoadoutIcon/MagazineText").GetComponent<TMPro.TextMeshProUGUI>());
+            arrows.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/ArrowRotator " + (i + 1) + "/Arrow").gameObject);
+        }
+    }
+
+    private void UpdateLoadoutGunIcon()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerGunIcons[i].sprite = players[i].GetComponent<PlayerStats>().weapon.icon;
         }
     }
 }

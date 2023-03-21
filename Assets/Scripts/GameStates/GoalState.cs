@@ -17,6 +17,7 @@ public class GoalState : GameStates
 
     public override void EnterState(GameStateManager gameStateManager) 
     {
+        soccerBallBehavior.Explode();
         gameStateManager.StartCoroutine(GoalSlowMo(gameStateManager));
     }
 
@@ -35,7 +36,17 @@ public class GoalState : GameStates
     private IEnumerator GoalSlowMo(GameStateManager gameStateManager)
     {
         SlowMo();
-        float count = 2;
+        float count = 1;
+
+        bool[] arrowActives = new bool[gameStateManager.arrows.Count];
+        int i = 0;
+
+        foreach(GameObject arrow in gameStateManager.arrows){
+            arrowActives[i] = arrow.active;
+            arrow.SetActive(false);
+            arrow.transform.parent.gameObject.GetComponent<ArrowRotator>().visible = false;
+            i++;
+        }
 
         while (count > 0)
         {
@@ -53,6 +64,13 @@ public class GoalState : GameStates
         {
             Transform playerCam = player.transform.GetChild(0);
             playerCam.localEulerAngles = Vector3.zero;
+        }
+
+        i = 0;
+        foreach(GameObject arrow in gameStateManager.arrows){
+            arrow.SetActive(arrowActives[i]);
+            arrow.transform.parent.gameObject.GetComponent<ArrowRotator>().visible = true;
+            i++;
         }
 
         NormalTime();
