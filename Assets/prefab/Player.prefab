@@ -972,6 +972,7 @@ MonoBehaviour:
   - {fileID: -1580535799172915004, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: -6614231756092104008, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: 4835078630258379571, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
+  gameState: {fileID: 0}
   soccerBallBehavior: {fileID: 0}
 --- !u!114 &66192549074824378
 MonoBehaviour:
@@ -1004,7 +1005,8 @@ MonoBehaviour:
   camJoyStickY: 0
   jump: 0
   targetLocked: 0
-  jumpForce: 50
+  lookMin: 60
+  lookMax: 310
   speed: 500
   sprintSpeed: 500
 --- !u!114 &5155603571499715764
@@ -1270,7 +1272,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6907362182002117011, guid: 6e39f098e5ec28e469aa63bb5dd23c9a, type: 3}
+  - {fileID: 2100000, guid: 9638c3c25052a2740b3c5aaf28c58d37, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

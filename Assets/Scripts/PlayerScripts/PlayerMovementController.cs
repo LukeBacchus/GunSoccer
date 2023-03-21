@@ -15,7 +15,7 @@ public class PlayerMovementController : MonoBehaviour
     private PlayerStats playerStats;
     private Rigidbody rb;
     private Collider col;
-    private float jumpForce = 10;
+    [SerializeField] public float jumpForce = 50;
     [SerializeField] private float lookMin = 60f;
     [SerializeField] private float lookMax = 310f;
     [SerializeField] private float speed = 500;
