@@ -948,6 +948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNum: 0
+  gunPos: {fileID: 3528648595329365612}
   weapon: {fileID: 0}
   cam: {fileID: 7724132453709515023}
   allowPlayerMovement: 0
@@ -971,6 +972,7 @@ MonoBehaviour:
   - {fileID: -1580535799172915004, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: -6614231756092104008, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
   - {fileID: 4835078630258379571, guid: 2822f404be53ff041b587f74be7d9983, type: 3}
+  gameState: {fileID: 0}
   soccerBallBehavior: {fileID: 0}
 --- !u!114 &66192549074824378
 MonoBehaviour:
@@ -1256,7 +1258,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618346110331072723}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
