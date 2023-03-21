@@ -37,7 +37,7 @@ public class GoalState : GameStates
         SlowMo();
         float count = 1;
 
-        bool[] arrowActives = new bool[gameStateManager.arrows.Length];
+        bool[] arrowActives = new bool[gameStateManager.arrows.Count];
         int i = 0;
 
         foreach(GameObject arrow in gameStateManager.arrows){

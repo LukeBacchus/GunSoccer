@@ -309,26 +309,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
-      propertyPath: EventReference.Path
-      value: event:/Ambience
-      objectReference: {fileID: 0}
-    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
-      propertyPath: EventReference.Guid.Data1
-      value: -1291754587
-      objectReference: {fileID: 0}
-    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
-      propertyPath: EventReference.Guid.Data2
-      value: 1251463967
-      objectReference: {fileID: 0}
-    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
-      propertyPath: EventReference.Guid.Data3
-      value: 1941805493
-      objectReference: {fileID: 0}
-    - target: {fileID: 4341748448517819314, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
-      propertyPath: EventReference.Guid.Data4
-      value: -1063692204
-      objectReference: {fileID: 0}
     - target: {fileID: 4341748448517819315, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -379,41 +359,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
---- !u!1 &705340598 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4341748448517819317, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
-  m_PrefabInstance: {fileID: 705340597}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &705340599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 705340598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 45753502
-      Data2: 1333116782
-      Data3: -1321033599
-      Data4: 1847962111
-    Path: event:/Music
-  Event: 
-  PlayEvent: 1
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &833647437
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,41 +390,6 @@ Transform:
   m_Father: {fileID: 2142624757}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 10, z: 0}
---- !u!1 &879560603 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4341748448517819317, guid: dafc85468400e664ea5a2086fd6e402e, type: 3}
-  m_PrefabInstance: {fileID: 705340597}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &879560606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 879560603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -1291754587
-      Data2: 1251463967
-      Data3: 1941805493
-      Data4: -1063692204
-    Path: event:/Ambience
-  Event: 
-  PlayEvent: 1
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1001 &1168016697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -557,7 +467,7 @@ PrefabInstance:
       objectReference: {fileID: 2039173073}
     - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: arrows.Array.size
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: soccerBallBehavior
