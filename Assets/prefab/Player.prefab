@@ -1005,8 +1005,9 @@ MonoBehaviour:
   camJoyStickY: 0
   jump: 0
   targetLocked: 0
+  jumpForce: 50
   lookMin: 60
-  lookMax: 310
+  lookMax: 290
   speed: 500
   sprintSpeed: 500
 --- !u!114 &5155603571499715764
