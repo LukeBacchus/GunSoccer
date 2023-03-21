@@ -106,6 +106,7 @@ public class PlayerGunController : MonoBehaviour
         currMagazine = playerStats.weapon.magazineSize;
         reloadImage.fillAmount = 0;
         crosshair.GetComponent<Image>().color = new Color(1, 1, 1);
+        UpdateMagazineText();
         reloading = false;
     }
 }
