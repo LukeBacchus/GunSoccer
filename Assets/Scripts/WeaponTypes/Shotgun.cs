@@ -9,7 +9,7 @@ public class Shotgun : Weapons
     public override float shootPower { get; } = 100f;
     public override float shootCooldown { get; } = 0.8f;
     public override int magazineSize { get; } = 5;
-    public override float reloadSpeed { get; } = 1.5f;
+    public override float reloadSpeed { get; } = 3f;
     private float numberBullets = 10;
     private float spread = 0.15f;
 

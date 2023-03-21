@@ -9,7 +9,7 @@ public class SniperRifle : Weapons
     public override float shootPower { get; } = 250f;
     public override float shootCooldown { get; } = 1f;
     public override int magazineSize { get; } = 5;
-    public override float reloadSpeed { get; } = 2f;
+    public override float reloadSpeed { get; } = 4f;
 
     public override string sfx_name { get; } = "event:/Sniper";
 
