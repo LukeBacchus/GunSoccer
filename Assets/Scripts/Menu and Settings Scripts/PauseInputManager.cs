@@ -10,7 +10,7 @@ public class PauseInputManager : MonoBehaviour
     [SerializeField]
     private Button settingsButton;
     [SerializeField]
-    private Button restartButton;
+    private Button controlsButton;
     [SerializeField]
     private Button resumeButton;
     [SerializeField]
@@ -26,11 +26,11 @@ public class PauseInputManager : MonoBehaviour
         GameStateManager manager = GameObject.Find("GameManager").GetComponent<GameStateManager>();
         state = manager.pauseState;
         settingsButton.onClick.AddListener(TransitionToSettings);
-        restartButton.onClick.AddListener(TransitionToRestart);
+        controlsButton.onClick.AddListener(showControlsInstruction);
         resumeButton.onClick.AddListener(TransitionBackToGame);
         quitButton.onClick.AddListener(TransitionToQuit);
 
-        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { restartButton }, new List<Button> { resumeButton }, new List<Button> { quitButton } };
+        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { controlsButton }, new List<Button> { resumeButton }, new List<Button> { quitButton } };
         menuSelector = new MenuSelectionHelper(buttons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
         // does this when first active, letting itself be shown rather than settings
@@ -60,9 +60,9 @@ public class PauseInputManager : MonoBehaviour
         Debug.Log("quiting not implemented yet");
     }
 
-    private void TransitionToRestart()
+    private void showControlsInstruction()
     {
-        Debug.Log("restarting not implemented yet");
+        Debug.Log("can't show controls yet");
     }
 
     public void TransitionSettingsToPause()
