@@ -31,6 +31,8 @@ public class SettingsManager : MonoBehaviour
 
     private MenuSelectionHelper settingsSelector;
 
+    private float currentVolume;
+
     public void Start()
     {
         manager = GameObject.Find("GameManager").GetComponent<GameStateManager>();
@@ -57,6 +59,8 @@ public class SettingsManager : MonoBehaviour
 
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { volumeUpButton }, new List<Button> { volumeDownButton }, new List<Button> { backButton } };
         settingsSelector = new MenuSelectionHelper(buttons, 0, 2);
+
+        currentVolume = AudioListener.volume;
     }
 
 
@@ -91,32 +95,32 @@ public class SettingsManager : MonoBehaviour
     void IncreaseVolume()
     {
         Debug.Log("increase volume not implemented yet");
-        //float newVolume = currentVolume;
-        //if (currentVolume < 1)
-        //{
-        //    // if can increase volume
-        //    newVolume = currentVolume + 0.1f;
-        //}
-        //SetVolume(newVolume);
+        float newVolume = currentVolume;
+        if (currentVolume < 1)
+        {
+            // if can increase volume
+            newVolume = currentVolume + 0.1f;
+        }
+        SetVolume(newVolume);
     }
 
     void DecreaseVolume()
     {
         Debug.Log("decrease volume not implemented yet");
 
-        //float newVolume = currentVolume;
-        //if (currentVolume > 0)
-        //{
-        //    // if can decrease volume
-        //    newVolume = currentVolume + 0.1f;
-        //}
-        //SetVolume(newVolume);
+        float newVolume = currentVolume;
+        if (currentVolume > 0)
+        {
+            // if can decrease volume
+            newVolume = currentVolume + 0.1f;
+        }
+        SetVolume(newVolume);
     }
 
     void SetVolume(float volume)
     {
-        //audioMixer.SetFloat("Volume", volume);
-        //currentVolume = volume;
+        AudioListener.volume = volume;
+        currentVolume = volume;
     }
 
     public void SetFullscreen(bool isFullscreen)
