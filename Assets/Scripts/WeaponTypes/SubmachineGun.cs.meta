@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - gunModel: {fileID: 3979369548968382461, guid: 23cf222bd12ec214285194d2001efb42, type: 3}
+  - gunModel: {fileID: 9214505024247221335, guid: 23d858e9ca79ede46b438ba5030849bf, type: 3}
   - bullet: {fileID: 6294286833029330474, guid: 9a567a08036c4864ab016a824d304630, type: 3}
   - bulletType: {fileID: 11400000, guid: 877c07ef9409fe74aa57e95f0fd7f2ce, type: 2}
   - icon: {fileID: 21300000, guid: c60750f48aeab8b4e988101c2ba11c70, type: 3}
