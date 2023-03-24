@@ -10,6 +10,8 @@ public class PlayerStats : MonoBehaviour
     public Transform gunPos;
     public Weapons weapon;
     public Camera cam;
+    [SerializeField]
+    private GameObject model;
     public bool allowPlayerMovement = false;
     public bool allowPlayerShoot = false;
     public bool allowPlayerRotate = false;
@@ -39,6 +41,7 @@ public class PlayerStats : MonoBehaviour
         soccerBallBehavior = GameObject.FindWithTag("Soccer")?.GetComponentInChildren<SoccerBallBehavior>();
         AssignTeam();
         SceneManager.sceneLoaded += Init;
+
     }
 
     private void Update()
@@ -65,6 +68,19 @@ public class PlayerStats : MonoBehaviour
         } else {
             playerMesh.GetComponent<Renderer>().materials = blueTeamColors;
         }
+    }
+
+    public void AssignLayer(int playerNumVal){
+        int playerLayer = LayerMask.NameToLayer("Player" + playerNumVal);
+
+        Debug.Log("Layer of " + playerNum.ToString() + " : " + LayerMask.NameToLayer("Player" + playerNumVal).ToString());
+        Debug.Log("Mask of " + playerNum.ToString() + " : " + cam.cullingMask.ToString());
+        Debug.Log("change layer of " + playerNum.ToString() + " : " + ~(1 << playerLayer));
+
+        cam.cullingMask = cam.cullingMask & ~(1 << playerLayer);
+        model.layer = playerLayer;
+
+        Debug.Log(cam.cullingMask.ToString());
     }
 
     private void UpdateRotationSpeed()

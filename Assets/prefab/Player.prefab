@@ -951,6 +951,7 @@ MonoBehaviour:
   gunPos: {fileID: 3528648595329365612}
   weapon: {fileID: 0}
   cam: {fileID: 7724132453709515023}
+  model: {fileID: 3794807002066764531}
   allowPlayerMovement: 0
   allowPlayerShoot: 0
   allowPlayerRotate: 0
@@ -1006,6 +1007,8 @@ MonoBehaviour:
   jump: 0
   targetLocked: 0
   jumpForce: 50
+  lookMin: 60
+  lookMax: 290
   speed: 500
   sprintSpeed: 500
 --- !u!114 &5155603571499715764
@@ -1271,7 +1274,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6907362182002117011, guid: 6e39f098e5ec28e469aa63bb5dd23c9a, type: 3}
+  - {fileID: 2100000, guid: aebd78f5c39519c4993ec2cfd967e07b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
