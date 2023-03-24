@@ -22,18 +22,23 @@ public class PauseInputManager : MonoBehaviour
     private MenuSelectionHelper menuSelector;
     PauseState state;
 
-    public void Start()
+    // awake is called before start, so makes sure that it's stuff is set up??
+    public void Awake()
     {
-        GameStateManager manager = GameObject.Find("GameManager").GetComponent<GameStateManager>();
-        state = manager.pauseState;
         settingsButton.onClick.AddListener(TransitionToSettings);
         controlsButton.onClick.AddListener(showControlsInstruction);
         resumeButton.onClick.AddListener(TransitionBackToGame);
         quitButton.onClick.AddListener(TransitionToQuit);
 
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { controlsButton }, new List<Button> { resumeButton }, new List<Button> { quitButton } };
-        menuSelector = new MenuSelectionHelper(buttons, 0, 3, new List<int> { 1, 2, 3, 4 });
+        this.menuSelector = new MenuSelectionHelper(buttons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
+    }
+
+    public void Start()
+    {
+        GameStateManager manager = GameObject.Find("GameManager").GetComponent<GameStateManager>();
+        state = manager.pauseState;
         // does this when first active, letting itself be shown rather than settings
         pauseMenuPanel.SetActive(true);
         settingsPanel.SetActive(false);
@@ -42,10 +47,10 @@ public class PauseInputManager : MonoBehaviour
     public void PauseInput()
     {
         // deal with menu input
-        menuSelector.SelectionInput();
-        if (menuSelector.Select())
+        this.menuSelector.SelectionInput();
+        if (this.menuSelector.Select())
         {
-            menuSelector.InvokeSelection();
+            this.menuSelector.InvokeSelection();
         }
     }
 
