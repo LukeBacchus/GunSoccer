@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class MenuSelectionHelper
 {
-    private int currentCol = 0;
-    private int currentRow = 0;
-    private int selectedCol = -1;
-    private int selectedRow = -1;
+    public int currentCol = 0;
+    public int currentRow = 0;
+    public int selectedCol = -1;
+    public int selectedRow = -1;
     private float holdTime = 0.1f;
     private float coolDownTime = 0.4f;
     private float horizontalHoldTime = 0;
@@ -16,7 +16,7 @@ public class MenuSelectionHelper
     private List<float> horizontalThresholdTimes;
     private List<float> verticalThresholdTimes;
 
-private List<List<Button>> buttons;
+    private List<List<Button>> buttons;
     private int maxCol = 0;
     private int maxRow = 0;
     private List<int> playerNums = new List<int> { 1 };

@@ -107,8 +107,8 @@ public class StartScreenScript : MonoBehaviour
         List<List<Button>> gamemodeButtons = new List<List<Button>> { new List<Button> { twoPlayerButton }, new List<Button> { fourPlayerButton }, new List<Button> { creditsButton }, new List<Button>{ settingsButton } };
         gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
-        List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton1 }, new List<Button> { stadiumButton2 } };
-        mapSelector = new MenuSelectionHelper(mapButtons, 0, 0, new List<int> { 1, 2, 3, 4 });
+        List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton1, stadiumButton2 } };
+        mapSelector = new MenuSelectionHelper(mapButtons, 1, 0, new List<int> { 1, 2, 3, 4 });
     }
 
     // Update is called once per frame
