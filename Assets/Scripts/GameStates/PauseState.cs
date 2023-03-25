@@ -53,7 +53,6 @@ public class PauseState : GameStates
         pauseUI.SetActive(true);
         SetPause();
         canExit = false;
-        pausePanels = this.pauseUI.GetComponent<PausePanelManager>();   // let pausePanels deal with serialized fields(unactive null references)
     }
 
     public override void UpdateState(GameStateManager gameStateManager) 
@@ -75,6 +74,7 @@ public class PauseState : GameStates
 
         //(currently using one single "Menu" mapping in inputManager,
         //thus code above temporarily not needed)
+
 
         if (canExit)
         {
@@ -112,12 +112,14 @@ public class PauseState : GameStates
     public void SetPause()
     {
         currentStatus = PauseStatus.PAUSE;
+        pausePanels = pauseUI.GetComponent<PausePanelManager>();
         pausePanels.SetPause();
     }
 
     public void SetSettings()
     {
         currentStatus = PauseStatus.SETTINGS;
+        pausePanels = pauseUI.GetComponent<PausePanelManager>();
         pausePanels.SetSettings();
     }
 
