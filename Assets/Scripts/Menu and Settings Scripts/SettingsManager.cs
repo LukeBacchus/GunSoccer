@@ -94,7 +94,6 @@ public class SettingsManager : MonoBehaviour
 
     void IncreaseVolume()
     {
-        Debug.Log("increase volume not implemented yet");
         float newVolume = currentVolume;
         if (currentVolume < 1)
         {
@@ -106,8 +105,6 @@ public class SettingsManager : MonoBehaviour
 
     void DecreaseVolume()
     {
-        Debug.Log("decrease volume not implemented yet");
-
         float newVolume = currentVolume;
         if (currentVolume > 0)
         {

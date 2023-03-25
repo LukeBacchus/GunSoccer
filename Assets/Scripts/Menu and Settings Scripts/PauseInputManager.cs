@@ -30,8 +30,8 @@ public class PauseInputManager : MonoBehaviour
         resumeButton.onClick.AddListener(TransitionBackToGame);
         quitButton.onClick.AddListener(TransitionToQuit);
 
-        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { controlsButton }, new List<Button> { resumeButton }, new List<Button> { quitButton } };
-        this.menuSelector = new MenuSelectionHelper(buttons, 0, 3, new List<int> { 1, 2, 3, 4 });
+        List<List<Button>> pauseButtons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { controlsButton }, new List<Button> { resumeButton }, new List<Button> { quitButton } };
+        this.menuSelector = new MenuSelectionHelper(pauseButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
     }
 
@@ -39,18 +39,15 @@ public class PauseInputManager : MonoBehaviour
     {
         GameStateManager manager = GameObject.Find("GameManager").GetComponent<GameStateManager>();
         state = manager.pauseState;
-        // does this when first active, letting itself be shown rather than settings
-        pauseMenuPanel.SetActive(true);
-        settingsPanel.SetActive(false);
     }
 
     public void PauseInput()
     {
         // deal with menu input
-        this.menuSelector.SelectionInput();
-        if (this.menuSelector.Select())
+        menuSelector.SelectionInput();
+        if (menuSelector.Select())
         {
-            this.menuSelector.InvokeSelection();
+            menuSelector.InvokeSelection();
         }
     }
 
@@ -58,7 +55,9 @@ public class PauseInputManager : MonoBehaviour
     {
         pauseMenuPanel.SetActive(false);
         settingsPanel.SetActive(true);
-
+        GameStateManager gm = GameObject.Find("GameManager").GetComponent<GameStateManager>();
+        PauseState ps = (PauseState)gm.currentState;
+        ps.SetSettings();
     }
 
     private void TransitionToQuit()
