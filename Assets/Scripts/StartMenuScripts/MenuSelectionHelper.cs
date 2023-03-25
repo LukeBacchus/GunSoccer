@@ -84,8 +84,7 @@ private List<List<Button>> buttons;
             float threshold = horizontalThresholdTimes[pIndex];
             if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
             {
-                horizontalHoldTime += Time.deltaTime;
-
+                horizontalHoldTime += Time.unscaledDeltaTime;   // use unscaled time so that menu selection still works in Paused state
                 if (horizontalHoldTime >= threshold)
                 {
                     int prevCol = currentCol;
@@ -114,7 +113,7 @@ private List<List<Button>> buttons;
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
             {
 
-                horizontalHoldTime += Time.deltaTime;
+                horizontalHoldTime += Time.unscaledDeltaTime;
                 if (horizontalHoldTime >= threshold)
                 {
                     int prevCol = currentCol;
@@ -157,7 +156,7 @@ private List<List<Button>> buttons;
             float threshold = verticalThresholdTimes[pIndex];
             if (Input.GetAxis("Vertical" + (playerNum).ToString()) <= -0.9f)
             {
-                verticalHoldTime += Time.deltaTime;
+                verticalHoldTime += Time.unscaledDeltaTime;
                 if (verticalHoldTime >= threshold)
                 {
                     int prevRow = currentRow;
@@ -177,7 +176,7 @@ private List<List<Button>> buttons;
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
             {
-                verticalHoldTime += Time.deltaTime;
+                verticalHoldTime += Time.unscaledDeltaTime;
                 if (verticalHoldTime >=threshold)
                 {
                     int prevRow = currentRow;
