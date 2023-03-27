@@ -31,7 +31,6 @@ public class SettingsManager : MonoBehaviour
 
     private MenuSelectionHelper settingsSelector;
 
-    static float currentVolume;
 
     public void Start()
     {
@@ -60,7 +59,7 @@ public class SettingsManager : MonoBehaviour
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { volumeUpButton }, new List<Button> { volumeDownButton }, new List<Button> { backButton } };
         settingsSelector = new MenuSelectionHelper(buttons, 0, 2, new List<int> { 1, 2, 3, 4 });
 
-        currentVolume = AudioListener.volume;
+        GameSettings.volume = AudioListener.volume;
     }
 
 
@@ -94,22 +93,22 @@ public class SettingsManager : MonoBehaviour
 
     void IncreaseVolume()
     {
-        float newVolume = currentVolume;
-        if (currentVolume < 1)
+        float newVolume = GameSettings.volume;
+        if (newVolume < 1)
         {
             // if can increase volume
-            newVolume = currentVolume + 0.1f;
+            newVolume = newVolume + 0.1f;
         }
         SetVolume(newVolume);
     }
 
     void DecreaseVolume()
     {
-        float newVolume = currentVolume;
-        if (currentVolume > 0)
+        float newVolume = GameSettings.volume;
+        if (newVolume > 0)
         {
             // if can decrease volume
-            newVolume = currentVolume + 0.1f;
+            newVolume = newVolume + 0.1f;
         }
         SetVolume(newVolume);
     }
@@ -117,7 +116,7 @@ public class SettingsManager : MonoBehaviour
     void SetVolume(float volume)
     {
         AudioListener.volume = volume;
-        currentVolume = volume;
+        GameSettings.volume = volume;//store new setted volume in static class
     }
 
     public void SetFullscreen(bool isFullscreen)
