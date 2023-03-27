@@ -31,7 +31,7 @@ public class SettingsManager : MonoBehaviour
 
     private MenuSelectionHelper settingsSelector;
 
-    private float currentVolume;
+    static float currentVolume;
 
     public void Start()
     {
