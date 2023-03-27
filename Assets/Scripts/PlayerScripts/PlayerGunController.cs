@@ -23,6 +23,7 @@ public class PlayerGunController : MonoBehaviour
     {
         sfx = GetComponent<StudioEventEmitter>();
         playerStats = GetComponent<PlayerStats>();
+        muzzle = playerStats.gunPos.GetChild(0).Find("Muzzle").transform;
 
         currCooldown = 0;
         currMagazine = playerStats.weapon.magazineSize;
@@ -60,7 +61,12 @@ public class PlayerGunController : MonoBehaviour
         currCooldown = Mathf.Clamp(currCooldown - Time.deltaTime, 0, 10);
     }
 
-    void ShootGun()
+    public void UpdateMuzzleLocation()
+    {
+        muzzle = playerStats.gunPos.GetChild(0).Find("Muzzle").transform;
+    }
+
+    private void ShootGun()
     {
         RaycastHit hit;
         if (Physics.Raycast(cam.position + cam.forward * 2, cam.forward, out hit))
