@@ -16,7 +16,7 @@ public class PauseState : GameStates
 
     private GameObject pauseUI;
 
-    private PausePanelManager pausePanels;
+    private PauseManager pauseManager;
     public enum PauseStatus
     {
         NONE,
@@ -85,11 +85,11 @@ public class PauseState : GameStates
 
         if (currentStatus == PauseStatus.PAUSE)
         {
-            pausePanels.PauseInput();
+            pauseManager.PauseInput();
         }
         else if (currentStatus == PauseStatus.SETTINGS)
         {
-            pausePanels.SettingsInput();
+            pauseManager.SettingsInput();
         }
 
     }
@@ -112,15 +112,15 @@ public class PauseState : GameStates
     public void SetPause()
     {
         currentStatus = PauseStatus.PAUSE;
-        pausePanels = pauseUI.GetComponent<PausePanelManager>();
-        pausePanels.SetPause();
+        pauseManager = pauseUI.GetComponent<PauseManager>();
+        pauseManager.SetPause();
     }
 
     public void SetSettings()
     {
         currentStatus = PauseStatus.SETTINGS;
-        pausePanels = pauseUI.GetComponent<PausePanelManager>();
-        pausePanels.SetSettings();
+        pauseManager = pauseUI.GetComponent<PauseManager>();
+        pauseManager.SetSettings();
     }
 
 

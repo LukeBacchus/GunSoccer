@@ -58,7 +58,7 @@ public class SettingsManager : MonoBehaviour
         volumeDownButton.onClick.AddListener(DecreaseVolume);
 
         List<List<Button>> buttons = new List<List<Button>> { new List<Button> { volumeUpButton }, new List<Button> { volumeDownButton }, new List<Button> { backButton } };
-        settingsSelector = new MenuSelectionHelper(buttons, 0, 2);
+        settingsSelector = new MenuSelectionHelper(buttons, 0, 2, new List<int> { 1, 2, 3, 4 });
 
         currentVolume = AudioListener.volume;
     }
