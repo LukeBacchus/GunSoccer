@@ -34,8 +34,8 @@ public class Audio_Player_Script : MonoBehaviour
         dist_to_goal1 = Vector3.Distance(goal1.transform.position, ball.transform.position);
         dist_to_goal2 = Vector3.Distance(goal2.transform.position, ball.transform.position);
 
-        Debug.Log("goal 1 " + dist_to_goal1);
-        Debug.Log("goal 2 " + dist_to_goal2);
+        //Debug.Log("goal 1 " + dist_to_goal1);
+        //Debug.Log("goal 2 " + dist_to_goal2);
 
         if (dist_to_goal2 < 70)
         {
