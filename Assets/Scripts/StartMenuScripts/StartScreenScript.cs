@@ -286,6 +286,8 @@ public class StartScreenScript : MonoBehaviour
 
         playerStats.playerNum = playerNum;
         playerStats.weapon = loadoutMenuScripts[playerNum - 1].currentSelection;
+        GameObject Gun = Instantiate(playerStats.weapon.gunModel, playerStats.gunPos);
+        Gun.transform.parent = playerStats.gunPos;
 
         if (numPlayers == 2)
         {

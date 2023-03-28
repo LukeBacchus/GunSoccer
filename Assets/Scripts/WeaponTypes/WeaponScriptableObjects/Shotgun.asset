@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879a4c41783fb524cbb087460d7c5efd, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  gunModel: {fileID: 919132149155446097, guid: ef62589d65bbc7244a764491287b3c75, type: 3}
+  gunModel: {fileID: 3121639088060204290, guid: b7a16d48b8b8edc4fa9b1364498874e1, type: 3}
   bullet: {fileID: 6294286833029330474, guid: 9a567a08036c4864ab016a824d304630, type: 3}
   bulletType: {fileID: 11400000, guid: 743885f8509334840b6d453d86adb07f, type: 2}
   icon: {fileID: 21300000, guid: 76d37da1693e44741b97a19ad1558153, type: 3}
