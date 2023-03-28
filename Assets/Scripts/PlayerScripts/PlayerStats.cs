@@ -25,11 +25,18 @@ public class PlayerStats : MonoBehaviour
     public float assistAngle = 25f;
 
     [SerializeField]
-    private GameObject playerMesh;
+    private GameObject playerMesh1;
     [SerializeField]
-    private Material[] redTeamColors;
+    private GameObject playerMesh2;
     [SerializeField]
-    private Material[] blueTeamColors;
+    private Material[] redTeamColors1;
+    [SerializeField]
+    private Material[] blueTeamColors1;
+    [SerializeField]
+    private Material[] redTeamColors2;
+    [SerializeField]
+    private Material[] blueTeamColors2;
+
 
 #nullable enable
     public GameStateManager? gameState = null;
@@ -64,9 +71,11 @@ public class PlayerStats : MonoBehaviour
 
     private void AssignTeam(){
         if(team == "Red"){
-            playerMesh.GetComponent<Renderer>().materials = redTeamColors;
+            playerMesh1.GetComponent<Renderer>().materials = redTeamColors1;
+            playerMesh2.GetComponent<Renderer>().materials = redTeamColors2;
         } else {
-            playerMesh.GetComponent<Renderer>().materials = blueTeamColors;
+            playerMesh1.GetComponent<Renderer>().materials = blueTeamColors1;
+            playerMesh2.GetComponent<Renderer>().materials = blueTeamColors2;
         }
     }
 
