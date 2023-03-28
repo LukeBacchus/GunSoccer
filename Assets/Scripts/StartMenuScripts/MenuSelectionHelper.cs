@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class MenuSelectionHelper
 {
-    public int currentCol = 0;
-    public int currentRow = 0;
-    public int selectedCol = -1;
-    public int selectedRow = -1;
+    private int currentCol = 0;
+    private int currentRow = 0;
+    private int selectedCol = -1;
+    private int selectedRow = -1;
     private float holdTime = 0.1f;
     private float coolDownTime = 0.4f;
     private float horizontalHoldTime = 0;
