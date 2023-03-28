@@ -70,6 +70,10 @@ public class PlayerStats : MonoBehaviour
     }
 
     private void AssignTeam(){
+        foreach(var mat in playerMesh1.GetComponent<Renderer>().materials){
+            Debug.Log(mat.name);
+        }
+
         if(team == "Red"){
             playerMesh1.GetComponent<Renderer>().materials = redTeamColors1;
             playerMesh2.GetComponent<Renderer>().materials = redTeamColors2;
