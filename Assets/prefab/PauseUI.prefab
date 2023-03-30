@@ -2362,6 +2362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1571356497608072308}
   - component: {fileID: 1571356497608072310}
+  - component: {fileID: 4502506486404867836}
   m_Layer: 5
   m_Name: PauseUI
   m_TagString: Untagged
@@ -2399,6 +2400,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571356497608072315}
   m_CullTransparentMesh: 1
+--- !u!114 &4502506486404867836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571356497608072315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12f89d7f343083345876baeb6e864bc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pausePanel: {fileID: 1571356498344947137}
+  settingsPanel: {fileID: 1571356497010999551}
+  settingsButton: {fileID: 1571356497686540701}
+  controlsButton: {fileID: 1571356498600120185}
+  resumeButton: {fileID: 1571356498644826245}
+  quitButton: {fileID: 1571356496827644386}
 --- !u!1 &1571356497627512119
 GameObject:
   m_ObjectHideFlags: 0
@@ -5328,7 +5347,6 @@ GameObject:
   - component: {fileID: 1571356498344947138}
   - component: {fileID: 1571356498344947164}
   - component: {fileID: 1571356498344947139}
-  - component: {fileID: 1571356498344947165}
   m_Layer: 5
   m_Name: PausePanel
   m_TagString: Untagged
@@ -5395,24 +5413,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1571356498344947165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1571356498344947137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50c034c2a23bc478c9d5005f4f9996bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenuPanel: {fileID: 1571356498344947137}
-  settingsButton: {fileID: 1571356497686540701}
-  controlsButton: {fileID: 0}
-  resumeButton: {fileID: 1571356498644826245}
-  quitButton: {fileID: 1571356496827644386}
-  settingsPanel: {fileID: 1571356497010999551}
 --- !u!1 &1571356498361332993
 GameObject:
   m_ObjectHideFlags: 0
