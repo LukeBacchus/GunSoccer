@@ -101,15 +101,6 @@ public class GameStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Menu") )
-        {
-            Debug.Log("Menu Pressed");
-            if (currentState == ongoingGameState || currentState == overtimeState)
-            {
-                //currently can only pause when during game
-                SwitchState(pauseState);
-            }
-        }
         currentState.UpdateState(this);
     }
 

@@ -63,6 +63,11 @@ public class PauseManager : MonoBehaviour
 
     public void PauseInput()
     {
+        //this is used to debug with keyboard DELETE if not needed
+        if (Input.GetButtonDown("Menu"))
+        {
+            TransitionBackToGame();
+        }
         // deal with menu input
         menuSelector.SelectionInput();
         if (menuSelector.Select())

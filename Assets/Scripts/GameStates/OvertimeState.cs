@@ -13,6 +13,9 @@ public class OvertimeState : GameStates
 
     public override void UpdateState(GameStateManager gameStateManager) 
     {
-
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
     }
 }

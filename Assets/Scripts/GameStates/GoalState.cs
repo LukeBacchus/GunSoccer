@@ -21,7 +21,13 @@ public class GoalState : GameStates
         gameStateManager.StartCoroutine(GoalSlowMo(gameStateManager));
     }
 
-    public override void UpdateState(GameStateManager gameStateManager) { }
+    public override void UpdateState(GameStateManager gameStateManager)
+    {
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
+    }
 
     private void SlowMo()
     {

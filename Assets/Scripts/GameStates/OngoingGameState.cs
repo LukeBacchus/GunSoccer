@@ -29,5 +29,10 @@ public class OngoingGameState : GameStates
         {
             gameStateManager.SwitchState(gameStateManager.postGameState);
         }
+
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
     }
 }
