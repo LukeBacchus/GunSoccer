@@ -16,7 +16,7 @@ public class MenuSelectionHelper
     private List<float> horizontalThresholdTimes;
     private List<float> verticalThresholdTimes;
 
-    private List<List<Button>> buttons;
+private List<List<Button>> buttons;
     private int maxCol = 0;
     private int maxRow = 0;
     private List<int> playerNums = new List<int> { 1 };

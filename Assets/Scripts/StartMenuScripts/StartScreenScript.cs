@@ -36,9 +36,7 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private GameObject mapPanel;
     [SerializeField]
-    private Button stadiumButton1;
-    [SerializeField]
-    private Button stadiumButton2;
+    private Button stadiumButton;
     private MenuSelectionHelper mapSelector;
 
     [SerializeField]
@@ -96,8 +94,7 @@ public class StartScreenScript : MonoBehaviour
         settingsButton.onClick.AddListener(SelectedSettings);
 
         // Map menu button onclick events
-        stadiumButton1.onClick.AddListener(delegate { LoadMap(stadiumButton1.name); });
-        stadiumButton2.onClick.AddListener(delegate { LoadMap(stadiumButton2.name); });
+        stadiumButton.onClick.AddListener(delegate { LoadMap(stadiumButton.name); });
 
         coverPanel.SetActive(true);
         gamemodePanel.SetActive(false);
@@ -107,8 +104,8 @@ public class StartScreenScript : MonoBehaviour
         List<List<Button>> gamemodeButtons = new List<List<Button>> { new List<Button> { twoPlayerButton }, new List<Button> { fourPlayerButton }, new List<Button> { creditsButton }, new List<Button>{ settingsButton } };
         gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
-        List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton1, stadiumButton2 } };
-        mapSelector = new MenuSelectionHelper(mapButtons, 1, 0, new List<int> { 1, 2, 3, 4 });
+        List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton } };
+        mapSelector = new MenuSelectionHelper(mapButtons, 0, 0, new List<int> { 1, 2, 3, 4 });
     }
 
     // Update is called once per frame
@@ -289,8 +286,6 @@ public class StartScreenScript : MonoBehaviour
 
         playerStats.playerNum = playerNum;
         playerStats.weapon = loadoutMenuScripts[playerNum - 1].currentSelection;
-        GameObject Gun = Instantiate(playerStats.weapon.gunModel, playerStats.gunPos);
-        Gun.transform.parent = playerStats.gunPos;
 
         if (numPlayers == 2)
         {
