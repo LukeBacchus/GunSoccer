@@ -94,7 +94,6 @@ private List<List<Button>> buttons;
                     if (hScrollable && currentCol > lastVisible)
                     {
                         MoveGridRight();
-               
                     }
 
                     if (currentCol > maxCol)
@@ -111,10 +110,7 @@ private List<List<Button>> buttons;
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
-
-
                     RuntimeManager.PlayOneShot("event:/Menu Scroll");
-
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
@@ -128,7 +124,6 @@ private List<List<Button>> buttons;
                     if (hScrollable && currentCol < firstVisible)
                     {
                         MoveGridLeft();
-                       
                     }
 
                     if (currentCol < 0)
@@ -145,9 +140,7 @@ private List<List<Button>> buttons;
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
-
                     RuntimeManager.PlayOneShot("event:/Menu Scroll");
-
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Horizontal" + (playerNum).ToString()) <= 0.1f)
@@ -178,14 +171,13 @@ private List<List<Button>> buttons;
                         currentRow = 0;
                     }
 
+                    RuntimeManager.PlayOneShot("event:/Menu Scroll");
+
                     HideBorderHover(prevRow, currentCol);
                     ShowBorderHover(currentRow, currentCol);
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
-                    verticalThresholdTimes[pIndex] = coolDownTime;
-
-
-
+                    verticalThresholdTimes[pIndex] = coolDownTime;                    
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
@@ -199,7 +191,10 @@ private List<List<Button>> buttons;
                     if (currentRow < 0)
                     {
                         currentRow = maxRow;
+                        
                     }
+
+                    RuntimeManager.PlayOneShot("event:/Menu Scroll");
 
                     HideBorderHover(prevRow, currentCol);
                     ShowBorderHover(currentRow, currentCol);
@@ -245,7 +240,8 @@ private List<List<Button>> buttons;
 
     public void ShowBorderHover(int row, int col)
     {
-        buttons[row][col].GetComponent<ButtonComponents>().hover.SetActive(true); 
+        buttons[row][col].GetComponent<ButtonComponents>().hover.SetActive(true);
+        
     }
 
     public void HideBorderHover(int row, int col)
@@ -258,7 +254,6 @@ private List<List<Button>> buttons;
         if (row >= 0 && col >= 0)
         {
             buttons[row][col].GetComponent<ButtonComponents>().select.SetActive(true);
-        
         }
     }
 
@@ -277,7 +272,6 @@ private List<List<Button>> buttons;
 
         firstVisible += 1;
         lastVisible += 1;
-        
     }
 
     private void MoveGridLeft()
@@ -287,7 +281,6 @@ private List<List<Button>> buttons;
 
         firstVisible -= 1;
         lastVisible -= 1;
-     
     }
 
     private void ResetGridLeft()
