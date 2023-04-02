@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class MenuSelectionHelper
 {
@@ -89,7 +90,7 @@ public class MenuSelectionHelper
                 if (horizontalHoldTime >= threshold)
                 {
                     int prevCol = currentCol;
-                    currentCol += 1;
+
                     if (hScrollable && currentCol > lastVisible)
                     {
                         MoveGridRight();
@@ -109,6 +110,12 @@ public class MenuSelectionHelper
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevCol != currentCol)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
@@ -119,7 +126,8 @@ public class MenuSelectionHelper
                 {
                     int prevCol = currentCol;
                     currentCol -= 1;
-                    if (hScrollable && currentCol < firstVisible)
+
+                        if (hScrollable && currentCol < firstVisible)
                     {
                         MoveGridLeft();
                     }
@@ -138,6 +146,12 @@ public class MenuSelectionHelper
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevCol != currentCol)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Horizontal" + (playerNum).ToString()) <= 0.1f)
@@ -173,6 +187,12 @@ public class MenuSelectionHelper
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevRow != currentRow)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
@@ -193,6 +213,12 @@ public class MenuSelectionHelper
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevRow != currentRow)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Vertical" + (playerNum).ToString()) <= 0.1f)
@@ -214,6 +240,10 @@ public class MenuSelectionHelper
                 selectedCol = currentCol;
                 selectedRow = currentRow;
                 ShowBorderSelect(selectedRow, selectedCol);
+
+                //Select sfx
+                RuntimeManager.PlayOneShot("event:/MenuSelect");
+
                 return true;
             }
         }
