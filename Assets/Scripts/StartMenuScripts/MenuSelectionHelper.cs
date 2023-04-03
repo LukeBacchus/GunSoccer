@@ -226,6 +226,11 @@ public class MenuSelectionHelper
         buttons[selectedRow][selectedCol].GetComponent<Button>().onClick.Invoke();
     }
 
+    public GameObject GetCurrent()
+    {
+        return buttons[currentRow][currentCol];
+    }
+
     public void ShowBorderHover(int row, int col)
     {
         buttons[row][col].GetComponent<ButtonComponents>().hover.SetActive(true);
