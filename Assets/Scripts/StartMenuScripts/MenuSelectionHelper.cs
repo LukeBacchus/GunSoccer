@@ -90,6 +90,7 @@ public class MenuSelectionHelper
                 if (horizontalHoldTime >= threshold)
                 {
                     int prevCol = currentCol;
+                    currentCol += 1;
 
                     if (hScrollable && currentCol > lastVisible)
                     {
@@ -127,7 +128,7 @@ public class MenuSelectionHelper
                     int prevCol = currentCol;
                     currentCol -= 1;
 
-                        if (hScrollable && currentCol < firstVisible)
+                    if (hScrollable && currentCol < firstVisible)
                     {
                         MoveGridLeft();
                     }
