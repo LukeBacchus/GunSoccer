@@ -24,7 +24,8 @@ public class WinStats: MonoBehaviour
         quitButton.onClick.AddListener(SelectedQuit);
         creditsButton.onClick.AddListener(SelectedCredits);
 
-        List<List<Button>> winButtons = new List<List<Button>> { new List<Button> { replayButton }, new List<Button> { quitButton }, new List<Button> { creditsButton } };
+        List<List<GameObject>> winButtons = new List<List<GameObject>> { new List<GameObject> { replayButton.gameObject }, 
+            new List<GameObject> { quitButton.gameObject }, new List<GameObject> { creditsButton.gameObject } };
         winSelector = new MenuSelectionHelper(winButtons, 0, 2, new List<int> { 1, 2, 3, 4 });
 
         // gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();

@@ -16,7 +16,7 @@ public class MenuSelectionHelper
     private List<float> horizontalThresholdTimes;
     private List<float> verticalThresholdTimes;
 
-    private List<List<Button>> buttons;
+    private List<List<GameObject>> buttons;
     private int maxCol = 0;
     private int maxRow = 0;
     private List<int> playerNums = new List<int> { 1 };
@@ -30,7 +30,7 @@ public class MenuSelectionHelper
     private float cellWidth;
     private bool offsetOnRight = true;
 
-    public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
+    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
     {
         this.buttons = buttons;
         this.maxCol = maxCol;
@@ -42,7 +42,7 @@ public class MenuSelectionHelper
         Init();
     }
 
-    public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, int firstVisible, int lastVisible, 
+    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, int firstVisible, int lastVisible, 
         RectTransform grid, float widthOffset, float cellWidth, int defaultCol = -1, int defaultRow = -1, List<int> playerNums = null)
     {
         this.buttons = buttons;
@@ -223,7 +223,7 @@ public class MenuSelectionHelper
 
     public void InvokeSelection()
     {
-        buttons[selectedRow][selectedCol].onClick.Invoke();
+        buttons[selectedRow][selectedCol].GetComponent<Button>().onClick.Invoke();
     }
 
     public void ShowBorderHover(int row, int col)

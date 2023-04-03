@@ -21,8 +21,6 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private Button creditsButton;
     [SerializeField]
-    private Button controlsButton;
-    [SerializeField]
     private Button settingsButton;
     private MenuSelectionHelper gameModeSelector;
 
@@ -43,11 +41,11 @@ public class StartScreenScript : MonoBehaviour
     private Button stadiumButton2;
     private MenuSelectionHelper mapSelector;
 
-    [SerializeField]
+    /*[SerializeField]
     private GameObject settingsPanel;
 
     [SerializeField]
-    private GameObject controlsPanel;
+    private GameObject controlsPanel;*/
 
     [SerializeField]
     private GameObject playerPrefab;
@@ -103,7 +101,6 @@ public class StartScreenScript : MonoBehaviour
         twoPlayerButton.onClick.AddListener(SelectedTwoPlayerMode);
         fourPlayerButton.onClick.AddListener(SelectedFourPlayerMode);
         creditsButton.onClick.AddListener(SelectedCredits);
-        controlsButton.onClick.AddListener(SelectedControls);
         settingsButton.onClick.AddListener(SelectedSettings);
 
         // Map menu button onclick events
@@ -114,13 +111,15 @@ public class StartScreenScript : MonoBehaviour
         gamemodePanel.SetActive(false);
         loadoutPanel.SetActive(false);
         mapPanel.SetActive(false);
-        settingsPanel.SetActive(false);
-        controlsPanel.SetActive(false);
+        //settingsPanel.SetActive(false);
+        //controlsPanel.SetActive(false);
 
-        List<List<Button>> gamemodeButtons = new List<List<Button>> { new List<Button> { twoPlayerButton }, new List<Button> { fourPlayerButton }, new List<Button> { creditsButton }, new List<Button> { controlsButton }, new List<Button> { settingsButton } };
+        List<List<GameObject>> gamemodeButtons = new List<List<GameObject>> { new List<GameObject> { twoPlayerButton.gameObject }, 
+            new List<GameObject> { fourPlayerButton.gameObject }, new List<GameObject> { creditsButton.gameObject }, 
+            new List<GameObject> { settingsButton.gameObject } };
         gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 4, new List<int> { 1, 2, 3, 4 });
 
-        List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton1, stadiumButton2 } };
+        List<List<GameObject>> mapButtons = new List<List<GameObject>> { new List<GameObject> { stadiumButton1.gameObject, stadiumButton2.gameObject } };
         mapSelector = new MenuSelectionHelper(mapButtons, 1, 0, new List<int> { 1, 2, 3, 4 });
     }
 
@@ -211,13 +210,6 @@ public class StartScreenScript : MonoBehaviour
     private void SettingsInput()
     {
         Debug.Log("SettingsInput not implemented yet");
-    }
-
-    private void SelectedControls()
-    {
-        controlsPanel.SetActive(true);
-        currentMenu = MenuTypes.Controls;
-        gamemodePanel.SetActive(false);
     }
 
     private void SelectedCredits()

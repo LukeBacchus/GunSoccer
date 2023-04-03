@@ -108,7 +108,11 @@ public class GameStateManager : MonoBehaviour
     {
         prevState = currentState;
         currentState = nextState;
-        currentState.EnterState(this);
+
+        if (prevState != pauseState)
+        {
+            currentState.EnterState(this);
+        }
     }
 
     private void SetScoreBoardLocation()

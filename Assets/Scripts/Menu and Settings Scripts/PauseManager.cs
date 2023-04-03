@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField]
+    private SettingsManager settingsManager;
+
+    [SerializeField]
     private GameObject pausePanel;
     [SerializeField]
     private GameObject settingsPanel;
@@ -16,73 +19,67 @@ public class PauseManager : MonoBehaviour
     [SerializeField]
     private Button controlsButton;
     [SerializeField]
-    private Button resumeButton;
-    [SerializeField]
     private Button quitButton;
 
     private MenuSelectionHelper menuSelector;
-    PauseState state;
 
-    // Start is called before the first frame update
-    void Awake()
+    public PAUSESTATUS pauseStatus = PAUSESTATUS.None;
+
+    public enum PAUSESTATUS
     {
-        settingsButton.onClick.AddListener(TransitionToSettings);
-        controlsButton.onClick.AddListener(showControlsInstruction);
-        resumeButton.onClick.AddListener(TransitionBackToGame);
-        quitButton.onClick.AddListener(TransitionToQuit);
-
-        List<List<Button>> pauseButtons = new List<List<Button>> { new List<Button> { settingsButton }, new List<Button> { controlsButton }, new List<Button> { resumeButton }, new List<Button> { quitButton } };
-        this.menuSelector = new MenuSelectionHelper(pauseButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
-
+        None,
+        Controls,
+        Settings
     }
 
-    public void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        GameStateManager manager = GameObject.Find("GameManager").GetComponent<GameStateManager>();
-        state = manager.pauseState;
+        settingsButton.onClick.AddListener(TransitionToSettings);
+        controlsButton.onClick.AddListener(TransitionToControls);
+        quitButton.onClick.AddListener(TransitionToQuit);
+
+        List<List<GameObject>> pauseButtons = new List<List<GameObject>> { new List<GameObject> { settingsButton.gameObject }, 
+            new List<GameObject> { controlsButton.gameObject }, new List<GameObject> { quitButton.gameObject } };
+        this.menuSelector = new MenuSelectionHelper(pauseButtons, 0, 2, new List<int> { 1, 2, 3, 4 });
+
     }
 
     // Update is called once per frame
-    public void SetSettings()
-    {
-        pausePanel.SetActive(false);
-        settingsPanel.SetActive(true);
-    }
-
-    public void SetPause()
-    {
-        pausePanel.SetActive(true);
-        settingsPanel.SetActive(false);
-    }
-
-    public void SettingsInput()
-    {
-        SettingsManager settingsManager = settingsPanel.GetComponent<SettingsManager>();
-        settingsManager.SettingsInput();
-    }
-
     public void PauseInput()
     {
-        //this is used to debug with keyboard DELETE if not needed
-        if (Input.GetButtonDown("Menu"))
+        if (BackInput())
         {
-            TransitionBackToGame();
+            if (pauseStatus == PAUSESTATUS.Settings)
+            {
+                pauseStatus = PAUSESTATUS.None;
+                settingsPanel.SetActive(false);
+            }
+            else if (pauseStatus == PAUSESTATUS.Controls)
+            {
+                pauseStatus = PAUSESTATUS.None;
+                Debug.Log("not implemented controls yet");
+            }
         }
-        // deal with menu input
-        menuSelector.SelectionInput();
-        if (menuSelector.Select())
+
+        if (pauseStatus == PAUSESTATUS.None)
         {
-            menuSelector.InvokeSelection();
+            menuSelector.SelectionInput();
+            if (menuSelector.Select())
+            {
+                menuSelector.InvokeSelection();
+            }
+        }
+        else if (pauseStatus == PAUSESTATUS.Settings)
+        {
+            settingsManager.SettingsInput();
         }
     }
 
     private void TransitionToSettings()
     {
-        pausePanel.SetActive(false);
+        pauseStatus = PAUSESTATUS.Settings;
         settingsPanel.SetActive(true);
-        GameStateManager gm = GameObject.Find("GameManager").GetComponent<GameStateManager>();
-        PauseState ps = (PauseState)gm.currentState;
-        ps.SetSettings();
     }
 
     private void TransitionToQuit()
@@ -90,22 +87,13 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadScene("Start Screen");
     }
 
-    private void showControlsInstruction()
+    private void TransitionToControls()
     {
         Debug.Log("can't show controls yet");
     }
 
-    public void TransitionSettingsToPause()
+    private bool BackInput()
     {
-        settingsPanel.SetActive(false);
-        pausePanel.SetActive(true);
-        state.SetPause();
-    }
-
-
-    private void TransitionBackToGame()
-    {
-        pausePanel.SetActive(false);
-        state.SetExit();
+        return Input.GetButtonDown("back1") | Input.GetButtonDown("back2") | Input.GetButtonDown("back3") | Input.GetButtonDown("back4");
     }
 }

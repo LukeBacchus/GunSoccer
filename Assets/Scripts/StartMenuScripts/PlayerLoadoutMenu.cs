@@ -24,7 +24,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private MenuSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
-    private List<Button> weaponButtons = new List<Button>();
+    private List<GameObject> weaponButtons = new List<GameObject>();
 
     // Start is called before the first frame update
     public void Init()
@@ -38,9 +38,9 @@ public class PlayerLoadoutMenu : MonoBehaviour
             int index = i;
             newbutton.onClick.AddListener(delegate { SelectWeapon(index); });
 
-            weaponButtons.Add(newbutton);
+            weaponButtons.Add(newbutton.gameObject);
         }
-        List<List<Button>> buttons = new List<List<Button>> { weaponButtons };
+        List<List<GameObject>> buttons = new List<List<GameObject>> { weaponButtons };
 
         weaponGrid.offsetMin = Vector2.zero;
         viewport.offsetMin = Vector2.zero;
@@ -89,7 +89,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
         {
             for (int i = 0; i < weapons.Count; i++)
             {
-                weaponButtons[i].onClick.RemoveAllListeners();
+                weaponButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
             }
 
             GetComponent<Image>().color = readyColor;
@@ -98,7 +98,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
             for (int i = 0; i < weapons.Count; i++)
             {
                 int index = i;
-                weaponButtons[i].onClick.AddListener(delegate { SelectWeapon(index); });
+                weaponButtons[i].GetComponent<Button>().onClick.AddListener(delegate { SelectWeapon(index); });
             }
 
             GetComponent<Image>().color = new Color(0, 0, 0, 0);
