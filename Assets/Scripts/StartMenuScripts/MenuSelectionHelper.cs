@@ -84,7 +84,7 @@ public class MenuSelectionHelper
             float threshold = horizontalThresholdTimes[pIndex];
             if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
             {
-                horizontalHoldTime += Time.deltaTime;
+                horizontalHoldTime += Time.unscaledDeltaTime;
 
                 if (horizontalHoldTime >= threshold)
                 {
@@ -114,7 +114,7 @@ public class MenuSelectionHelper
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
             {
 
-                horizontalHoldTime += Time.deltaTime;
+                horizontalHoldTime += Time.unscaledDeltaTime;
                 if (horizontalHoldTime >= threshold)
                 {
                     int prevCol = currentCol;
@@ -157,7 +157,7 @@ public class MenuSelectionHelper
             float threshold = verticalThresholdTimes[pIndex];
             if (Input.GetAxis("Vertical" + (playerNum).ToString()) <= -0.9f)
             {
-                verticalHoldTime += Time.deltaTime;
+                verticalHoldTime += Time.unscaledDeltaTime;
                 if (verticalHoldTime >= threshold)
                 {
                     int prevRow = currentRow;
@@ -177,7 +177,7 @@ public class MenuSelectionHelper
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
             {
-                verticalHoldTime += Time.deltaTime;
+                verticalHoldTime += Time.unscaledDeltaTime;
                 if (verticalHoldTime >=threshold)
                 {
                     int prevRow = currentRow;
@@ -229,6 +229,14 @@ public class MenuSelectionHelper
     public GameObject GetCurrent()
     {
         return buttons[currentRow][currentCol];
+    }
+
+    public void ResetCurrent()
+    {
+        HideBorderHover(currentRow, currentCol);
+        currentRow = 0;
+        currentCol = 0;
+        ShowBorderHover(currentRow, currentCol);
     }
 
     public void ShowBorderHover(int row, int col)

@@ -8,64 +8,107 @@ using UnityEngine.UI;
 public class SettingsManager : MonoBehaviour
 {
     [SerializeField]
-    private MenuSliderController volumeSetting;
+    private GameObject volumeSetting;
+    [SerializeField]
+    private MenuSliderController volumeSettingSlider;
 
     [SerializeField]
-    private MenuSliderController player1sens;
+    private GameObject player1sens;
     [SerializeField]
-    private MenuSliderController player1angle;
+    private MenuSliderController player1sensSlider;
     [SerializeField]
-    private MenuSliderController player1strength;
+    private GameObject player1angle;
+    [SerializeField]
+    private MenuSliderController player1angleSlider;
+    [SerializeField]
+    private GameObject player1strength;
+    [SerializeField]
+    private MenuSliderController player1strengthSlider;
 
     [SerializeField]
-    private MenuSliderController player2sens;
+    private GameObject player2sens;
     [SerializeField]
-    private MenuSliderController player2angle;
+    private MenuSliderController player2sensSlider;
     [SerializeField]
-    private MenuSliderController player2strength;
+    private GameObject player2angle;
+    [SerializeField]
+    private MenuSliderController player2angleSlider;
+    [SerializeField]
+    private GameObject player2strength;
+    [SerializeField]
+    private MenuSliderController player2strengthSlider;
 
     [SerializeField]
-    private MenuSliderController player3sens;
+    private GameObject player3sens;
     [SerializeField]
-    private MenuSliderController player3angle;
+    private MenuSliderController player3sensSlider;
     [SerializeField]
-    private MenuSliderController player3strength;
+    private GameObject player3angle;
+    [SerializeField]
+    private MenuSliderController player3angleSlider;
+    [SerializeField]
+    private GameObject player3strength;
+    [SerializeField]
+    private MenuSliderController player3strengthSlider;
 
     [SerializeField]
-    private MenuSliderController player4sens;
+    private GameObject player4sens;
     [SerializeField]
-    private MenuSliderController player4angle;
+    private MenuSliderController player4sensSlider;
     [SerializeField]
-    private MenuSliderController player4strength;
+    private GameObject player4angle;
+    [SerializeField]
+    private MenuSliderController player4angleSlider;
+    [SerializeField]
+    private GameObject player4strength;
+    [SerializeField]
+    private MenuSliderController player4strengthSlider;
 
     private MenuSelectionHelper settingsSelector;
     private List<List<GameObject>> menuOptions;
 
-
-    public void Start()
+    public void SetupSelector()
     {
-        menuOptions = new List<List<GameObject>> { new List<GameObject>{ volumeSetting.gameObject },
-            new List<GameObject>{ player1sens.gameObject }, new List<GameObject>{ player1angle.gameObject }, new List<GameObject>{ player1strength.gameObject },
-            new List<GameObject>{ player2sens.gameObject }, new List<GameObject> { player2angle.gameObject }, new List<GameObject> { player2strength.gameObject },
-                new List<GameObject>{player3sens.gameObject }, new List<GameObject> { player3angle.gameObject }, new List<GameObject> { player3strength.gameObject } };
-        settingsSelector = new MenuSelectionHelper(menuOptions, 0, 12, new List<int>{ 1, 2, 3, 4 });
+        menuOptions = new List<List<GameObject>> { new List<GameObject>{ volumeSetting },
+            new List<GameObject>{ player1sens }, new List<GameObject>{ player1angle }, new List<GameObject>{ player1strength },
+            new List<GameObject>{ player2sens }, new List<GameObject> { player2angle }, new List<GameObject> { player2strength },
+            new List<GameObject>{ player3sens }, new List<GameObject> { player3angle }, new List<GameObject> { player3strength },
+            new List<GameObject>{ player4sens }, new List<GameObject> { player4angle }, new List<GameObject> { player4strength }};
+        settingsSelector = new MenuSelectionHelper(menuOptions, 0, 12, new List<int> { 1, 2, 3, 4 });
+    }
+
+    public void ResetSelector()
+    {
+        settingsSelector.ResetCurrent();
     }
 
     public void SettingsInput()
     {
         settingsSelector.SelectionInput();
-        settingsSelector.GetCurrent().GetComponent<MenuSliderController>().SliderInput();
-        settingsSelector.GetCurrent().GetComponent<MenuSliderController>().updateText();
+        settingsSelector.GetCurrent().GetComponentInChildren<MenuSliderController>().SliderInput();
+        settingsSelector.GetCurrent().GetComponentInChildren<MenuSliderController>().updateText();
         UpdateSettingsConstants();
     }
 
     private void UpdateSettingsConstants()
     {
-        GameSettings.currVolume = volumeSetting.getValue();
-        GameSettings.Player1Settings = new List<float> { player1sens.getValue(), player1angle.getValue(), player1strength.getValue() };
-        GameSettings.Player2Settings = new List<float> { player2sens.getValue(), player2angle.getValue(), player2strength.getValue() };
-        GameSettings.Player3Settings = new List<float> { player3sens.getValue(), player3angle.getValue(), player3strength.getValue() };
-        GameSettings.Player4Settings = new List<float> { player4sens.getValue(), player4angle.getValue(), player4strength.getValue() };
+        GameSettings.currVolume = volumeSettingSlider.getValue();
+        GameSettings.Player1Settings = new List<float> { 
+            player1sensSlider.getValue(), 
+            player1angleSlider.getValue(), 
+            player1strengthSlider.getValue() };
+        GameSettings.Player2Settings = new List<float> { 
+            player2sensSlider.getValue(), 
+            player2angleSlider.getValue(), 
+            player2strengthSlider.getValue() };
+        GameSettings.Player3Settings = new List<float> { 
+            player3sensSlider.getValue(), 
+            player3angleSlider.getValue(), 
+            player3strengthSlider.getValue() };
+        GameSettings.Player4Settings = new List<float> { 
+            player4sensSlider.getValue(), 
+            player4angleSlider.getValue(), 
+            player4strengthSlider.getValue() };
     }
     
 }

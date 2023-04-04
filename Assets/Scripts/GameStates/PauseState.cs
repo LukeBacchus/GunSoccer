@@ -13,18 +13,21 @@ public class PauseState : GameStates
     public PauseState(GameObject pUI)
     {
         this.pauseUI = pUI;
+        pauseManager = pauseUI.GetComponent<PauseManager>();
     }
 
     public override void EnterState(GameStateManager gameStateManager) 
     {
         PauseGame();
         pauseUI.SetActive(true);
+        pauseManager.SetUpSelector();
     }
 
     public override void UpdateState(GameStateManager gameStateManager) 
     {
         if (BackInput() && pauseManager.pauseStatus == PauseManager.PAUSESTATUS.None)
         {
+            pauseUI.SetActive(false);
             ResumeGame();
             gameStateManager.SwitchState(gameStateManager.prevState);
         }
@@ -44,6 +47,6 @@ public class PauseState : GameStates
 
     private bool BackInput()
     {
-        return Input.GetButtonDown("back1") | Input.GetButtonDown("back2") | Input.GetButtonDown("back3") | Input.GetButtonDown("back4");
+        return Input.GetButtonDown("Back1") | Input.GetButtonDown("Back2") | Input.GetButtonDown("Back3") | Input.GetButtonDown("Back4");
     }
 }

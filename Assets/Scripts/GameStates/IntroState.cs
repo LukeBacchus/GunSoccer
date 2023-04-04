@@ -23,7 +23,13 @@ public class IntroState : GameStates
     {
         gameStateManager.StartCoroutine(introCamera.IntroPan(delegate { CompletedIntroCameraPan(gameStateManager); }));
     }
-    public override void UpdateState(GameStateManager gameStateManager) { }
+    public override void UpdateState(GameStateManager gameStateManager) 
+    { 
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
+    }
 
     private void CompletedIntroCameraPan(GameStateManager gameStateManager)
     {

@@ -10,7 +10,10 @@ public class MenuSliderController : MonoBehaviour
     private TMPro.TextMeshProUGUI valueText;
 
     public List<int> playerNums = new List<int> { 1, 2, 3, 4 };
-    public List<float> playerHoldTimes = new List<float> { 0, 0, 0, 0 };
+    public List<float> playerHoldRightTimes = new List<float> { 0, 0, 0, 0 };
+    public List<float> playerHoldRightCooldown = new List<float> { 0.1f, 0.1f, 0.1f, 0.1f };
+    public List<float> playerHoldLeftTimes = new List<float> { 0, 0, 0, 0 };
+    public List<float> playerHoldLeftCooldown = new List<float> { 0.1f, 0.1f, 0.1f, 0.1f };
 
     private float longHoldThreshold = 2;
     private Slider slider;
@@ -29,17 +32,37 @@ public class MenuSliderController : MonoBehaviour
 
             if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
             {
-                playerHoldTimes[pIndex] += Time.deltaTime;
+                playerHoldRightTimes[pIndex] += Time.unscaledDeltaTime;
+                playerHoldLeftTimes[pIndex] = 0;
 
-                slider.value += 1;
-                if (playerHoldTimes[pIndex] > longHoldThreshold)
+                if (playerHoldRightCooldown[pIndex] <= 0)
                 {
-                    slider.value += 4;
+                    slider.value += (slider.wholeNumbers ? 1 : Time.unscaledDeltaTime) * (playerHoldRightTimes[pIndex] > longHoldThreshold ? 10 : 1);
+                        
+                    playerHoldRightCooldown[pIndex] = 0.1f;
                 }
+                playerHoldRightCooldown[pIndex] -= Time.unscaledDeltaTime;
+            }
+            else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
+            {
+                playerHoldLeftTimes[pIndex] += Time.unscaledDeltaTime;
+                playerHoldRightTimes[pIndex] = 0;
+
+                if (playerHoldLeftCooldown[pIndex] <= 0)
+                {
+                    slider.value -= (slider.wholeNumbers ? 1 : Time.unscaledDeltaTime) * (playerHoldLeftTimes[pIndex] > longHoldThreshold ? 10 : 1);
+                        
+                    playerHoldLeftCooldown[pIndex] = 0.1f;
+                }
+                playerHoldLeftCooldown[pIndex] -= Time.unscaledDeltaTime;
             }
             else
             {
-                playerHoldTimes[pIndex] = 0;
+                playerHoldLeftTimes[pIndex] = 0;
+                playerHoldRightTimes[pIndex] = 0;
+
+                playerHoldLeftCooldown[pIndex] = 0.1f;
+                playerHoldRightCooldown[pIndex] = 0.1f;
             }
         }
     }
@@ -51,6 +74,6 @@ public class MenuSliderController : MonoBehaviour
 
     public void updateText()
     {
-        valueText.text = slider.value.ToString();
+        valueText.text = slider.value.ToString("F2");
     }
 }

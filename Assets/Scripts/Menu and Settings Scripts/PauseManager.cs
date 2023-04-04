@@ -33,19 +33,21 @@ public class PauseManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         settingsButton.onClick.AddListener(TransitionToSettings);
         controlsButton.onClick.AddListener(TransitionToControls);
         quitButton.onClick.AddListener(TransitionToQuit);
-
-        List<List<GameObject>> pauseButtons = new List<List<GameObject>> { new List<GameObject> { settingsButton.gameObject }, 
-            new List<GameObject> { controlsButton.gameObject }, new List<GameObject> { quitButton.gameObject } };
-        this.menuSelector = new MenuSelectionHelper(pauseButtons, 0, 2, new List<int> { 1, 2, 3, 4 });
-
     }
 
-    // Update is called once per frame
+    public void SetUpSelector()
+    {
+        List<List<GameObject>> pauseButtons = new List<List<GameObject>> { new List<GameObject> { settingsButton.gameObject },
+            new List<GameObject> { controlsButton.gameObject }, new List<GameObject> { quitButton.gameObject } };
+        menuSelector = new MenuSelectionHelper(pauseButtons, 0, 2, new List<int> { 1, 2, 3, 4 });
+        settingsManager.SetupSelector();
+    }
+
     public void PauseInput()
     {
         if (BackInput())
@@ -78,8 +80,9 @@ public class PauseManager : MonoBehaviour
 
     private void TransitionToSettings()
     {
-        pauseStatus = PAUSESTATUS.Settings;
         settingsPanel.SetActive(true);
+        settingsManager.ResetSelector();
+        pauseStatus = PAUSESTATUS.Settings;
     }
 
     private void TransitionToQuit()
@@ -94,6 +97,6 @@ public class PauseManager : MonoBehaviour
 
     private bool BackInput()
     {
-        return Input.GetButtonDown("back1") | Input.GetButtonDown("back2") | Input.GetButtonDown("back3") | Input.GetButtonDown("back4");
+        return Input.GetButtonDown("Back1") | Input.GetButtonDown("Back2") | Input.GetButtonDown("Back3") | Input.GetButtonDown("Back4");
     }
 }
