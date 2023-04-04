@@ -281,9 +281,6 @@ public class MenuSelectionHelper
         float viewportX = viewport.TransformPoint(new Vector2(viewport.rect.xMax, 0)).x;
         float currentX = current.TransformPoint(new Vector2(current.rect.xMax, 0)).x;
 
-        Debug.Log(viewportX);
-        Debug.Log(currentX);
-
         if (currentX > viewportX)
         {
             grid.position -= new Vector3(currentX - viewportX, 0, 0);

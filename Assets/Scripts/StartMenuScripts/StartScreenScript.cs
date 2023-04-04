@@ -19,7 +19,7 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private Button fourPlayerButton;
     [SerializeField]
-    private Button creditsButton;
+    private Button controlsButton;
     [SerializeField]
     private Button settingsButton;
     private MenuSelectionHelper gameModeSelector;
@@ -41,11 +41,11 @@ public class StartScreenScript : MonoBehaviour
     private Button stadiumButton2;
     private MenuSelectionHelper mapSelector;
 
-    /*[SerializeField]
+    [SerializeField]
     private GameObject settingsPanel;
 
     [SerializeField]
-    private GameObject controlsPanel;*/
+    private GameObject controlsPanel;
 
     [SerializeField]
     private GameObject playerPrefab;
@@ -100,7 +100,7 @@ public class StartScreenScript : MonoBehaviour
         // Gamemode menu button onclick events
         twoPlayerButton.onClick.AddListener(SelectedTwoPlayerMode);
         fourPlayerButton.onClick.AddListener(SelectedFourPlayerMode);
-        creditsButton.onClick.AddListener(SelectedCredits);
+        controlsButton.onClick.AddListener(SelectedControls);
         settingsButton.onClick.AddListener(SelectedSettings);
 
         // Map menu button onclick events
@@ -111,11 +111,13 @@ public class StartScreenScript : MonoBehaviour
         gamemodePanel.SetActive(false);
         loadoutPanel.SetActive(false);
         mapPanel.SetActive(false);
-        //settingsPanel.SetActive(false);
-        //controlsPanel.SetActive(false);
+        settingsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
+
+        settingsPanel.GetComponent<SettingsManager>().SetupSelector();
 
         List<List<GameObject>> gamemodeButtons = new List<List<GameObject>> { new List<GameObject> { twoPlayerButton.gameObject }, 
-            new List<GameObject> { fourPlayerButton.gameObject }, new List<GameObject> { creditsButton.gameObject }, 
+            new List<GameObject> { fourPlayerButton.gameObject }, new List<GameObject> { controlsButton.gameObject }, 
             new List<GameObject> { settingsButton.gameObject } };
         gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 4, new List<int> { 1, 2, 3, 4 });
 
@@ -144,14 +146,19 @@ public class StartScreenScript : MonoBehaviour
         }
         else if (currentMenu == MenuTypes.Controls)
         {
-            if (Input.GetButton("Menu"))
+            if (BackInput())
             {
-                // use menu as back button
+                controlsPanel.SetActive(false);
                 TransitionToGamemodeMenu();
             }
         }
         else
         {
+            if (BackInput())
+            {
+                settingsPanel.SetActive(false);
+                TransitionToGamemodeMenu();
+            }
             SettingsInput();
         }
     }
@@ -207,19 +214,30 @@ public class StartScreenScript : MonoBehaviour
         }
     }
 
-    private void SettingsInput()
+    private bool BackInput()
     {
-        Debug.Log("SettingsInput not implemented yet");
+        if (Input.GetButtonDown("Back1") | Input.GetButtonDown("Back2") | Input.GetButtonDown("Back3") | Input.GetButtonDown("Back4"))
+        {
+            return true;
+        }
+        return false;
     }
 
-    private void SelectedCredits()
+    private void SettingsInput()
     {
-        Debug.Log("Selected credits. Credits Not Implemented yet.");
+        settingsPanel.GetComponent<SettingsManager>().SettingsInput();
     }
 
     private void SelectedSettings()
     {
-        Debug.Log("Selected settings. Settings Not Implemented yet.");
+        settingsPanel.SetActive(true);
+        currentMenu = MenuTypes.Settings;
+    }
+
+    private void SelectedControls()
+    {
+        controlsPanel.SetActive(true);
+        currentMenu = MenuTypes.Controls;
     }
 
     private void SelectedTwoPlayerMode()
