@@ -18,7 +18,7 @@ public class MenuSliderController : MonoBehaviour
     private float longHoldThreshold = 2;
     private Slider slider;
 
-    private void Start()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
         updateText();
@@ -75,5 +75,11 @@ public class MenuSliderController : MonoBehaviour
     public void updateText()
     {
         valueText.text = slider.value.ToString("F2");
+    }
+
+    public void InitValue(float value)
+    {
+        slider.value = value;
+        updateText();
     }
 }

@@ -75,6 +75,7 @@ public class SettingsManager : MonoBehaviour
     private void Start()
     {
         grid.position = new Vector3(grid.position.x, 0, grid.position.z);
+        InitializeSliders();
     }
 
     public void SetupSelector()
@@ -98,6 +99,27 @@ public class SettingsManager : MonoBehaviour
         settingsSelector.GetCurrent().GetComponentInChildren<MenuSliderController>().SliderInput();
         settingsSelector.GetCurrent().GetComponentInChildren<MenuSliderController>().updateText();
         UpdateSettingsConstants();
+    }
+
+    public void InitializeSliders()
+    {
+        volumeSettingSlider.InitValue(GameSettings.currVolume);
+
+        player1sensSlider.InitValue(GameSettings.Player1Settings[0]);
+        player1angleSlider.InitValue(GameSettings.Player1Settings[1]);
+        player1strengthSlider.InitValue(GameSettings.Player1Settings[2]);
+
+        player2sensSlider.InitValue(GameSettings.Player2Settings[0]);
+        player2angleSlider.InitValue(GameSettings.Player2Settings[1]);
+        player2strengthSlider.InitValue(GameSettings.Player2Settings[2]);
+
+        player3sensSlider.InitValue(GameSettings.Player3Settings[0]);
+        player3angleSlider.InitValue(GameSettings.Player3Settings[1]);
+        player3strengthSlider.InitValue(GameSettings.Player3Settings[2]);
+
+        player4sensSlider.InitValue(GameSettings.Player4Settings[0]);
+        player4angleSlider.InitValue(GameSettings.Player4Settings[1]);
+        player4strengthSlider.InitValue(GameSettings.Player4Settings[2]);
     }
 
     private void UpdateSettingsConstants()
