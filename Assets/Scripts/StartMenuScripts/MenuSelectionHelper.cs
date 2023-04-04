@@ -26,9 +26,12 @@ public class MenuSelectionHelper
     private int firstVisible = 0;
     private int lastVisible = 0;
     private RectTransform grid = null;
+    private RectTransform viewport = null;
     private float widthOffset = 0;
     private float cellWidth;
     private bool offsetOnRight = true;
+
+    private bool vScrollable = false;
 
     public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
     {
@@ -39,6 +42,21 @@ public class MenuSelectionHelper
         selectedRow = defaultRow;
         this.playerNums = playerNums ?? this.playerNums;
 
+        Init();
+    }
+
+    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, RectTransform viewport, RectTransform grid, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
+    {
+        this.buttons = buttons;
+        this.maxCol = maxCol;
+        this.maxRow = maxRow;
+        selectedCol = defaultCol;
+        selectedRow = defaultRow;
+        this.playerNums = playerNums ?? this.playerNums;
+        this.viewport = viewport;
+        this.grid = grid;
+
+        vScrollable = true;
         Init();
     }
 
@@ -166,6 +184,14 @@ public class MenuSelectionHelper
                     if (currentRow > maxRow)
                     {
                         currentRow = 0;
+                        if (vScrollable)
+                        {
+                            MoveGridUp();
+                        }
+                    }
+                    else if (vScrollable)
+                    {
+                        MoveGridDown();
                     }
 
                     HideBorderHover(prevRow, currentCol);
@@ -186,6 +212,14 @@ public class MenuSelectionHelper
                     if (currentRow < 0)
                     {
                         currentRow = maxRow;
+                        if (vScrollable)
+                        {
+                            MoveGridDown();
+                        }
+                    }
+                    else if (vScrollable)
+                    {
+                        MoveGridUp();
                     }
 
                     HideBorderHover(prevRow, currentCol);
@@ -299,5 +333,31 @@ public class MenuSelectionHelper
 
         firstVisible += maxCol - lastVisible;
         lastVisible = maxCol;
+    }
+
+    private void MoveGridDown()
+    {
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
+
+        float viewportY = viewport.TransformPoint(new Vector2(0, viewport.rect.yMin)).y;
+        float currentY = current.TransformPoint(new Vector2(0, current.rect.yMin)).y;
+
+        if (currentY < viewportY)
+        {
+            grid.position += new Vector3(0, viewportY - currentY, 0);
+        }
+    }
+
+    private void MoveGridUp()
+    {
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
+
+        float viewportY = viewport.TransformPoint(new Vector2(0, viewport.rect.yMax)).y;
+        float currentY = current.TransformPoint(new Vector2(0, current.rect.yMax)).y;
+
+        if (currentY > viewportY)
+        {
+            grid.position -= new Vector3(0, currentY - viewportY, 0);
+        }
     }
 }

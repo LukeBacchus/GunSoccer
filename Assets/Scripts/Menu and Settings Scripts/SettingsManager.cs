@@ -64,8 +64,18 @@ public class SettingsManager : MonoBehaviour
     [SerializeField]
     private MenuSliderController player4strengthSlider;
 
+    [SerializeField]
+    private RectTransform viewport;
+    [SerializeField]
+    private RectTransform grid;
+
     private MenuSelectionHelper settingsSelector;
     private List<List<GameObject>> menuOptions;
+
+    private void Start()
+    {
+        grid.position = new Vector3(grid.position.x, 0, grid.position.z);
+    }
 
     public void SetupSelector()
     {
@@ -74,7 +84,7 @@ public class SettingsManager : MonoBehaviour
             new List<GameObject>{ player2sens }, new List<GameObject> { player2angle }, new List<GameObject> { player2strength },
             new List<GameObject>{ player3sens }, new List<GameObject> { player3angle }, new List<GameObject> { player3strength },
             new List<GameObject>{ player4sens }, new List<GameObject> { player4angle }, new List<GameObject> { player4strength }};
-        settingsSelector = new MenuSelectionHelper(menuOptions, 0, 12, new List<int> { 1, 2, 3, 4 });
+        settingsSelector = new MenuSelectionHelper(menuOptions, 0, 12, viewport, grid, new List<int> { 1, 2, 3, 4 });
     }
 
     public void ResetSelector()
