@@ -23,15 +23,10 @@ public class MenuSelectionHelper
 
     // For horizontal scrollable menus
     private bool hScrollable = false;
-    private int firstVisible = 0;
-    private int lastVisible = 0;
+    private bool vScrollable = false;
     private RectTransform grid = null;
     private RectTransform viewport = null;
-    private float widthOffset = 0;
-    private float cellWidth;
-    private bool offsetOnRight = true;
 
-    private bool vScrollable = false;
 
     public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
     {
@@ -45,7 +40,7 @@ public class MenuSelectionHelper
         Init();
     }
 
-    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, RectTransform viewport, RectTransform grid, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
+    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, RectTransform viewport, RectTransform grid, bool hScrollable = true, bool vScrollable = true, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
     {
         this.buttons = buttons;
         this.maxCol = maxCol;
@@ -55,27 +50,9 @@ public class MenuSelectionHelper
         this.playerNums = playerNums ?? this.playerNums;
         this.viewport = viewport;
         this.grid = grid;
+        this.vScrollable = vScrollable;
+        this.hScrollable = hScrollable;
 
-        vScrollable = true;
-        Init();
-    }
-
-    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, int firstVisible, int lastVisible, 
-        RectTransform grid, float widthOffset, float cellWidth, int defaultCol = -1, int defaultRow = -1, List<int> playerNums = null)
-    {
-        this.buttons = buttons;
-        this.maxCol = maxCol;
-        this.maxRow = maxRow;
-        selectedCol = defaultCol;
-        selectedRow = defaultRow;
-        this.firstVisible = firstVisible;
-        this.lastVisible = lastVisible;
-        this.grid = grid;
-        this.widthOffset = widthOffset;
-        this.cellWidth = cellWidth;
-        this.playerNums = playerNums ?? this.playerNums;
-
-        hScrollable = true;
         Init();
     }
 
@@ -108,18 +85,17 @@ public class MenuSelectionHelper
                 {
                     int prevCol = currentCol;
                     currentCol += 1;
-                    if (hScrollable && currentCol > lastVisible)
-                    {
-                        MoveGridRight();
-                    }
 
                     if (currentCol > maxCol)
                     {
                         currentCol = 0;
                         if (hScrollable)
                         {
-                            ResetGridLeft();
+                            MoveGridLeft();
                         }
+                    } else if (hScrollable)
+                    {
+                        MoveGridRight();
                     }
 
                     HideBorderHover(currentRow, prevCol);
@@ -137,18 +113,17 @@ public class MenuSelectionHelper
                 {
                     int prevCol = currentCol;
                     currentCol -= 1;
-                    if (hScrollable && currentCol < firstVisible)
-                    {
-                        MoveGridLeft();
-                    }
 
                     if (currentCol < 0)
                     {
                         currentCol = maxCol;
                         if (hScrollable)
                         {
-                            ResetGridRight();
+                            MoveGridRight();
                         }
+                    } else if (hScrollable)
+                    {
+                        MoveGridLeft();
                     }
 
                     HideBorderHover(currentRow, prevCol);
@@ -301,38 +276,31 @@ public class MenuSelectionHelper
 
     private void MoveGridRight()
     {
-        grid.offsetMin += new Vector2(offsetOnRight ? widthOffset - cellWidth : -cellWidth, 0);
-        offsetOnRight = false;
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
 
-        firstVisible += 1;
-        lastVisible += 1;
+        float viewportX = viewport.TransformPoint(new Vector2(viewport.rect.xMax, 0)).x;
+        float currentX = current.TransformPoint(new Vector2(current.rect.xMax, 0)).x;
+
+        Debug.Log(viewportX);
+        Debug.Log(currentX);
+
+        if (currentX > viewportX)
+        {
+            grid.position -= new Vector3(currentX - viewportX, 0, 0);
+        }
     }
 
     private void MoveGridLeft()
     {
-        grid.offsetMin += new Vector2(!offsetOnRight ? cellWidth - widthOffset : cellWidth, 0);
-        offsetOnRight = true;
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
 
-        firstVisible -= 1;
-        lastVisible -= 1;
-    }
+        float viewportX = viewport.TransformPoint(new Vector2(viewport.rect.xMin, 0)).x;
+        float currentX = current.TransformPoint(new Vector2(current.rect.xMin, 0)).x;
 
-    private void ResetGridLeft()
-    {
-        grid.offsetMin = new Vector2(0, grid.offsetMin.y);
-        offsetOnRight = true;
-
-        lastVisible -= firstVisible;
-        firstVisible = 0;
-    }
-
-    private void ResetGridRight()
-    {
-        grid.offsetMin = new Vector2(-cellWidth * (maxCol + 1) + 5, grid.offsetMin.y);
-        offsetOnRight = false;
-
-        firstVisible += maxCol - lastVisible;
-        lastVisible = maxCol;
+        if (currentX < viewportX)
+        {
+            grid.position += new Vector3(viewportX - currentX, 0, 0);
+        }
     }
 
     private void MoveGridDown()

@@ -42,15 +42,9 @@ public class PlayerLoadoutMenu : MonoBehaviour
         }
         List<List<GameObject>> buttons = new List<List<GameObject>> { weaponButtons };
 
-        weaponGrid.offsetMin = Vector2.zero;
-        viewport.offsetMin = Vector2.zero;
+        weaponGrid.position = new Vector3(0, weaponGrid.position.y, weaponGrid.position.z);
 
-        Canvas.ForceUpdateCanvases();
-        float cellWidth = weaponButtons[0].GetComponent<RectTransform>().rect.width + 5;
-        int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
-        float widthOffset = viewport.rect.width % cellWidth;
-
-        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, 0, new List<int> { playerNum });
+        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, viewport, weaponGrid, true, false, new List<int> { playerNum }, 0, 0);
         currentSelection = weapons[0];
         menuLoaded = true;
     }
