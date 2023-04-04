@@ -142,5 +142,6 @@ public class SettingsManager : MonoBehaviour
             player4angleSlider.getValue(), 
             player4strengthSlider.getValue() };
     }
-    
+
+ 
 }
