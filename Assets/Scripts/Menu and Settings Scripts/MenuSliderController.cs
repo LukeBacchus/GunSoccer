@@ -15,7 +15,7 @@ public class MenuSliderController : MonoBehaviour
     public List<float> playerHoldLeftTimes = new List<float> { 0, 0, 0, 0 };
     public List<float> playerHoldLeftCooldown = new List<float> { 0.1f, 0.1f, 0.1f, 0.1f };
 
-    private float longHoldThreshold = 2;
+    private float longHoldThreshold = 1.5f;
     private Slider slider;
 
     private void Awake()
@@ -37,7 +37,7 @@ public class MenuSliderController : MonoBehaviour
 
                 if (playerHoldRightCooldown[pIndex] <= 0)
                 {
-                    slider.value += (slider.wholeNumbers ? 1 : Time.unscaledDeltaTime) * (playerHoldRightTimes[pIndex] > longHoldThreshold ? 10 : 1);
+                    slider.value += (slider.wholeNumbers ? 1 : 0.01f) * (playerHoldRightTimes[pIndex] > longHoldThreshold ? 5 : 1);
                         
                     playerHoldRightCooldown[pIndex] = 0.1f;
                 }
@@ -50,7 +50,7 @@ public class MenuSliderController : MonoBehaviour
 
                 if (playerHoldLeftCooldown[pIndex] <= 0)
                 {
-                    slider.value -= (slider.wholeNumbers ? 1 : Time.unscaledDeltaTime) * (playerHoldLeftTimes[pIndex] > longHoldThreshold ? 10 : 1);
+                    slider.value -= (slider.wholeNumbers ? 1 : 0.01f) * (playerHoldLeftTimes[pIndex] > longHoldThreshold ? 5 : 1);
                         
                     playerHoldLeftCooldown[pIndex] = 0.1f;
                 }

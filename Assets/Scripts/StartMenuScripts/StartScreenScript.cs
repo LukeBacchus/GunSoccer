@@ -135,14 +135,41 @@ public class StartScreenScript : MonoBehaviour
         else if (currentMenu == MenuTypes.GamemodeMenu)
         {
             GamemodeMenuInput();
+
+            if (BackInput())
+            {
+                gamemodePanel.SetActive(false);
+                coverPanel.SetActive(true);
+                currentMenu = MenuTypes.CoverMenu;
+            }
         }
         else if (currentMenu == MenuTypes.LoadoutMenu)
         {
             LoadoutMenuInput();
+
+            if (BackInput())
+            {
+                loadoutPanel.SetActive(false);
+                DestroyLoadoutMenus();
+                TransitionToGamemodeMenu();
+            }
         }
         else if (currentMenu == MenuTypes.MapMenu)
         {
             MapMenuInput();
+
+            if (BackInput())
+            {
+                mapPanel.SetActive(false);
+                currentMenu = MenuTypes.LoadoutMenu;
+                foreach (PlayerLoadoutMenu loadoutMenu in loadoutMenuScripts)
+                {
+                    if (loadoutMenu.ready)
+                    {
+                        loadoutMenu.ToggleReady();
+                    }
+                }
+            }
         }
         else if (currentMenu == MenuTypes.Controls)
         {
@@ -154,12 +181,13 @@ public class StartScreenScript : MonoBehaviour
         }
         else
         {
+            SettingsInput();
+
             if (BackInput())
             {
                 settingsPanel.SetActive(false);
                 TransitionToGamemodeMenu();
             }
-            SettingsInput();
         }
     }
 
@@ -263,7 +291,6 @@ public class StartScreenScript : MonoBehaviour
         loadingLoadoutMenu = true;
         loadoutPanel.SetActive(true);
         currentMenu = MenuTypes.LoadoutMenu;
-        gamemodePanel.SetActive(false);
 
 
         if (numPlayers == 1)
@@ -292,7 +319,6 @@ public class StartScreenScript : MonoBehaviour
     {
         mapPanel.SetActive(true);
         currentMenu = MenuTypes.MapMenu;
-        loadoutPanel.SetActive(false);
     }
 
     private void LoadMap(string sceneName)
@@ -322,6 +348,15 @@ public class StartScreenScript : MonoBehaviour
         menuScript.UpdateTitle();
 
         loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
+    }
+
+    private void DestroyLoadoutMenus()
+    {
+        foreach (PlayerLoadoutMenu loadoutMenu in loadoutMenuScripts)
+        {
+            Destroy(loadoutMenu.gameObject);
+        }
+        loadoutMenuScripts = new List<PlayerLoadoutMenu>();
     }
 
     private void SpawnPlayer(int playerNum)

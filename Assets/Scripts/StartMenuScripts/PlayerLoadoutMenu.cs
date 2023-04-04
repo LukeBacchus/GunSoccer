@@ -76,7 +76,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
         title.text = "Player " + playerNum + " Loadout";
     }
 
-    private void ToggleReady()
+    public void ToggleReady()
     {
         ready = !ready;
         if (ready)
