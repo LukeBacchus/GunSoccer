@@ -117,6 +117,6 @@ public class PlayerStats : MonoBehaviour
         sensitivityX = playerSettings[0];
         sensitivityY = playerSettings[0];
         assistAngle = playerSettings[1];
-        assistMultiplier = playerSettings[2];
+        assistMultiplier = 2 - playerSettings[2];
     }
 }
