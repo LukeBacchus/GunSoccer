@@ -19,7 +19,7 @@ public class VolumeScript : MonoBehaviour
 
     private void Update()
     {
-        bus.setVolume(DecibelToLinear(busVolume));
+        bus.setVolume(DecibelToLinear(GameSettings.currVolume * 90 / 100 - 80));
     }
 
     private float DecibelToLinear(float dB)
