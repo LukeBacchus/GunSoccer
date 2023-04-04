@@ -13,6 +13,8 @@ public class PauseManager : MonoBehaviour
     private GameObject pausePanel;
     [SerializeField]
     private GameObject settingsPanel;
+    [SerializeField]
+    private GameObject controlsPanel;
 
     [SerializeField]
     private Button settingsButton;
@@ -61,7 +63,8 @@ public class PauseManager : MonoBehaviour
             else if (pauseStatus == PAUSESTATUS.Controls)
             {
                 pauseStatus = PAUSESTATUS.None;
-                Debug.Log("not implemented controls yet");
+                pauseStatus = PAUSESTATUS.None;
+                controlsPanel.SetActive(false);
             }
         }
 
@@ -93,7 +96,8 @@ public class PauseManager : MonoBehaviour
 
     private void TransitionToControls()
     {
-        Debug.Log("can't show controls yet");
+        controlsPanel.SetActive(true);
+        pauseStatus = PAUSESTATUS.Controls;
     }
 
     private bool BackInput()
