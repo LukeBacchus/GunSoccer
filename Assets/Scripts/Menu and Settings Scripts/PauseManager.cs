@@ -54,6 +54,7 @@ public class PauseManager : MonoBehaviour
         {
             if (pauseStatus == PAUSESTATUS.Settings)
             {
+                settingsManager.ResetSelector();
                 pauseStatus = PAUSESTATUS.None;
                 settingsPanel.SetActive(false);
             }
@@ -81,12 +82,12 @@ public class PauseManager : MonoBehaviour
     private void TransitionToSettings()
     {
         settingsPanel.SetActive(true);
-        settingsManager.ResetSelector();
         pauseStatus = PAUSESTATUS.Settings;
     }
 
     private void TransitionToQuit()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Start Screen");
     }
 
