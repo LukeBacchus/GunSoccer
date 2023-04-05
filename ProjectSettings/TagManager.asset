@@ -7,7 +7,6 @@ TagManager:
   - Soccer
   - Bullet
   - Stadium Surface
-  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -15,12 +14,12 @@ TagManager:
   - First Person
   - Water
   - UI
-  - Player
-  - BlockPlayer
-  - Player1
-  - Player2
-  - Player3
-  - Player4
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

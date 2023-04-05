@@ -11,7 +11,21 @@ public class InitializeMap : MonoBehaviour
     [SerializeField]
     List<Transform> fourPlayerSpawns;
 
-    public void ResetPlayerLocs(List<GameObject> players)
+    private List<GameObject> players = new List<GameObject>();
+    void Awake()
+    {
+        for (int i = 1; i <= 4; i++)
+        {
+            GameObject player = GameObject.Find("Player " + i);
+            if (player == null) break;
+            players.Add(player);
+        }
+
+        ResetPlayerLocs();
+        MovePlayersIntoScene();
+    }
+
+    public void ResetPlayerLocs()
     {
         List<Transform> spawnLocations = new List<Transform>();
         if (players.Count == 2)
@@ -27,12 +41,10 @@ public class InitializeMap : MonoBehaviour
         {
             players[i].transform.position = spawnLocations[i].position + new Vector3(0, 1, 0);
             players[i].transform.rotation = spawnLocations[i].rotation;
-            players[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
-            players[i].GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
     }
 
-    public void MovePlayersIntoScene(List<GameObject> players)
+    private void MovePlayersIntoScene()
     {
         foreach (GameObject player in players)
         {

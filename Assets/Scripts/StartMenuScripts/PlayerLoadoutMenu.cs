@@ -12,53 +12,58 @@ public class PlayerLoadoutMenu : MonoBehaviour
     [SerializeField]
     private RectTransform viewport;
     [SerializeField]
-    private Button buttonPreset;
-
-    public bool menuLoaded = false;
-    public int playerNum;
-    public bool ready = false;
-    private bool justPressed = false;
-    public Weapons currentSelection;
-    public List<Weapons> weapons;
+    private Button rifleButton;
+    [SerializeField]
+    private Button sniperButton;
+    [SerializeField]
+    private Button smgButton;
+    [SerializeField]
+    private Button shotgunButton;
+    [SerializeField]
+    private Button grenadeLauncherButton;
 
     private MenuSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
-    private List<GameObject> weaponButtons = new List<GameObject>();
+    public int playerNum;
+    public bool ready = false;
+    public WeaponType currentSelection = WeaponType.AssaultRifle;
+
+    public enum WeaponType
+    {
+        AssaultRifle,
+        SniperRifle,
+        SMG,
+        Shotgun,
+        GrenadeLauncher
+    }
 
     // Start is called before the first frame update
-    public void Init()
+    void Start()
     {
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            Button newbutton = Instantiate(buttonPreset);
-            newbutton.transform.SetParent(weaponGrid);
-            newbutton.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = weapons[i].name;
-            newbutton.transform.GetChild(1).GetComponent<Image>().sprite = weapons[i].icon;
-            int index = i;
-            newbutton.onClick.AddListener(delegate { SelectWeapon(index); });
+        rifleButton.onClick.AddListener(SelectRifle);
+        sniperButton.onClick.AddListener(SelectSniper);
+        smgButton.onClick.AddListener(SelectSmg);
+        shotgunButton.onClick.AddListener(SelectShotgun);
+        grenadeLauncherButton.onClick.AddListener(SelectGrenadeLauncher);
 
-            weaponButtons.Add(newbutton.gameObject);
-        }
-        List<List<GameObject>> buttons = new List<List<GameObject>> { weaponButtons };
+        List<List<Button>> buttons = new List<List<Button>> { new List<Button> { rifleButton, sniperButton, smgButton, shotgunButton, grenadeLauncherButton } };
+        weaponGrid.offsetMin = Vector2.zero;
+        viewport.offsetMin = Vector2.zero;
 
-        weaponGrid.position = new Vector3(0, weaponGrid.position.y, weaponGrid.position.z);
+        Canvas.ForceUpdateCanvases();
+        float cellWidth = rifleButton.gameObject.GetComponent<RectTransform>().rect.width + 5;
+        int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
+        float widthOffset = viewport.rect.width % cellWidth;
 
-        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, viewport, weaponGrid, true, false, new List<int> { playerNum }, 0, 0);
-        currentSelection = weapons[0];
-        menuLoaded = true;
+        weaponSelector = new MenuSelectionHelper(buttons, 4, 0, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, 0, playerNum);
     }
 
     public void LoadoutInput()
     {
-        if (Input.GetAxisRaw("Fire1" + (playerNum).ToString()) > 0.0f)
+        if (Input.GetButtonDown("Fire1" + (playerNum).ToString()))
         {
-            if(!justPressed){
-                justPressed = true;
-                ToggleReady();
-            }
-        } else {
-            justPressed = false;
+            ToggleReady();
         }
 
         if (!ready)
@@ -76,31 +81,53 @@ public class PlayerLoadoutMenu : MonoBehaviour
         title.text = "Player " + playerNum + " Loadout";
     }
 
-    public void ToggleReady()
+    private void ToggleReady()
     {
         ready = !ready;
         if (ready)
         {
-            for (int i = 0; i < weapons.Count; i++)
-            {
-                weaponButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
-            }
+            rifleButton.onClick.RemoveAllListeners();
+            sniperButton.onClick.RemoveAllListeners();
+            smgButton.onClick.RemoveAllListeners();
+            shotgunButton.onClick.RemoveAllListeners();
+            grenadeLauncherButton.onClick.RemoveAllListeners();
 
             GetComponent<Image>().color = readyColor;
         } else
         {
-            for (int i = 0; i < weapons.Count; i++)
-            {
-                int index = i;
-                weaponButtons[i].GetComponent<Button>().onClick.AddListener(delegate { SelectWeapon(index); });
-            }
+            rifleButton.onClick.AddListener(SelectRifle);
+            sniperButton.onClick.AddListener(SelectSniper);
+            smgButton.onClick.AddListener(SelectSmg);
+            shotgunButton.onClick.AddListener(SelectShotgun);
+            grenadeLauncherButton.onClick.AddListener(SelectGrenadeLauncher);
 
             GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
     }
 
-    private void SelectWeapon(int index)
+    private void SelectRifle()
     {
-        currentSelection = weapons[index];
+        currentSelection = WeaponType.AssaultRifle;
     }
+
+    private void SelectSniper()
+    {
+        currentSelection = WeaponType.SniperRifle;
+    }
+
+    private void SelectSmg()
+    {
+        currentSelection = WeaponType.SMG;
+    }
+
+    private void SelectShotgun()
+    {
+        currentSelection = WeaponType.Shotgun;
+    }
+
+    private void SelectGrenadeLauncher()
+    {
+        currentSelection = WeaponType.GrenadeLauncher;
+    }
+
 }

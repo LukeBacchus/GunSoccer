@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using FMODUnity;
 
 public class PlayerGunController : MonoBehaviour
@@ -16,14 +15,12 @@ public class PlayerGunController : MonoBehaviour
     private float currCooldown;
     private int currMagazine;
     private bool reloading;
-    private bool initializedMagazineText = false;
 
     // Start is called before the first frame update
     void Start()
     {
         sfx = GetComponent<StudioEventEmitter>();
         playerStats = GetComponent<PlayerStats>();
-        muzzle = playerStats.gunPos.GetChild(0).Find("Muzzle").transform;
 
         currCooldown = 0;
         currMagazine = playerStats.weapon.magazineSize;
@@ -32,13 +29,7 @@ public class PlayerGunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerStats.gameState != null && !initializedMagazineText)
-        {
-            UpdateMagazineText();
-            initializedMagazineText = true;
-        }
-
-        if (currMagazine == 0 && !reloading)
+        if (currMagazine == 0)
         {
             reloading = true;
             StartCoroutine(Reload());
@@ -46,13 +37,12 @@ public class PlayerGunController : MonoBehaviour
 
         if (shoot)
         {
-            if (currCooldown == 0 && !reloading && playerStats.allowPlayerShoot)
+            if (currCooldown == 0 && !reloading)
             {
                 ShootGun();
                 currCooldown += playerStats.weapon.shootCooldown;
 
-                RuntimeManager.PlayOneShot(playerStats.weapon.sfx_name);
-
+                RuntimeManager.PlayOneShot("event:/Gunshot");
             }
 
             shoot = false;
@@ -61,12 +51,7 @@ public class PlayerGunController : MonoBehaviour
         currCooldown = Mathf.Clamp(currCooldown - Time.deltaTime, 0, 10);
     }
 
-    public void UpdateMuzzleLocation()
-    {
-        muzzle = playerStats.gunPos.GetChild(0).Find("Muzzle").transform;
-    }
-
-    private void ShootGun()
+    void ShootGun()
     {
         RaycastHit hit;
         if (Physics.Raycast(cam.position + cam.forward * 2, cam.forward, out hit))
@@ -77,42 +62,14 @@ public class PlayerGunController : MonoBehaviour
             muzzle.localEulerAngles = new Vector3(0, 180, 0);
         }
 
-        playerStats.weapon.ShootGun(muzzle, GetComponent<Rigidbody>().velocity, playerStats.playerNum);
+        playerStats.weapon.ShootGun(muzzle, playerStats.playerNum);
         currMagazine -= 1;
-        UpdateMagazineText();
-    }
-
-    private void UpdateMagazineText()
-    {
-        if (playerStats.gameState != null)
-        {
-            playerStats.gameState.playerMagazineTexts[playerStats.playerNum - 1].text = currMagazine + "/" + playerStats.weapon.magazineSize;
-        }
     }
 
     IEnumerator Reload()
     {
-        if (playerStats.gameState == null)
-        {
-            yield break;
-        }
-
-        Transform crosshair = playerStats.gameState.playerCrosshairs[playerStats.playerNum - 1];
-        Image reloadImage = crosshair.transform.GetChild(0).GetComponent<Image>();
-        crosshair.GetComponent<Image>().color = new Color(1, 1, 1, 0);
-
-        float count = 0;
-        while (count <= playerStats.weapon.reloadSpeed)
-        {
-            count += Time.deltaTime;
-            reloadImage.fillAmount = count / playerStats.weapon.reloadSpeed;
-            yield return null;
-        }
-
+        yield return new WaitForSeconds(playerStats.weapon.reloadSpeed);
         currMagazine = playerStats.weapon.magazineSize;
-        reloadImage.fillAmount = 0;
-        crosshair.GetComponent<Image>().color = new Color(1, 1, 1);
-        UpdateMagazineText();
         reloading = false;
     }
 }
