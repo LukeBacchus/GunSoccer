@@ -40,21 +40,6 @@ public class WeaponSelectionHelper
         Init();
     }
 
-    public WeaponSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, RectTransform viewport, RectTransform grid, bool hScrollable = true, bool vScrollable = true, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
-    {
-        this.buttons = buttons;
-        this.maxCol = maxCol;
-        this.maxRow = maxRow;
-        selectedCol = defaultCol;
-        selectedRow = defaultRow;
-        this.playerNums = playerNums ?? this.playerNums;
-        this.viewport = viewport;
-        this.grid = grid;
-        this.vScrollable = vScrollable;
-        this.hScrollable = hScrollable;
-
-        Init();
-    }
 
     public void Init()
     {
@@ -89,16 +74,7 @@ public class WeaponSelectionHelper
                     if (currentCol > maxCol)
                     {
                         currentCol = 0;
-                        if (hScrollable)
-                        {
-                            MoveGridLeft();
-                        }
                     }
-                    else if (hScrollable)
-                    {
-                        MoveGridRight();
-                    }
-
                     HideBorderHover(currentRow, prevCol);
                     ShowBorderHover(currentRow, currentCol);
                     horizontalHoldTime = 0;
@@ -118,14 +94,6 @@ public class WeaponSelectionHelper
                     if (currentCol < 0)
                     {
                         currentCol = maxCol;
-                        if (hScrollable)
-                        {
-                            MoveGridRight();
-                        }
-                    }
-                    else if (hScrollable)
-                    {
-                        MoveGridLeft();
                     }
 
                     HideBorderHover(currentRow, prevCol);
@@ -161,14 +129,6 @@ public class WeaponSelectionHelper
                     if (currentRow > maxRow)
                     {
                         currentRow = 0;
-                        if (vScrollable)
-                        {
-                            MoveGridUp();
-                        }
-                    }
-                    else if (vScrollable)
-                    {
-                        MoveGridDown();
                     }
 
                     HideBorderHover(prevRow, currentCol);
@@ -189,14 +149,6 @@ public class WeaponSelectionHelper
                     if (currentRow < 0)
                     {
                         currentRow = maxRow;
-                        if (vScrollable)
-                        {
-                            MoveGridDown();
-                        }
-                    }
-                    else if (vScrollable)
-                    {
-                        MoveGridUp();
                     }
 
                     HideBorderHover(prevRow, currentCol);
@@ -276,55 +228,4 @@ public class WeaponSelectionHelper
         }
     }
 
-    private void MoveGridRight()
-    {
-        RectTransform current = GetCurrent().GetComponent<RectTransform>();
-
-        float viewportX = viewport.TransformPoint(new Vector2(viewport.rect.xMax, 0)).x;
-        float currentX = current.TransformPoint(new Vector2(current.rect.xMax, 0)).x;
-
-        if (currentX > viewportX)
-        {
-            grid.position -= new Vector3(currentX - viewportX, 0, 0);
-        }
-    }
-
-    private void MoveGridLeft()
-    {
-        RectTransform current = GetCurrent().GetComponent<RectTransform>();
-
-        float viewportX = viewport.TransformPoint(new Vector2(viewport.rect.xMin, 0)).x;
-        float currentX = current.TransformPoint(new Vector2(current.rect.xMin, 0)).x;
-
-        if (currentX < viewportX)
-        {
-            grid.position += new Vector3(viewportX - currentX, 0, 0);
-        }
-    }
-
-    private void MoveGridDown()
-    {
-        RectTransform current = GetCurrent().GetComponent<RectTransform>();
-
-        float viewportY = viewport.TransformPoint(new Vector2(0, viewport.rect.yMin)).y;
-        float currentY = current.TransformPoint(new Vector2(0, current.rect.yMin)).y;
-
-        if (currentY < viewportY)
-        {
-            grid.position += new Vector3(0, viewportY - currentY, 0);
-        }
-    }
-
-    private void MoveGridUp()
-    {
-        RectTransform current = GetCurrent().GetComponent<RectTransform>();
-
-        float viewportY = viewport.TransformPoint(new Vector2(0, viewport.rect.yMax)).y;
-        float currentY = current.TransformPoint(new Vector2(0, current.rect.yMax)).y;
-
-        if (currentY > viewportY)
-        {
-            grid.position -= new Vector3(0, currentY - viewportY, 0);
-        }
-    }
 }
