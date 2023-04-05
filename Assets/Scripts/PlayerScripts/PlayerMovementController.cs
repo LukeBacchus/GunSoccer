@@ -6,23 +6,25 @@ public class PlayerMovementController : MonoBehaviour
 {
     public float moveX;
     public float moveZ;
+    public float sprint;
     public float camJoyStickX = 0;
     public float camJoyStickY = 0;
     public bool jump = false;
+    public bool targetLocked = false;
 
     private PlayerStats playerStats;
     private Rigidbody rb;
     private Collider col;
-    private float jumpForce = 10;
-    [SerializeField] private float speed = 50;
+    [SerializeField] public float jumpForce = 50;
+    [SerializeField] private float lookMin = 60f;
+    [SerializeField] private float lookMax = 310f;
+    [SerializeField] private float speed = 500;
+    [SerializeField] private float sprintSpeed = 500;
     private float maxSpeed = 10;
     private float maxUpSpeed = 15;
     private float maxFallSpeed = 20;
     private float maxSlope = 60;
     private Vector3 slopeNormal = new Vector3(0, 1, 0);
-    private float sensitivityX = 10;
-    private float sensitivityY = 5;
-    [SerializeField] private float rotationSpeed = 2.0f;
 
 
     // Start is called before the first frame update
@@ -41,6 +43,7 @@ public class PlayerMovementController : MonoBehaviour
     private void FixedUpdate()
     {
         ApplyGravity();
+
         Move();
         if (jump)
         {
@@ -63,46 +66,75 @@ public class PlayerMovementController : MonoBehaviour
 
     void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddRelativeForce(new Vector3(0, jumpForce * rb.mass, 0), ForceMode.Impulse);
+        if (playerStats.allowPlayerMovement)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddRelativeForce(new Vector3(0, jumpForce * rb.mass, 0), ForceMode.Impulse);
+        }
         jump = false;
     }
 
     void Move()
     {
-        Vector3 step = transform.TransformDirection(new Vector3(moveX, 0, moveZ));
-        if (OnSlope() && IsGrounded())
+        if (playerStats.allowPlayerMovement)
         {
-            step = Vector3.ProjectOnPlane(step, slopeNormal);
-        }
-        Vector3 move = step.normalized * rb.mass * speed;
-        rb.AddForce(move, ForceMode.Force);
+            Vector3 step = transform.TransformDirection(new Vector3(moveX, 0, moveZ));
+            if (OnSlope() && IsGrounded())
+            {
+                step = Vector3.ProjectOnPlane(step, slopeNormal);
+            }
+            Vector3 move = step.normalized * rb.mass * (speed + sprint * sprintSpeed);
+            rb.AddForce(move, ForceMode.Force);
 
-        LimitSpeed();
+            LimitSpeed();
+        }
     }
 
     void Rotate(){
-        Quaternion camRotation = Quaternion.Euler(rotationSpeed * camJoyStickY * sensitivityY, 0, 0);
-        Quaternion bodyRotation = Quaternion.Euler(0, rotationSpeed * camJoyStickX * sensitivityX, 0);
-
-        playerStats.cam.transform.rotation *= camRotation;
-        transform.rotation *= bodyRotation;
-
-        float camX = playerStats.cam.transform.localEulerAngles.x;
-
-        if (60f < camX && camX < 310f)
+        if (playerStats.allowPlayerRotate)
         {
-            if (camX - 60f < 310f - camX)
+            if (!targetLocked)
             {
-                camX = 60f;
+                Quaternion camRotation = Quaternion.Euler(playerStats.rotationSpeed * camJoyStickY * playerStats.sensitivityY * Time.deltaTime, 0, 0);
+                Quaternion bodyRotation = Quaternion.Euler(0, playerStats.rotationSpeed * camJoyStickX * playerStats.sensitivityX * Time.deltaTime, 0);
+
+                playerStats.cam.transform.rotation *= camRotation;
+                transform.rotation *= bodyRotation;
+            }
+            else if (playerStats.soccerBallBehavior != null)
+            {
+                Vector3 targetPosition = playerStats.soccerBallBehavior.GetPosition() - playerStats.cam.transform.position;
+                Vector3 lookTargetY = new Vector3(0, targetPosition.y, Mathf.Sqrt(Mathf.Pow(targetPosition.z, 2) + Mathf.Pow(targetPosition.x, 2)));
+                Vector3 lookTargetX = new Vector3(targetPosition.x, 0, targetPosition.z);
+                Quaternion targetRotationY = Quaternion.LookRotation(lookTargetY);
+                Quaternion targetRotationX = Quaternion.LookRotation(lookTargetX);
+                float angleY = Vector3.Angle(playerStats.cam.transform.forward, lookTargetY);
+                float angleX = Vector3.Angle(transform.forward, lookTargetX);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationX, 360 * Time.deltaTime / angleX);
+                playerStats.cam.transform.rotation = Quaternion.Lerp(playerStats.cam.transform.rotation, targetRotationY, 360 * Time.deltaTime / angleY);
             }
             else
             {
-                camX = 310f;
+                targetLocked = false;
             }
-        }
 
-        playerStats.cam.transform.localEulerAngles = new Vector3(camX, 0, 0);
+            float camX = playerStats.cam.transform.localEulerAngles.x;
+
+            if (lookMin < camX && camX < lookMax)
+            {
+                if (camX - lookMin < lookMax - camX)
+                {
+                    camX = lookMin;
+                }
+                else
+                {
+                    camX = lookMax;
+                }
+            }
+
+            playerStats.cam.transform.localEulerAngles = new Vector3(camX, 0, 0);
+        }
     }
 
     void ApplyGravity()

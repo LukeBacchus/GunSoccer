@@ -20,14 +20,9 @@ public class PlayerInputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerStats.allowPlayerInput)
-        {
-            PlayerInput();
-        }
-        else
-        {
-            RotateInput();
-        }
+        PlayerInput();
+        RotateInput();
+        TargetLockInput();
     }
 
     void PlayerInput()
@@ -51,6 +46,8 @@ public class PlayerInputManager : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal" + (playerStats.playerNum).ToString());
         float z = Input.GetAxisRaw("Vertical" + (playerStats.playerNum).ToString());
 
+        playerController.sprint = Input.GetAxisRaw("Sprint " + (playerStats.playerNum).ToString());
+
         playerController.moveX = x;
         playerController.moveZ = z;
     }
@@ -59,13 +56,26 @@ public class PlayerInputManager : MonoBehaviour
     {
         playerController.camJoyStickY = Input.GetAxis("Mouse Y" + (playerStats.playerNum).ToString());
         playerController.camJoyStickX = Input.GetAxis("Mouse X" + (playerStats.playerNum).ToString());
+
+        if (playerController.targetLocked && (Mathf.Abs(playerController.camJoyStickX) >= 0.1f || Mathf.Abs(playerController.camJoyStickY) >= 0.1f))
+        {
+            playerController.targetLocked = false;
+        }
     }
 
     void ShootInput()
     {
-        if (Input.GetButton("Fire1" + (playerStats.playerNum).ToString()))
+        
+        if (Input.GetAxisRaw("Fire1" + (playerStats.playerNum).ToString()) > 0.0f)
         {
             playerGunController.shoot = true;
+        }
+    }
+
+    void TargetLockInput()
+    {
+        if (Input.GetButtonDown("Fire2" + (playerStats.playerNum).ToString())){
+            playerController.targetLocked = true;
         }
     }
 }

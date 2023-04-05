@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4341748448517819315}
   - component: {fileID: 4341748448517819314}
+  - component: {fileID: 705340599}
+  - component: {fileID: 3560798113865158847}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -47,6 +49,36 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
+      Data1: -1291754587
+      Data2: 1251463967
+      Data3: 1941805493
+      Data4: -1063692204
+    Path: event:/Ambience
+  Event: 
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &705340599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341748448517819317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
       Data1: 45753502
       Data2: 1333116782
       Data3: -1321033599
@@ -62,3 +94,16 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &3560798113865158847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4341748448517819317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d5b4087077d674a9f0d2bffa0c655e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  busVolume: 0

@@ -9,9 +9,11 @@ public class GrenadeLauncher : Weapons
     public override float shootPower { get; } = 50f;
     public override float shootCooldown { get; } = 2f;
     public override int magazineSize { get; } = 1;
-    public override float reloadSpeed { get; } = 2f;
+    public override float reloadSpeed { get; } = 2.5f;
 
-    public override void ShootGun(Transform muzzle, int playerNum)
+    public override string sfx_name { get; } = "event:/Grenade Launcher Shoot";
+
+    public override void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum)
     {
         GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
         BulletBehavior bulletBehavior = bulletInstance.GetComponent<BulletBehavior>();
@@ -22,5 +24,6 @@ public class GrenadeLauncher : Weapons
 
         Rigidbody bulletRB = bulletInstance.GetComponent<Rigidbody>();
         bulletRB.velocity = muzzle.forward * shootPower * bulletRB.mass;
+
     }
 }
