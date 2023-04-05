@@ -787,9 +787,9 @@ MonoBehaviour:
   title: {fileID: 1449009581508262398}
   weaponGrid: {fileID: 8308355789807972624}
   viewport: {fileID: 8308355790165499268}
-  buttonPreset: {fileID: 2030079886592412853, guid: 34a20626a34b1d14eadf69c2026b63ec, type: 3}
+  buttonPreset: {fileID: 2030079886592412853, guid: 5843acc0a346548de9eb6f4d79c7f7f1, type: 3}
   menuLoaded: 0
   playerNum: 0
   ready: 0
-  currentSelection: 0
+  currentSelection: {fileID: 0}
   weapons: []

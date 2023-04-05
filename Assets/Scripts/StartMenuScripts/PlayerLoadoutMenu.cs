@@ -12,7 +12,8 @@ public class PlayerLoadoutMenu : MonoBehaviour
     [SerializeField]
     private RectTransform viewport;
     [SerializeField]
-    private Button buttonPreset;
+    private Button weaponButtonPreset;
+
 
     public bool menuLoaded = false;
     public int playerNum;
@@ -31,7 +32,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     {
         for (int i = 0; i < weapons.Count; i++)
         {
-            Button newbutton = Instantiate(buttonPreset);
+            Button newbutton = Instantiate(weaponButtonPreset);
             newbutton.transform.SetParent(weaponGrid);
             newbutton.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = weapons[i].name;
             newbutton.transform.GetChild(1).GetComponent<Image>().sprite = weapons[i].icon;
