@@ -6203,7 +6203,6 @@ GameObject:
   - component: {fileID: 66192549074824378}
   - component: {fileID: 4353217284937007142}
   - component: {fileID: 5155603571499715764}
-  - component: {fileID: 2369920228381803552}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -6430,19 +6429,6 @@ MonoBehaviour:
   muzzle: {fileID: 3528648595329365612}
   cam: {fileID: 7724132453709515016}
   shoot: 0
---- !u!65 &2369920228381803552
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7724132453207544368}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.5, z: 1}
-  m_Center: {x: 0, y: -0.35, z: 0}
 --- !u!1 &7724132453709515021
 GameObject:
   m_ObjectHideFlags: 0

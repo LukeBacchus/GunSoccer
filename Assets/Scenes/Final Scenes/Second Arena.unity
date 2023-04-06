@@ -754,6 +754,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Second Stadium V2
       objectReference: {fileID: 0}
+    - target: {fileID: 512381381053372404, guid: 5dc76e1e26d2f5840b8909eb90dfcb8a, type: 3}
+      propertyPath: m_TagString
+      value: Stadium Surface
+      objectReference: {fileID: 0}
     - target: {fileID: 816718704281572252, guid: 5dc76e1e26d2f5840b8909eb90dfcb8a, type: 3}
       propertyPath: m_RootOrder
       value: 5
