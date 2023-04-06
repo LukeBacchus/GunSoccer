@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using FMODUnity;
 
 public class CountdownState : GameStates
 {
@@ -39,15 +40,26 @@ public class CountdownState : GameStates
     private IEnumerator Countdown(GameStateManager gameStateManager)
     {
         float countDownTime = 5.99f;
+
         while (countDownTime >= 0)
         {
             countDownTime -= Time.deltaTime;
             countDownText.text = ((int) countDownTime).ToString();
+
+            int roundedCountDownTime = Mathf.RoundToInt(countDownTime);
+
+            if (roundedCountDownTime != Mathf.RoundToInt(countDownTime + 0.01f))
+            {
+                RuntimeManager.PlayOneShot("event:/countdownsfx");
+            }
+
             yield return null;
         }
 
         soccerBallBehavior.EnableGravity();
         countDownText.text = "";
+
+        RuntimeManager.PlayOneShot("event:/whistle");
 
         gameStateManager.SwitchState(GetNextState(gameStateManager));
     }

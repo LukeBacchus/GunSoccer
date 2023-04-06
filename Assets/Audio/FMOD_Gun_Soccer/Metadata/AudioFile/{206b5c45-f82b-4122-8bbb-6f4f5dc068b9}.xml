@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{206b5c45-f82b-4122-8bbb-6f4f5dc068b9}">
+		<property name="assetPath">
+			<value>Countdown/sfx_one.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.3773541666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{05439778-1492-4af6-8ba9-52ce5152a91e}</destination>
+		</relationship>
+	</object>
+</objects>
