@@ -23,7 +23,7 @@ public class PlayerGunController : MonoBehaviour
     {
         sfx = GetComponent<StudioEventEmitter>();
         playerStats = GetComponent<PlayerStats>();
-        muzzle = playerStats.gunPos.GetChild(0).Find("Muzzle").transform;
+        muzzle = playerStats.gunPosSee.GetChild(0).Find("Muzzle").transform;
 
         currCooldown = 0;
         currMagazine = playerStats.weapon.magazineSize;
@@ -63,7 +63,7 @@ public class PlayerGunController : MonoBehaviour
 
     public void UpdateMuzzleLocation()
     {
-        muzzle = playerStats.gunPos.GetChild(0).Find("Muzzle").transform;
+        muzzle = playerStats.gunPosSee.GetChild(0).Find("Muzzle").transform;
     }
 
     private void ShootGun()

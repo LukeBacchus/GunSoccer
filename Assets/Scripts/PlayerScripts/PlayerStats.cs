@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     public int playerNum;
-    public Transform gunPos;
+    public Transform gunPosSee;
+    public Transform gunPosNotSee;
     public Weapons weapon;
     public Camera cam;
     private Camera arena_cam;
