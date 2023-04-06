@@ -14,7 +14,7 @@ public abstract class Weapons : ScriptableObject
     public GameObject bullet;
     public Bullets bulletType;
     public Sprite icon;
-
+    public string description = "Gun description here";
     public abstract void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum);
 
     public abstract string sfx_name { get; }
