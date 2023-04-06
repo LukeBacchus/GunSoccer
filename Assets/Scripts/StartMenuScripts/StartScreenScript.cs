@@ -148,7 +148,7 @@ public class StartScreenScript : MonoBehaviour
             if (BackInput())
             {
                 loadoutPanel.SetActive(false);
-                DestroyLoadoutMenus();
+                // DestroyLoadoutMenus();
                 TransitionToGamemodeMenu();
             }
         }
@@ -160,12 +160,9 @@ public class StartScreenScript : MonoBehaviour
             {
                 mapPanel.SetActive(false);
                 currentMenu = MenuTypes.LoadoutMenu;
-                foreach (PlayerLoadoutMenu loadoutMenu in loadoutMenuScripts)
+                if (loadoutMenuScript.ready)
                 {
-                    if (loadoutMenu.ready)
-                    {
-                        loadoutMenu.ToggleReady();
-                    }
+                    loadoutMenuScript.ToggleReadyAll();
                 }
             }
         }
@@ -335,14 +332,14 @@ public class StartScreenScript : MonoBehaviour
         loadoutMenuScript = menuScript;
     }
 
-    private void DestroyLoadoutMenus()
+/*    private void DestroyLoadoutMenus()
     {
         foreach (PlayerLoadoutMenu loadoutMenu in loadoutMenuScripts)
         {
             Destroy(loadoutMenu.gameObject);
         }
         loadoutMenuScripts = new List<PlayerLoadoutMenu>();
-    }
+    }*/
 
     private void SpawnPlayer(int playerNum)
     {

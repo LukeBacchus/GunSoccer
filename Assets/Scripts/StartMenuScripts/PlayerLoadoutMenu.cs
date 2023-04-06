@@ -44,7 +44,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
             newbutton.onClick.AddListener(delegate { ShowWeaponInfo(index); });
 
         }
-        List<List<GameObject>> buttons = new List<List<GameObject>> { weaponButtons };
+        List<List<Button>> buttons = new List<List<Button>> { weaponButtons };
 
         weaponSelector = new WeaponSelectionHelper(buttons, weaponButtons.Count - 1, 0,  playerNums);
         foreach (int playerNum in playerNums)
@@ -112,6 +112,11 @@ public class PlayerLoadoutMenu : MonoBehaviour
         {
             ready = true;
         }
+    }
+
+    public void ToggleReadyAll()
+    {
+        ready = !ready;
     }
 
     private void ShowWeaponInfo(int index)
