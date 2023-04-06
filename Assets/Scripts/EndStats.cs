@@ -8,28 +8,32 @@ public class EndStats: MonoBehaviour
 {
     private TMPro.TextMeshProUGUI team1ScoreText;
     private TMPro.TextMeshProUGUI team2ScoreText;
-    private TMPro.TextMeshProUGUI teamWinText;
+    private TMPro.TextMeshProUGUI team1WinText;
+    private TMPro.TextMeshProUGUI team2WinText;
 
     public float timer;
     private GameStats gameStats;
-    private string team1Score;
-    private string team2Score;
-    private string team1Win;
-    private string team2Win;
+    // private string team1ScoreText;
+    // private string team2ScoreText;
+    // private string team1WinText;
+    // private string team2WinText;
 
     public void DisplayStats () {
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
         team1ScoreText = GameObject.Find("Team1Score").GetComponent<TMPro.TextMeshProUGUI>();
-        team1ScoreText.text = "" + gameStats.teamOneScore;
+        team1ScoreText.text = gameStats.teamOneScore.ToString();
         team2ScoreText = GameObject.Find("Team2Score").GetComponent<TMPro.TextMeshProUGUI>();
-        team2ScoreText.text = "" + gameStats.teamTwoScore;
-        teamWinText = GameObject.Find("TeamWin").GetComponent<TMPro.TextMeshProUGUI>();
+        team2ScoreText.text = gameStats.teamTwoScore.ToString();
+        team1WinText = GameObject.Find("Team1Win").GetComponent<TMPro.TextMeshProUGUI>();
+        team2WinText = GameObject.Find("Team2Win").GetComponent<TMPro.TextMeshProUGUI>();
 
         if (gameStats.teamOneScore > gameStats.teamTwoScore) {
-            teamWinText.text = "1";
+            team1WinText.text = "Red";
+            team2WinText.text = "";
         }
         else {
-            teamWinText.text = "2";
+            team2WinText.text = "Blue";
+            team1WinText.text = "";
         }
     }
 
