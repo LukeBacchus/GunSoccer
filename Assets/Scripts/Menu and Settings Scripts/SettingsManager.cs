@@ -74,7 +74,7 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
-        grid.position = new Vector3(grid.position.x, 0, grid.position.z);
+        ResetGridPosition();
         InitializeSliders();
     }
 
@@ -88,9 +88,15 @@ public class SettingsManager : MonoBehaviour
         settingsSelector = new MenuSelectionHelper(menuOptions, 0, 12, viewport, grid, false, true, new List<int> { 1, 2, 3, 4 });
     }
 
+    public void ResetGridPosition()
+    {
+        grid.position = new Vector3(grid.position.x, 0, grid.position.z);
+    }
+
     public void ResetSelector()
     {
         settingsSelector.ResetCurrent();
+        ResetGridPosition();
     }
 
     public void SettingsInput()
