@@ -25,11 +25,18 @@ public class PlayerStats : MonoBehaviour
     public float assistAngle = 25f;
 
     [SerializeField]
-    private GameObject playerMesh;
+    private GameObject playerMesh1;
     [SerializeField]
-    private Material[] redTeamColors;
+    private GameObject playerMesh2;
     [SerializeField]
-    private Material[] blueTeamColors;
+    private Material[] redTeamColors1;
+    [SerializeField]
+    private Material[] blueTeamColors1;
+    [SerializeField]
+    private Material[] redTeamColors2;
+    [SerializeField]
+    private Material[] blueTeamColors2;
+
 
 #nullable enable
     public GameStateManager? gameState = null;
@@ -54,6 +61,7 @@ public class PlayerStats : MonoBehaviour
         }
 
         UpdateRotationSpeed();
+        UpdateSettingsVariables();
     }
 
     private void Init(Scene scene, LoadSceneMode mode)
@@ -63,10 +71,16 @@ public class PlayerStats : MonoBehaviour
     }
 
     private void AssignTeam(){
+        foreach(var mat in playerMesh1.GetComponent<Renderer>().materials){
+            Debug.Log(mat.name);
+        }
+
         if(team == "Red"){
-            playerMesh.GetComponent<Renderer>().materials = redTeamColors;
+            playerMesh1.GetComponent<Renderer>().materials = redTeamColors1;
+            playerMesh2.GetComponent<Renderer>().materials = redTeamColors2;
         } else {
-            playerMesh.GetComponent<Renderer>().materials = blueTeamColors;
+            playerMesh1.GetComponent<Renderer>().materials = blueTeamColors1;
+            playerMesh2.GetComponent<Renderer>().materials = blueTeamColors2;
         }
     }
 
@@ -94,5 +108,28 @@ public class PlayerStats : MonoBehaviour
 
             rotationSpeed = (angle > assistAngle ? 1 : Mathf.Max(minSpeed, angle / assistAngle)) * minRotationSpeed;
         }
+    }
+
+    private void UpdateSettingsVariables()
+    {
+        List<float> playerSettings = new List<float>();
+        if (playerNum == 1)
+        {
+            playerSettings = GameSettings.Player1Settings;
+        } else if (playerNum == 2)
+        {
+            playerSettings = GameSettings.Player2Settings;
+        } else if (playerNum == 3)
+        {
+            playerSettings = GameSettings.Player3Settings;
+        } else
+        {
+            playerSettings = GameSettings.Player4Settings;
+        }
+
+        sensitivityX = playerSettings[0];
+        sensitivityY = playerSettings[0];
+        assistAngle = playerSettings[1];
+        assistMultiplier = 2 - playerSettings[2];
     }
 }

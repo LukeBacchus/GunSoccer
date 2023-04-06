@@ -19,7 +19,7 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private Button fourPlayerButton;
     [SerializeField]
-    private Button creditsButton;
+    private Button controlsButton;
     [SerializeField]
     private Button settingsButton;
     private MenuSelectionHelper gameModeSelector;
@@ -40,6 +40,12 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private Button stadiumButton2;
     private MenuSelectionHelper mapSelector;
+
+    [SerializeField]
+    private GameObject settingsPanel;
+
+    [SerializeField]
+    private GameObject controlsPanel;
 
     [SerializeField]
     private GameObject playerPrefab;
@@ -84,7 +90,9 @@ public class StartScreenScript : MonoBehaviour
         CoverMenu,
         GamemodeMenu,
         LoadoutMenu,
-        MapMenu
+        MapMenu,
+        Settings,
+        Controls
     }
 
     void Start()
@@ -92,7 +100,7 @@ public class StartScreenScript : MonoBehaviour
         // Gamemode menu button onclick events
         twoPlayerButton.onClick.AddListener(SelectedTwoPlayerMode);
         fourPlayerButton.onClick.AddListener(SelectedFourPlayerMode);
-        creditsButton.onClick.AddListener(SelectedCredits);
+        controlsButton.onClick.AddListener(SelectedControls);
         settingsButton.onClick.AddListener(SelectedSettings);
 
         // Map menu button onclick events
@@ -103,11 +111,17 @@ public class StartScreenScript : MonoBehaviour
         gamemodePanel.SetActive(false);
         loadoutPanel.SetActive(false);
         mapPanel.SetActive(false);
+        settingsPanel.SetActive(false);
+        controlsPanel.SetActive(false);
 
-        List<List<Button>> gamemodeButtons = new List<List<Button>> { new List<Button> { twoPlayerButton }, new List<Button> { fourPlayerButton }, new List<Button> { creditsButton }, new List<Button>{ settingsButton } };
-        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
+        settingsPanel.GetComponent<SettingsManager>().SetupSelector();
 
-        List<List<Button>> mapButtons = new List<List<Button>> { new List<Button> { stadiumButton1, stadiumButton2 } };
+        List<List<GameObject>> gamemodeButtons = new List<List<GameObject>> { new List<GameObject> { twoPlayerButton.gameObject }, 
+            new List<GameObject> { fourPlayerButton.gameObject }, new List<GameObject> { controlsButton.gameObject }, 
+            new List<GameObject> { settingsButton.gameObject } };
+        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 4, new List<int> { 1, 2, 3, 4 });
+
+        List<List<GameObject>> mapButtons = new List<List<GameObject>> { new List<GameObject> { stadiumButton1.gameObject, stadiumButton2.gameObject } };
         mapSelector = new MenuSelectionHelper(mapButtons, 1, 0, new List<int> { 1, 2, 3, 4 });
     }
 
@@ -117,15 +131,63 @@ public class StartScreenScript : MonoBehaviour
         if (currentMenu == MenuTypes.CoverMenu)
         {
             CoverMenuInput();
-        } else if (currentMenu == MenuTypes.GamemodeMenu)
+        }
+        else if (currentMenu == MenuTypes.GamemodeMenu)
         {
             GamemodeMenuInput();
-        } else if (currentMenu == MenuTypes.LoadoutMenu)
+
+            if (BackInput())
+            {
+                gamemodePanel.SetActive(false);
+                coverPanel.SetActive(true);
+                currentMenu = MenuTypes.CoverMenu;
+            }
+        }
+        else if (currentMenu == MenuTypes.LoadoutMenu)
         {
             LoadoutMenuInput();
-        } else
+
+            if (BackInput())
+            {
+                loadoutPanel.SetActive(false);
+                DestroyLoadoutMenus();
+                TransitionToGamemodeMenu();
+            }
+        }
+        else if (currentMenu == MenuTypes.MapMenu)
         {
             MapMenuInput();
+
+            if (BackInput())
+            {
+                mapPanel.SetActive(false);
+                currentMenu = MenuTypes.LoadoutMenu;
+                foreach (PlayerLoadoutMenu loadoutMenu in loadoutMenuScripts)
+                {
+                    if (loadoutMenu.ready)
+                    {
+                        loadoutMenu.ToggleReady();
+                    }
+                }
+            }
+        }
+        else if (currentMenu == MenuTypes.Controls)
+        {
+            if (BackInput())
+            {
+                controlsPanel.SetActive(false);
+                TransitionToGamemodeMenu();
+            }
+        }
+        else
+        {
+            SettingsInput();
+
+            if (BackInput())
+            {
+                settingsPanel.SetActive(false);
+                TransitionToGamemodeMenu();
+            }
         }
     }
 
@@ -133,6 +195,7 @@ public class StartScreenScript : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2") || Input.GetButtonDown("Jump3") || Input.GetButtonDown("Jump4"))
         {
+            coverPanel.SetActive(false);
             TransitionToGamemodeMenu();
         }
     }
@@ -179,14 +242,30 @@ public class StartScreenScript : MonoBehaviour
         }
     }
 
-    private void SelectedCredits()
+    private bool BackInput()
     {
-        Debug.Log("Selected credits. Credits Not Implemented yet.");
+        if (Input.GetButtonDown("Back1") | Input.GetButtonDown("Back2") | Input.GetButtonDown("Back3") | Input.GetButtonDown("Back4"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void SettingsInput()
+    {
+        settingsPanel.GetComponent<SettingsManager>().SettingsInput();
     }
 
     private void SelectedSettings()
     {
-        Debug.Log("Selected settings. Settings Not Implemented yet.");
+        settingsPanel.SetActive(true);
+        currentMenu = MenuTypes.Settings;
+    }
+
+    private void SelectedControls()
+    {
+        controlsPanel.SetActive(true);
+        currentMenu = MenuTypes.Controls;
     }
 
     private void SelectedTwoPlayerMode()
@@ -205,7 +284,6 @@ public class StartScreenScript : MonoBehaviour
     {
         gamemodePanel.SetActive(true);
         currentMenu = MenuTypes.GamemodeMenu;
-        coverPanel.SetActive(false);
     }
 
     private void TransitionToLoadoutMenu()
@@ -213,7 +291,6 @@ public class StartScreenScript : MonoBehaviour
         loadingLoadoutMenu = true;
         loadoutPanel.SetActive(true);
         currentMenu = MenuTypes.LoadoutMenu;
-        gamemodePanel.SetActive(false);
 
 
         if (numPlayers == 1)
@@ -226,7 +303,7 @@ public class StartScreenScript : MonoBehaviour
             {
                 CreatePlayerLoadoutMenu(i + 1, twoPlayerMenuLocations);
             }
-        } 
+        }
         else if (numPlayers == 4)
         {
             for (int i = 0; i < 4; i++)
@@ -242,7 +319,6 @@ public class StartScreenScript : MonoBehaviour
     {
         mapPanel.SetActive(true);
         currentMenu = MenuTypes.MapMenu;
-        loadoutPanel.SetActive(false);
     }
 
     private void LoadMap(string sceneName)
@@ -274,6 +350,15 @@ public class StartScreenScript : MonoBehaviour
         loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
     }
 
+    private void DestroyLoadoutMenus()
+    {
+        foreach (PlayerLoadoutMenu loadoutMenu in loadoutMenuScripts)
+        {
+            Destroy(loadoutMenu.gameObject);
+        }
+        loadoutMenuScripts = new List<PlayerLoadoutMenu>();
+    }
+
     private void SpawnPlayer(int playerNum)
     {
         GameObject player = Object.Instantiate(playerPrefab);
@@ -281,9 +366,12 @@ public class StartScreenScript : MonoBehaviour
         PlayerStats playerStats = player.GetComponent<PlayerStats>();
 
 
-        if(playerNum % 2 == 0){
+        if (playerNum % 2 == 0)
+        {
             playerStats.team = "Blue";
-        } else {
+        }
+        else
+        {
             playerStats.team = "Red";
         }
 
