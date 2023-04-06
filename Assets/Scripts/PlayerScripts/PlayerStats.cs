@@ -10,8 +10,15 @@ public class PlayerStats : MonoBehaviour
     public Transform gunPos;
     public Weapons weapon;
     public Camera cam;
+    private Camera arena_cam;
     [SerializeField]
-    private GameObject model;
+    private GameObject player_body;
+    [SerializeField]
+    private GameObject player_hat;
+    [SerializeField]
+    private GameObject player_gun_notsee;
+    [SerializeField]
+    private GameObject player_gun_see;
     public bool allowPlayerMovement = false;
     public bool allowPlayerShoot = false;
     public bool allowPlayerRotate = false;
@@ -45,7 +52,7 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         gameState = GameObject.Find("GameManager")?.GetComponent<GameStateManager>();
-        soccerBallBehavior = GameObject.FindWithTag("Soccer")?.GetComponentInChildren<SoccerBallBehavior>();
+        soccerBallBehavior = GameObject.FindWithTag("Soccer")?.GetComponentInChildren<SoccerBallBehavior>();        
         AssignTeam();
         SceneManager.sceneLoaded += Init;
 
@@ -58,6 +65,13 @@ public class PlayerStats : MonoBehaviour
             allowPlayerMovement = gameState.currentState.stateType == GameStates.StateTypes.INGAME;
             allowPlayerShoot = gameState.currentState.stateType == GameStates.StateTypes.INGAME;
             allowPlayerRotate = gameState.currentState.stateType == GameStates.StateTypes.PREGAME || gameState.currentState.stateType == GameStates.StateTypes.INGAME;
+        }
+
+        if(arena_cam = GameObject.Find("Arena_Camera")?.GetComponent<Camera>()){
+            for(int i = 1; i < 5; i ++){
+                int layeri = LayerMask.NameToLayer("Gun" + i);
+                arena_cam.cullingMask = arena_cam.cullingMask & ~(1 << layeri);
+            }
         }
 
         UpdateRotationSpeed();
@@ -90,8 +104,29 @@ public class PlayerStats : MonoBehaviour
         Debug.Log("Mask of " + playerNum.ToString() + " : " + cam.cullingMask.ToString());
         Debug.Log("change layer of " + playerNum.ToString() + " : " + ~(1 << playerLayer));
 
+        for(int i = 1; i < 5; i ++){
+            int layeri = LayerMask.NameToLayer("Gun" + i);
+            if(playerNumVal == i){
+                player_gun_see.layer = layeri;
+
+                var children1 = player_gun_see.GetComponentsInChildren<Transform>(includeInactive: true);
+                foreach (var child in children1){
+                    child.gameObject.layer = layeri;
+                }
+            } else {
+                cam.cullingMask = cam.cullingMask & ~(1 << layeri);
+            }
+        }
+
         cam.cullingMask = cam.cullingMask & ~(1 << playerLayer);
-        model.layer = playerLayer;
+        player_body.layer = playerLayer;
+        player_hat.layer = playerLayer;
+        player_gun_notsee.layer = playerLayer;
+
+        var children2 = player_gun_notsee.GetComponentsInChildren<Transform>(includeInactive: true);
+        foreach (var child in children2){
+            child.gameObject.layer = playerLayer;
+        }
 
         Debug.Log(cam.cullingMask.ToString());
     }
