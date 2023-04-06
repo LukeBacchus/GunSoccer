@@ -148,7 +148,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
             weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].name;
             weaponDisplayForP.GetChild(1).GetComponent<Image>().sprite = currentSelections[pIndex].icon;
-            weaponDisplayForP.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Weapon description hereee";
+            weaponDisplayForP.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].description;
         }
     }
 }
