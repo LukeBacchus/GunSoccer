@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class GoalState : GameStates
 {
@@ -19,6 +20,8 @@ public class GoalState : GameStates
     {
         soccerBallBehavior.Explode();
         gameStateManager.StartCoroutine(GoalSlowMo(gameStateManager));
+
+        RuntimeManager.PlayOneShot("event:/GoalMusic");
     }
 
     public override void UpdateState(GameStateManager gameStateManager)
