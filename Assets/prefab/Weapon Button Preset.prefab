@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8629693406311914423}
   - component: {fileID: 7761704480782293403}
   m_Layer: 5
-  m_Name: hover3
+  m_Name: hover2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1075020495959427329}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 3913934035056777463}
   - component: {fileID: 4062029853001772264}
   m_Layer: 5
-  m_Name: hover2
+  m_Name: hover3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,7 +394,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1075020495959427329}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -475,8 +475,8 @@ RectTransform:
   - {fileID: 7179280160845633355}
   - {fileID: 6552022148289655668}
   - {fileID: 5164593466672105281}
-  - {fileID: 7793955501648126560}
   - {fileID: 2833876418527432504}
+  - {fileID: 7793955501648126560}
   - {fileID: 8741620370041666841}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -597,8 +597,8 @@ MonoBehaviour:
   icon: {fileID: 3383454626794990998}
   hover:
   - {fileID: 1467974347998935382}
-  - {fileID: 4971864957317574657}
   - {fileID: 715579194328238038}
+  - {fileID: 4971864957317574657}
   - {fileID: 9013637735698464501}
 --- !u!1 &9013637735698464501
 GameObject:

@@ -27,8 +27,6 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private GameObject loadoutPanel;
     [SerializeField]
-    private GameObject playerLoadoutMenu;
-    [SerializeField]
     private List<Weapons> weaponScriptableObjects;
     private PlayerLoadoutMenu loadoutMenuScript;
     private bool loadingLoadoutMenu = false;
@@ -234,7 +232,7 @@ public class StartScreenScript : MonoBehaviour
     private void InitPlayerLoadoutMenu(int playerNums)
     {
         PlayerLoadoutMenu menuScript = loadoutPanel.GetComponentInChildren<PlayerLoadoutMenu>();
-        //
+
         //menu.transform.SetParent(loadoutPanel.transform);
 
         /* no need for per player stuff and transforming?
@@ -275,7 +273,7 @@ public class StartScreenScript : MonoBehaviour
         }
 
         playerStats.playerNum = playerNum;
-        playerStats.weapon = loadoutMenuScript.currentSelections[playerNum];
+        playerStats.weapon = loadoutMenuScript.currentSelections[playerNum-1];
         GameObject Gun = Instantiate(playerStats.weapon.gunModel, playerStats.gunPos);
         Gun.transform.parent = playerStats.gunPos;
 

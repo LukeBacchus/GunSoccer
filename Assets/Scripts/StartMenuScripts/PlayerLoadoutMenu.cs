@@ -17,7 +17,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
     public bool menuLoaded = false;
     public bool ready = false;
-    private List<bool> readys = new List<bool> { false, false, false, false };
+    private List<bool> readys = new List<bool>();
     private List<bool> justPressed = new List<bool> { false, false, false, false };
     public List<Weapons> currentSelections = new List<Weapons> { null, null, null, null };
     public List<Weapons> weapons;
@@ -48,6 +48,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
         foreach (int playerNum in playerNums)
         {
             currentSelections[playerNum-1] = weapons[0];
+            readys.Add(false);
         }
         menuLoaded = true;
     }
