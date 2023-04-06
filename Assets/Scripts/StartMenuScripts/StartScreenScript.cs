@@ -377,8 +377,13 @@ public class StartScreenScript : MonoBehaviour
 
         playerStats.playerNum = playerNum;
         playerStats.weapon = loadoutMenuScripts[playerNum - 1].currentSelection;
-        GameObject Gun = Instantiate(playerStats.weapon.gunModel, playerStats.gunPos);
-        Gun.transform.parent = playerStats.gunPos;
+        GameObject GunNotSee = Instantiate(playerStats.weapon.gunModel, playerStats.gunPosNotSee);
+        GameObject GunSee = Instantiate(playerStats.weapon.gunModel, playerStats.gunPosSee);
+        GunNotSee.transform.parent = playerStats.gunPosNotSee;
+        GunSee.transform.parent = playerStats.gunPosSee;
+
+        GunSee.transform.localPosition = new Vector3(0, 0, 0);
+        GunSee.transform.rotation = Quaternion.identity;
 
         if (numPlayers == 2)
         {

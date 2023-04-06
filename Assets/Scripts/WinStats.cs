@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,11 @@ public class WinStats: MonoBehaviour
     private Button quitButton;
     [SerializeField]
     private Button creditsButton;
+    [SerializeField]
+    private GameObject creditsPanel;
+
     private MenuSelectionHelper winSelector;
+    private bool openedCredits = false;
 
     public void DisplayWinner () 
     {
@@ -27,10 +32,17 @@ public class WinStats: MonoBehaviour
     }
     public void UpdateWinScreen()
     {
-        winSelector.SelectionInput();
-        if (winSelector.Select())
+        if (openedCredits)
         {
-            winSelector.InvokeSelection();
+            CreditsInput();
+        }
+        else
+        {
+            winSelector.SelectionInput();
+            if (winSelector.Select())
+            {
+                winSelector.InvokeSelection();
+            }
         }
     }
 
@@ -46,7 +58,17 @@ public class WinStats: MonoBehaviour
 
     private void SelectedCredits()
     {
-        Debug.Log("Selected credits. Credits Not Implemented yet.");
+        creditsPanel.SetActive(true);
+        openedCredits = true;
+    }
+
+    private void CreditsInput()
+    {
+        if (Input.GetButtonDown("Back1") | Input.GetButtonDown("Back2") | Input.GetButtonDown("Back3") | Input.GetButtonDown("Back4"))
+        {
+            creditsPanel.SetActive(false);
+            openedCredits = false;
+        }
     }
 
 }
