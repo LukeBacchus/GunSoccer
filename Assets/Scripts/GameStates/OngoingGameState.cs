@@ -22,6 +22,11 @@ public class OngoingGameState : GameStates
 
     public override void UpdateState(GameStateManager gameStateManager) 
     {
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
+
         gameStats.gameTime -= Time.deltaTime;
         gameStats.UpdateTimerUI();
 

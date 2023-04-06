@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class MenuSelectionHelper
 {
@@ -16,21 +17,19 @@ public class MenuSelectionHelper
     private List<float> horizontalThresholdTimes;
     private List<float> verticalThresholdTimes;
 
-    private List<List<Button>> buttons;
+    private List<List<GameObject>> buttons;
     private int maxCol = 0;
     private int maxRow = 0;
     private List<int> playerNums = new List<int> { 1 };
 
     // For horizontal scrollable menus
     private bool hScrollable = false;
-    private int firstVisible = 0;
-    private int lastVisible = 0;
+    private bool vScrollable = false;
     private RectTransform grid = null;
-    private float widthOffset = 0;
-    private float cellWidth;
-    private bool offsetOnRight = true;
+    private RectTransform viewport = null;
 
-    public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
+
+    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
     {
         this.buttons = buttons;
         this.maxCol = maxCol;
@@ -42,22 +41,19 @@ public class MenuSelectionHelper
         Init();
     }
 
-    public MenuSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, int firstVisible, int lastVisible, 
-        RectTransform grid, float widthOffset, float cellWidth, int defaultCol = -1, int defaultRow = -1, List<int> playerNums = null)
+    public MenuSelectionHelper(List<List<GameObject>> buttons, int maxCol, int maxRow, RectTransform viewport, RectTransform grid, bool hScrollable = true, bool vScrollable = true, List<int> playerNums = null, int defaultCol = -1, int defaultRow = -1)
     {
         this.buttons = buttons;
         this.maxCol = maxCol;
         this.maxRow = maxRow;
         selectedCol = defaultCol;
         selectedRow = defaultRow;
-        this.firstVisible = firstVisible;
-        this.lastVisible = lastVisible;
-        this.grid = grid;
-        this.widthOffset = widthOffset;
-        this.cellWidth = cellWidth;
         this.playerNums = playerNums ?? this.playerNums;
+        this.viewport = viewport;
+        this.grid = grid;
+        this.vScrollable = vScrollable;
+        this.hScrollable = hScrollable;
 
-        hScrollable = true;
         Init();
     }
 
@@ -84,24 +80,23 @@ public class MenuSelectionHelper
             float threshold = horizontalThresholdTimes[pIndex];
             if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
             {
-                horizontalHoldTime += Time.deltaTime;
+                horizontalHoldTime += Time.unscaledDeltaTime;
 
                 if (horizontalHoldTime >= threshold)
                 {
                     int prevCol = currentCol;
                     currentCol += 1;
-                    if (hScrollable && currentCol > lastVisible)
-                    {
-                        MoveGridRight();
-                    }
 
                     if (currentCol > maxCol)
                     {
                         currentCol = 0;
                         if (hScrollable)
                         {
-                            ResetGridLeft();
+                            MoveGridLeft();
                         }
+                    } else if (hScrollable)
+                    {
+                        MoveGridRight();
                     }
 
                     HideBorderHover(currentRow, prevCol);
@@ -109,28 +104,33 @@ public class MenuSelectionHelper
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevCol != currentCol)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
             {
 
-                horizontalHoldTime += Time.deltaTime;
+                horizontalHoldTime += Time.unscaledDeltaTime;
                 if (horizontalHoldTime >= threshold)
                 {
                     int prevCol = currentCol;
                     currentCol -= 1;
-                    if (hScrollable && currentCol < firstVisible)
-                    {
-                        MoveGridLeft();
-                    }
 
                     if (currentCol < 0)
                     {
                         currentCol = maxCol;
                         if (hScrollable)
                         {
-                            ResetGridRight();
+                            MoveGridRight();
                         }
+                    } else if (hScrollable)
+                    {
+                        MoveGridLeft();
                     }
 
                     HideBorderHover(currentRow, prevCol);
@@ -138,6 +138,12 @@ public class MenuSelectionHelper
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevCol != currentCol)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Horizontal" + (playerNum).ToString()) <= 0.1f)
@@ -157,7 +163,7 @@ public class MenuSelectionHelper
             float threshold = verticalThresholdTimes[pIndex];
             if (Input.GetAxis("Vertical" + (playerNum).ToString()) <= -0.9f)
             {
-                verticalHoldTime += Time.deltaTime;
+                verticalHoldTime += Time.unscaledDeltaTime;
                 if (verticalHoldTime >= threshold)
                 {
                     int prevRow = currentRow;
@@ -166,6 +172,14 @@ public class MenuSelectionHelper
                     if (currentRow > maxRow)
                     {
                         currentRow = 0;
+                        if (vScrollable)
+                        {
+                            MoveGridUp();
+                        }
+                    }
+                    else if (vScrollable)
+                    {
+                        MoveGridDown();
                     }
 
                     HideBorderHover(prevRow, currentCol);
@@ -173,11 +187,17 @@ public class MenuSelectionHelper
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevRow != currentRow)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
             {
-                verticalHoldTime += Time.deltaTime;
+                verticalHoldTime += Time.unscaledDeltaTime;
                 if (verticalHoldTime >=threshold)
                 {
                     int prevRow = currentRow;
@@ -186,6 +206,14 @@ public class MenuSelectionHelper
                     if (currentRow < 0)
                     {
                         currentRow = maxRow;
+                        if (vScrollable)
+                        {
+                            MoveGridDown();
+                        }
+                    }
+                    else if (vScrollable)
+                    {
+                        MoveGridUp();
                     }
 
                     HideBorderHover(prevRow, currentCol);
@@ -193,6 +221,12 @@ public class MenuSelectionHelper
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevRow != currentRow)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Vertical" + (playerNum).ToString()) <= 0.1f)
@@ -214,6 +248,10 @@ public class MenuSelectionHelper
                 selectedCol = currentCol;
                 selectedRow = currentRow;
                 ShowBorderSelect(selectedRow, selectedCol);
+
+                //Select sfx
+                RuntimeManager.PlayOneShot("event:/MenuSelect");
+
                 return true;
             }
         }
@@ -223,7 +261,20 @@ public class MenuSelectionHelper
 
     public void InvokeSelection()
     {
-        buttons[selectedRow][selectedCol].onClick.Invoke();
+        buttons[selectedRow][selectedCol].GetComponent<Button>().onClick.Invoke();
+    }
+
+    public GameObject GetCurrent()
+    {
+        return buttons[currentRow][currentCol];
+    }
+
+    public void ResetCurrent()
+    {
+        HideBorderHover(currentRow, currentCol);
+        currentRow = 0;
+        currentCol = 0;
+        ShowBorderHover(currentRow, currentCol);
     }
 
     public void ShowBorderHover(int row, int col)
@@ -254,37 +305,53 @@ public class MenuSelectionHelper
 
     private void MoveGridRight()
     {
-        grid.offsetMin += new Vector2(offsetOnRight ? widthOffset - cellWidth : -cellWidth, 0);
-        offsetOnRight = false;
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
 
-        firstVisible += 1;
-        lastVisible += 1;
+        float viewportX = viewport.TransformPoint(new Vector2(viewport.rect.xMax, 0)).x;
+        float currentX = current.TransformPoint(new Vector2(current.rect.xMax, 0)).x;
+
+        if (currentX > viewportX)
+        {
+            grid.position -= new Vector3(currentX - viewportX, 0, 0);
+        }
     }
 
     private void MoveGridLeft()
     {
-        grid.offsetMin += new Vector2(!offsetOnRight ? cellWidth - widthOffset : cellWidth, 0);
-        offsetOnRight = true;
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
 
-        firstVisible -= 1;
-        lastVisible -= 1;
+        float viewportX = viewport.TransformPoint(new Vector2(viewport.rect.xMin, 0)).x;
+        float currentX = current.TransformPoint(new Vector2(current.rect.xMin, 0)).x;
+
+        if (currentX < viewportX)
+        {
+            grid.position += new Vector3(viewportX - currentX, 0, 0);
+        }
     }
 
-    private void ResetGridLeft()
+    private void MoveGridDown()
     {
-        grid.offsetMin = new Vector2(0, grid.offsetMin.y);
-        offsetOnRight = true;
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
 
-        lastVisible -= firstVisible;
-        firstVisible = 0;
+        float viewportY = viewport.TransformPoint(new Vector2(0, viewport.rect.yMin)).y;
+        float currentY = current.TransformPoint(new Vector2(0, current.rect.yMin)).y;
+
+        if (currentY < viewportY)
+        {
+            grid.position += new Vector3(0, viewportY - currentY, 0);
+        }
     }
 
-    private void ResetGridRight()
+    private void MoveGridUp()
     {
-        grid.offsetMin = new Vector2(-cellWidth * (maxCol + 1) + 5, grid.offsetMin.y);
-        offsetOnRight = false;
+        RectTransform current = GetCurrent().GetComponent<RectTransform>();
 
-        firstVisible += maxCol - lastVisible;
-        lastVisible = maxCol;
+        float viewportY = viewport.TransformPoint(new Vector2(0, viewport.rect.yMax)).y;
+        float currentY = current.TransformPoint(new Vector2(0, current.rect.yMax)).y;
+
+        if (currentY > viewportY)
+        {
+            grid.position -= new Vector3(0, currentY - viewportY, 0);
+        }
     }
 }

@@ -16,7 +16,7 @@ public class GoalState : GameStates
         this.soccerBallBehavior = soccerBallBehavior;
     }
 
-    public override void EnterState(GameStateManager gameStateManager) 
+    public override void EnterState(GameStateManager gameStateManager)
     {
         soccerBallBehavior.Explode();
         gameStateManager.StartCoroutine(GoalSlowMo(gameStateManager));
@@ -24,7 +24,13 @@ public class GoalState : GameStates
         RuntimeManager.PlayOneShot("event:/BallExplosion");
     }
 
-    public override void UpdateState(GameStateManager gameStateManager) { }
+    public override void UpdateState(GameStateManager gameStateManager)
+    {
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
+    }
 
     private void SlowMo()
     {
@@ -44,7 +50,8 @@ public class GoalState : GameStates
         bool[] arrowActives = new bool[gameStateManager.arrows.Count];
         int i = 0;
 
-        foreach(GameObject arrow in gameStateManager.arrows){
+        foreach (GameObject arrow in gameStateManager.arrows)
+        {
             arrowActives[i] = arrow.active;
             arrow.SetActive(false);
             arrow.transform.parent.gameObject.GetComponent<ArrowRotator>().visible = false;
@@ -70,7 +77,8 @@ public class GoalState : GameStates
         }
 
         i = 0;
-        foreach(GameObject arrow in gameStateManager.arrows){
+        foreach (GameObject arrow in gameStateManager.arrows)
+        {
             arrow.SetActive(arrowActives[i]);
             arrow.transform.parent.gameObject.GetComponent<ArrowRotator>().visible = true;
             i++;

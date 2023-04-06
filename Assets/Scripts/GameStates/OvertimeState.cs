@@ -6,13 +6,16 @@ public class OvertimeState : GameStates
 {
     public override StateTypes stateType { get; } = StateTypes.INGAME;
 
-    public override void EnterState(GameStateManager gameStateManager) 
+    public override void EnterState(GameStateManager gameStateManager)
     {
 
     }
 
-    public override void UpdateState(GameStateManager gameStateManager) 
+    public override void UpdateState(GameStateManager gameStateManager)
     {
-
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
     }
 }

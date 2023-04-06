@@ -23,6 +23,11 @@ public class GameOverState : GameStates
     }
 
     public override void UpdateState(GameStateManager gameStateManager) {
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
+
         if (display == "stats") {
             if (Input.GetButtonDown("Jump1") || Input.GetButtonDown("Jump2") || Input.GetButtonDown("Jump3") || Input.GetButtonDown("Jump4"))
             {
