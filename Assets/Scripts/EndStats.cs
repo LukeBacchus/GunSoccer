@@ -21,18 +21,18 @@ public class EndStats: MonoBehaviour
     public void DisplayStats () {
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
         team1ScoreText = GameObject.Find("Team1Score").GetComponent<TMPro.TextMeshProUGUI>();
-        team1ScoreText.text = "Team 1 Score: " + gameStats.teamOneScore;
+        team1ScoreText.text = gameStats.teamOneScore.ToString();
         team2ScoreText = GameObject.Find("Team2Score").GetComponent<TMPro.TextMeshProUGUI>();
-        team2ScoreText.text = "Team 2 Score: " + gameStats.teamTwoScore;
+        team2ScoreText.text = gameStats.teamTwoScore.ToString();
         team1WinText = GameObject.Find("Team1Win").GetComponent<TMPro.TextMeshProUGUI>();
         team2WinText = GameObject.Find("Team2Win").GetComponent<TMPro.TextMeshProUGUI>();
 
         if (gameStats.teamOneScore > gameStats.teamTwoScore) {
-            team1WinText.text = "Team 1 Wins!";
+            team1WinText.text = "Red";
             team2WinText.text = "";
         }
         else {
-            team2WinText.text = "Team 2 Wins!";
+            team2WinText.text = "Blue";
             team1WinText.text = "";
         }
     }
