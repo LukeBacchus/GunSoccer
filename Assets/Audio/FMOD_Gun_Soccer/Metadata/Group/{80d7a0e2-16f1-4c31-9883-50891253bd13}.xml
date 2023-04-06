@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{80d7a0e2-16f1-4c31-9883-50891253bd13}">
+		<property name="name">
+			<value>GoalMusic</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{93684c75-755f-43e1-8081-99c8d94de283}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{3da7d084-a924-431a-86e9-032ff3e5342a}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{55c53b5d-920d-496f-a7db-d9b23a130bce}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{93684c75-755f-43e1-8081-99c8d94de283}">
+		<relationship name="effects">
+			<destination>{e0beb383-1b8f-45ef-b192-f5a0fcc046f8}</destination>
+			<destination>{91f12efd-9fce-4c76-be8e-f9151845b4ce}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{3da7d084-a924-431a-86e9-032ff3e5342a}" />
+	<object class="MixerBusFader" id="{e0beb383-1b8f-45ef-b192-f5a0fcc046f8}" />
+	<object class="Sidechain" id="{91f12efd-9fce-4c76-be8e-f9151845b4ce}" />
+</objects>

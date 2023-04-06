@@ -24,7 +24,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private MenuSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
-    private List<Button> weaponButtons = new List<Button>();
+    private List<GameObject> weaponButtons = new List<GameObject>();
 
     // Start is called before the first frame update
     public void Init()
@@ -38,19 +38,13 @@ public class PlayerLoadoutMenu : MonoBehaviour
             int index = i;
             newbutton.onClick.AddListener(delegate { SelectWeapon(index); });
 
-            weaponButtons.Add(newbutton);
+            weaponButtons.Add(newbutton.gameObject);
         }
-        List<List<Button>> buttons = new List<List<Button>> { weaponButtons };
+        List<List<GameObject>> buttons = new List<List<GameObject>> { weaponButtons };
 
-        weaponGrid.offsetMin = Vector2.zero;
-        viewport.offsetMin = Vector2.zero;
+        weaponGrid.position = new Vector3(0, weaponGrid.position.y, weaponGrid.position.z);
 
-        Canvas.ForceUpdateCanvases();
-        float cellWidth = weaponButtons[0].GetComponent<RectTransform>().rect.width + 5;
-        int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
-        float widthOffset = viewport.rect.width % cellWidth;
-
-        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, 0, new List<int> { playerNum });
+        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, viewport, weaponGrid, true, false, new List<int> { playerNum }, 0, 0);
         currentSelection = weapons[0];
         menuLoaded = true;
     }
@@ -82,14 +76,14 @@ public class PlayerLoadoutMenu : MonoBehaviour
         title.text = "Player " + playerNum + " Loadout";
     }
 
-    private void ToggleReady()
+    public void ToggleReady()
     {
         ready = !ready;
         if (ready)
         {
             for (int i = 0; i < weapons.Count; i++)
             {
-                weaponButtons[i].onClick.RemoveAllListeners();
+                weaponButtons[i].GetComponent<Button>().onClick.RemoveAllListeners();
             }
 
             GetComponent<Image>().color = readyColor;
@@ -98,7 +92,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
             for (int i = 0; i < weapons.Count; i++)
             {
                 int index = i;
-                weaponButtons[i].onClick.AddListener(delegate { SelectWeapon(index); });
+                weaponButtons[i].GetComponent<Button>().onClick.AddListener(delegate { SelectWeapon(index); });
             }
 
             GetComponent<Image>().color = new Color(0, 0, 0, 0);

@@ -8,8 +8,7 @@ public class EndStats: MonoBehaviour
 {
     private TMPro.TextMeshProUGUI team1ScoreText;
     private TMPro.TextMeshProUGUI team2ScoreText;
-    private TMPro.TextMeshProUGUI team1WinText;
-    private TMPro.TextMeshProUGUI team2WinText;
+    private TMPro.TextMeshProUGUI teamWinText;
 
     public float timer;
     private GameStats gameStats;

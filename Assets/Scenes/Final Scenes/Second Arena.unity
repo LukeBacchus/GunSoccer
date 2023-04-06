@@ -375,6 +375,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 780424380}
     - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
+      propertyPath: pauseUI
+      value: 
+      objectReference: {fileID: 1721319284}
+    - target: {fileID: 1168016700, guid: 879dd35ca02e0894285ffd52499768dc, type: 3}
       propertyPath: statsUI
       value: 
       objectReference: {fileID: 445658959}
@@ -667,6 +671,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1721319284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6022771676086654527, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
+  m_PrefabInstance: {fileID: 151100832}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1927680167 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1927680167, guid: 42d5be199215cf24f9bfb2d1c09fdb5f, type: 3}
