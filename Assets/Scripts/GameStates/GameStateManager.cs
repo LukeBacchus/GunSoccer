@@ -15,7 +15,7 @@ public class GameStateManager : MonoBehaviour
     public PostGameState postGameState;
     public GoalState goalState;
     public GameOverState gameOverState;
-    public SettingsState settingsState;
+    public PauseState pauseState;
 
     public List<GameObject> players;
 
@@ -34,6 +34,8 @@ public class GameStateManager : MonoBehaviour
     private GameObject currPlayerUI;
     [SerializeField]
     private GameObject gameUI;
+    [SerializeField]
+    private GameObject pauseUI;
     [SerializeField]
     private RectTransform scoreBoard;
     [SerializeField]
@@ -76,7 +78,7 @@ public class GameStateManager : MonoBehaviour
         postGameState = new PostGameState(gameStats, announcement);
         goalState = new GoalState(gameStats, soccerBallBehavior);
         gameOverState = new GameOverState(winUI, statsUI);
-        settingsState = new SettingsState(2);
+        pauseState = new PauseState(pauseUI);
 
         gameStats.UpdateTimerUI();
         SetScoreBoardLocation();
@@ -88,6 +90,7 @@ public class GameStateManager : MonoBehaviour
         twoPlayerUI.SetActive(false);
         fourPlayerUI.SetActive(false);
         gameUI.SetActive(false);
+        pauseUI.SetActive(false);
         soccerBallBehavior.DisableGravity();
 
         currentState = introState;
@@ -105,7 +108,11 @@ public class GameStateManager : MonoBehaviour
     {
         prevState = currentState;
         currentState = nextState;
-        currentState.EnterState(this);
+
+        if (prevState != pauseState)
+        {
+            currentState.EnterState(this);
+        }
     }
 
     private void SetScoreBoardLocation()
