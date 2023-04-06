@@ -357,6 +357,11 @@ public class StartScreenScript : MonoBehaviour
             playerStats.team = "Red";
         }
 
+        playerStats.RedJetLeft.SetActive(false);
+        playerStats.RedJetRight.SetActive(false);
+        playerStats.BlueJetLeft.SetActive(false);
+        playerStats.BlueJetRight.SetActive(false);
+
         playerStats.playerNum = playerNum;
         playerStats.weapon = loadoutMenuScript.currentSelections[playerNum-1];
         GameObject GunNotSee = Instantiate(playerStats.weapon.gunModel, playerStats.gunPosNotSee);

@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2272698623339524579
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639247ca83abc874e893eb93af2b5e44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 0
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: JetMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 869d9f46eb92799418c97291d9dc712e, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _BUILTIN_SURFACE_TYPE_TRANSPARENT
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SampleTexture2D_2575ae95dd52402d9fbae1f3c4cd30f1_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 31b8ed7064a22d64d8611e885be2d502, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_aed99f0ad23e42d6a8d6a2b7063e9dd6_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 31b8ed7064a22d64d8611e885be2d502, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e5bab24fd2cf4bb19df350a5d7b9c2e2_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 35443c4866e670f43ad9b4b400d6c2da, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BUILTIN_AlphaClip: 0
+    - _BUILTIN_Blend: 0
+    - _BUILTIN_CullMode: 2
+    - _BUILTIN_DstBlend: 10
+    - _BUILTIN_QueueControl: 0
+    - _BUILTIN_QueueOffset: 0
+    - _BUILTIN_SrcBlend: 5
+    - _BUILTIN_Surface: 1
+    - _BUILTIN_ZTest: 4
+    - _BUILTIN_ZWrite: 0
+    - _BUILTIN_ZWriteControl: 0
+    - _Brightness: 4
+    - _Float: 1
+    - _Float_color: 2
+    - _Jiggle_Strength: 0.001
+    - _Multiplier_Colour_2: 1.2
+    - _Noise_Speed: 3
+    - _Noise_Tiling: 20
+    - _Thrust: 0.55
+    m_Colors:
+    - _JetColor: {r: 0.004316493, g: 0.12881127, b: 0.9150943, a: 0}
+    - _Jet_Color_2: {r: 0, g: 0.86144733, b: 1, a: 0}
+    - _Speed_jiggle: {r: 0, g: 4, b: 0, a: 0}
+    - _Speed_juggle: {r: 0, g: 2, b: 0, a: 0}
+    - _Vector2: {r: 1, g: 0.2, b: 0, a: 0}
+    - _Vector2_1: {r: 0.3, g: 1, b: 0, a: 0}
+    - _v: {r: 1, g: 0, b: 0, a: 0}
+    - _vector_2: {r: 0, g: -2, b: 0, a: 0}
+  m_BuildTextureStacks: []
