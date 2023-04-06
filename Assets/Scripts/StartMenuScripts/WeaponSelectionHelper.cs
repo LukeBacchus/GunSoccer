@@ -225,8 +225,8 @@ public class WeaponSelectionHelper
             int currentRow = current_positions[playerNum - 1][0];
             int currentCol = current_positions[playerNum - 1][1];
 
-            selected_positions[playerNum][0] = currentRow;
-            selected_positions[playerNum][1] = currentCol;
+            selected_positions[playerNum-1][0] = currentRow;
+            selected_positions[playerNum-1][1] = currentCol;
 
             //Select sfx
             RuntimeManager.PlayOneShot("event:/MenuSelect");
@@ -241,8 +241,8 @@ public class WeaponSelectionHelper
     {
 
         // returns the row which is the index of the button selected
-        int selectedRow = selected_positions[playerNum][0];
-        int selectedCol = selected_positions[playerNum][1];
+        int selectedRow = selected_positions[playerNum-1][0];
+        int selectedCol = selected_positions[playerNum-1][1];
 
         buttons[selectedRow][selectedCol].GetComponent<Button>().onClick.Invoke();
         return selectedCol;
