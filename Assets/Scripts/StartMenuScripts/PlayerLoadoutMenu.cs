@@ -12,7 +12,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     [SerializeField]
     private RectTransform viewport;
     [SerializeField]
-    private Button weaponButtonPreset;
+    private List<Button> weaponButtons;
 
 
     public bool menuLoaded = false;
@@ -26,31 +26,23 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private WeaponSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
-    private List<Button> weaponButtons = new List<Button>();
+
     
     // Start is called before the first frame update
     public void Init()
     {
+        Debug.Log(weapons.Count);
+        // set up the buttons that's already linked to this menu
         for (int i = 0; i < weapons.Count; i++)
         {
-            Button newbutton = Instantiate(weaponButtonPreset);
-            newbutton.transform.SetParent(weaponGrid);
+            Button newbutton = weaponButtons[i];
             newbutton.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = weapons[i].name;
             newbutton.transform.GetChild(1).GetComponent<Image>().sprite = weapons[i].icon;
             int index = i;
             newbutton.onClick.AddListener(delegate { ShowWeaponInfo(index); });
 
-            weaponButtons.Add(newbutton);
         }
         List<List<Button>> buttons = new List<List<Button>> { weaponButtons };
-
-        weaponGrid.offsetMin = Vector2.zero;
-        viewport.offsetMin = Vector2.zero;
-
-        Canvas.ForceUpdateCanvases();
-        float cellWidth = weaponButtons[0].GetComponent<RectTransform>().rect.width + 5;
-        int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
-        float widthOffset = viewport.rect.width % cellWidth;
 
         weaponSelector = new WeaponSelectionHelper(buttons, weaponButtons.Count - 1, 0,  playerNums);
         foreach (int playerNum in playerNums)
@@ -107,7 +99,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private void ShowWeaponInfo(int index)
     {
         // this is the new function invoked when the button is pressed
-        Debug.Log("Weapon button pressed, since invoked function is per button not per player, dunno what should do with invoke?");
+        Debug.Log("Weapon button number"+(index)+" pressed, since invoked function is per button not per player, dunno what should do with invoke?");
     }
     private void SelectWeapon(int playerNum, int index)
     {

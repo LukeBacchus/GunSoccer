@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class WeaponSelectionHelper
 {
-    private List<List<int>> current_positions = new List<List<int>> { new List<int> { 0, 0 }, new List<int> { 0, 1 }, new List<int> { 0, 2 }, new List<int> { 0, 3 } };
+    // changed to save multiple positions, one per player.
+    private List<List<int>> current_positions = new List<List<int>> { new List<int> { 0, 0 }, new List<int> { 0, 0 }, new List<int> { 0, 0 }, new List<int> { 0, 0} }; //TODO: issues with starting position!
     private List<List<int>> selected_positions = new List<List<int>>(); //row index = 0, col index = 1
     private float holdTime = 0.1f;
     private float coolDownTime = 0.4f;
@@ -214,6 +215,7 @@ public class WeaponSelectionHelper
     public void ShowBorderHover(int row, int col, int playerNum)
     {
         int pIndex = playerNum - 1;
+        Debug.Log(buttons.Count);
         List<GameObject> hover = buttons[row][col].GetComponent<WeaponButtonComponents>().hover;
     }
 

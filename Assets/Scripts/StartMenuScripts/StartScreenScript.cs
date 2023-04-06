@@ -209,7 +209,7 @@ public class StartScreenScript : MonoBehaviour
         currentMenu = MenuTypes.LoadoutMenu;
         gamemodePanel.SetActive(false);
 
-        CreatePlayerLoadoutMenu(numPlayers);
+        InitPlayerLoadoutMenu(numPlayers);
      
 
         loadingLoadoutMenu = false;
@@ -231,10 +231,11 @@ public class StartScreenScript : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private void CreatePlayerLoadoutMenu(int playerNums)
+    private void InitPlayerLoadoutMenu(int playerNums)
     {
-        GameObject menu = Instantiate(playerLoadoutMenu);
-        menu.transform.SetParent(loadoutPanel.transform);
+        PlayerLoadoutMenu menuScript = loadoutPanel.GetComponentInChildren<PlayerLoadoutMenu>();
+        //
+        //menu.transform.SetParent(loadoutPanel.transform);
 
         /* no need for per player stuff and transforming?
          * menu.name = "Player " + playerNum + " Loadout Menu";
@@ -244,8 +245,7 @@ public class StartScreenScript : MonoBehaviour
         rTransform.offsetMin = Vector2.zero;
         rTransform.offsetMax = Vector2.zero;*/
 
-        PlayerLoadoutMenu menuScript = menu.GetComponent<PlayerLoadoutMenu>();
-        menuScript.weapons = weaponScriptableObjects;
+        // menuScript.weapons = weaponScriptableObjects;
 
         if (numPlayers == 2)
         {
