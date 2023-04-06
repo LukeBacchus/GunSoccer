@@ -218,8 +218,6 @@ public class WeaponSelectionHelper
         int selectedRow = selected_positions[playerNum][0];
         int selectedCol = selected_positions[playerNum][1];
 
-        Debug.Log("selected row:"+ selectedRow);
-        Debug.Log("selected column" + selectedCol);
         buttons[selectedRow][selectedCol].GetComponent<Button>().onClick.Invoke();
         return selectedCol;
     }

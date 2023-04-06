@@ -13,7 +13,10 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private RectTransform viewport;
     [SerializeField]
     private List<Button> weaponButtons;
-
+    [SerializeField]
+    private GameObject selectedWeaponstwo;
+    [SerializeField]
+    private GameObject selectedWeaponsfour;
 
     public bool menuLoaded = false;
     public bool ready = false;
@@ -22,16 +25,15 @@ public class PlayerLoadoutMenu : MonoBehaviour
     public List<Weapons> currentSelections = new List<Weapons> { null, null, null, null };
     public List<Weapons> weapons;
     public List<int> playerNums = new List<int> { 1 };
+ 
 
     private WeaponSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
-
 
     
     // Start is called before the first frame update
     public void Init()
     {
-        Debug.Log(weapons.Count);
         // set up the buttons that's already linked to this menu
         for (int i = 0; i < weapons.Count; i++)
         {
@@ -47,10 +49,24 @@ public class PlayerLoadoutMenu : MonoBehaviour
         weaponSelector = new WeaponSelectionHelper(buttons, weaponButtons.Count - 1, 0,  playerNums);
         foreach (int playerNum in playerNums)
         {
-            currentSelections[playerNum-1] = weapons[0];
+            currentSelections[playerNum-1] = weapons[0]; // set everyone to use assault rifle by default
             readys.Add(false);
         }
         menuLoaded = true;
+        
+        if (playerNums.Count == 2)
+        {
+            selectedWeaponstwo.SetActive(true);
+            selectedWeaponsfour.SetActive(false);
+        }
+        else
+        {
+            selectedWeaponsfour.SetActive(true);
+            selectedWeaponstwo.SetActive(false);
+        }
+        UpdateSelectedDisplay();
+        
+
     }
 
     public void LoadoutInput()
@@ -82,6 +98,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
                 {
                     int index = weaponSelector.InvokeSelection(playerNum);
                     SelectWeapon(playerNum, index);
+                    UpdateSelectedDisplay();
                 }
             }
         }
@@ -105,5 +122,33 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private void SelectWeapon(int playerNum, int index)
     {
         currentSelections[playerNum-1] = weapons[index];
+        // update the display as well
+    }
+
+    private void UpdateSelectedDisplay()
+    {
+        GameObject weaponDisplays;
+        if (playerNums.Count == 2)
+        {
+            weaponDisplays = selectedWeaponstwo;
+        }
+        else
+        {
+            weaponDisplays = selectedWeaponsfour;
+        }
+
+        foreach (int playerNum in playerNums)
+        {
+            // for each player, update their selection
+            int pIndex = playerNum - 1;
+
+            Transform weaponDisplayForP = weaponDisplays.transform.GetChild(pIndex); // get the display per player
+            // Debug.Log(weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>());
+            // update the stuff for each part witin this display per player
+
+            weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].name;
+            weaponDisplayForP.GetChild(1).GetComponent<Image>().sprite = currentSelections[pIndex].icon;
+            weaponDisplayForP.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = "Weapon description hereee";
+        }
     }
 }
