@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 public class WeaponSelectionHelper
 {
@@ -92,6 +93,12 @@ public class WeaponSelectionHelper
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+
+                    if (prevCol != currentCol)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) <= -0.9f)
@@ -118,6 +125,11 @@ public class WeaponSelectionHelper
                     horizontalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     horizontalThresholdTimes[pIndex] = coolDownTime;
+                    if (prevCol != currentCol)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Horizontal" + (playerNum).ToString()) <= 0.1f)
@@ -160,6 +172,11 @@ public class WeaponSelectionHelper
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+                    if (prevRow != currentRow)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= 0.9f)
@@ -184,6 +201,12 @@ public class WeaponSelectionHelper
                     verticalHoldTime = 0;
                     // if player continues to hold, threshold changes to cooldown time
                     verticalThresholdTimes[pIndex] = coolDownTime;
+                    if (prevRow != currentRow)
+                    {
+                        //Scroll sfx
+                        RuntimeManager.PlayOneShot("event:/MenuScroll");
+                    }
+
                 }
             }
             else if (Input.GetAxis("Vertical" + (playerNum).ToString()) >= -0.1f && Input.GetAxis("Vertical" + (playerNum).ToString()) <= 0.1f)
@@ -204,6 +227,9 @@ public class WeaponSelectionHelper
 
             selected_positions[playerNum][0] = currentRow;
             selected_positions[playerNum][1] = currentCol;
+
+            //Select sfx
+            RuntimeManager.PlayOneShot("event:/MenuSelect");
 
             return true;
         }
