@@ -16,17 +16,18 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
 
     public bool menuLoaded = false;
-    public int playerNum;
     public bool ready = false;
-    private bool justPressed = false;
-    public Weapons currentSelection;
+    private List<bool> readys = new List<bool> { false, false, false, false };
+    private List<bool> justPressed = new List<bool> { false, false, false, false };
+    public List<Weapons> currentSelections = new List<Weapons> { null, null, null, null };
     public List<Weapons> weapons;
+    public List<int> playerNums = new List<int> { 1 };
 
-    private MenuSelectionHelper weaponSelector;
+    private WeaponSelectionHelper weaponSelector;
     private Color readyColor = new Color(0.05f, 1, 0, 0.3f);
 
     private List<Button> weaponButtons = new List<Button>();
-
+    
     // Start is called before the first frame update
     public void Init()
     {
@@ -51,25 +52,36 @@ public class PlayerLoadoutMenu : MonoBehaviour
         int lastVisible = (int)Mathf.Floor(viewport.rect.width / cellWidth) - 1;
         float widthOffset = viewport.rect.width % cellWidth;
 
-        weaponSelector = new MenuSelectionHelper(buttons, weaponButtons.Count - 1, 0, 0, lastVisible, weaponGrid, widthOffset, cellWidth, 0, 0, new List<int> { playerNum });
-        currentSelection = weapons[0];
+        weaponSelector = new WeaponSelectionHelper(buttons, weaponButtons.Count - 1, 0,  playerNums);
+        foreach (int playerNum in playerNums)
+        {
+            currentSelections[playerNum-1] = weapons[0];
+        }
         menuLoaded = true;
     }
 
     public void LoadoutInput()
     {
-        if (Input.GetAxisRaw("Fire1" + (playerNum).ToString()) > 0.0f)
+        foreach (int playerNum in playerNums)
         {
-            if(!justPressed){
-                justPressed = true;
-                ToggleReady();
+            if (Input.GetAxisRaw("Fire1" + (playerNum).ToString()) > 0.0f)
+            {
+                if (!justPressed[playerNum-1])
+                {
+                    justPressed[playerNum-1] = true;
+                    ToggleReady(playerNum);
+                }
             }
-        } else {
-            justPressed = false;
+            else
+            {
+                justPressed[playerNum-1] = false;
+            }
         }
+
 
         if (!ready)
         {
+            // if anyone is still not ready, will need to keep taking input 
             weaponSelector.SelectionInput();
             if (weaponSelector.Select())
             {
@@ -78,15 +90,11 @@ public class PlayerLoadoutMenu : MonoBehaviour
         }
     }
 
-    public void UpdateTitle()
-    {
-        title.text = "Player " + playerNum + " Loadout";
-    }
 
-    private void ToggleReady()
+    private void ToggleReady(int playerNum)
     {
-        ready = !ready;
-        if (ready)
+        readys[playerNum-1] = !readys[playerNum-1];
+        if (readys[playerNum-1])
         {
             for (int i = 0; i < weapons.Count; i++)
             {

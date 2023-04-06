@@ -30,7 +30,7 @@ public class StartScreenScript : MonoBehaviour
     private GameObject playerLoadoutMenu;
     [SerializeField]
     private List<Weapons> weaponScriptableObjects;
-    private List<PlayerLoadoutMenu> loadoutMenuScripts = new List<PlayerLoadoutMenu>();
+    private PlayerLoadoutMenu loadoutMenuScript;
     private bool loadingLoadoutMenu = false;
 
     [SerializeField]
@@ -150,20 +150,14 @@ public class StartScreenScript : MonoBehaviour
     {
         if (!loadingLoadoutMenu)
         {
-            int numReady = 0;
-            foreach (PlayerLoadoutMenu script in loadoutMenuScripts)
+            gunsfx = GetComponent<StudioEventEmitter>();
+
+            if (loadoutMenuScript.menuLoaded)
             {
-
-                gunsfx = GetComponent<StudioEventEmitter>();
-
-                if (script.menuLoaded)
-                {
-                    script.LoadoutInput();
-                }
-                numReady += script.ready ? 1 : 0;
+                loadoutMenuScript.LoadoutInput();
             }
 
-            if (numReady == numPlayers)
+            if (loadoutMenuScript.ready)
             {
                 TransitionMapMenu();
             }
@@ -215,25 +209,8 @@ public class StartScreenScript : MonoBehaviour
         currentMenu = MenuTypes.LoadoutMenu;
         gamemodePanel.SetActive(false);
 
-
-        if (numPlayers == 1)
-        {
-            CreatePlayerLoadoutMenu(1, new List<List<float>> { new List<float> { 0, 0, 1, 1 } });
-        }
-        else if (numPlayers == 2)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                CreatePlayerLoadoutMenu(i + 1, twoPlayerMenuLocations);
-            }
-        } 
-        else if (numPlayers == 4)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                CreatePlayerLoadoutMenu(i + 1, fourPlayerMenuLocations);
-            }
-        }
+        CreatePlayerLoadoutMenu(numPlayers);
+     
 
         loadingLoadoutMenu = false;
     }
@@ -254,24 +231,31 @@ public class StartScreenScript : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private void CreatePlayerLoadoutMenu(int playerNum, List<List<float>> menuLocs)
+    private void CreatePlayerLoadoutMenu(int playerNums)
     {
         GameObject menu = Instantiate(playerLoadoutMenu);
         menu.transform.SetParent(loadoutPanel.transform);
-        menu.name = "Player " + playerNum + " Loadout Menu";
+        /*menu.name = "Player " + playerNum + " Loadout Menu";
         RectTransform rTransform = menu.GetComponent<RectTransform>();
         rTransform.anchorMin = new Vector2(menuLocs[playerNum - 1][0], menuLocs[playerNum - 1][1]);
         rTransform.anchorMax = new Vector2(menuLocs[playerNum - 1][2], menuLocs[playerNum - 1][3]);
         rTransform.offsetMin = Vector2.zero;
-        rTransform.offsetMax = Vector2.zero;
+        rTransform.offsetMax = Vector2.zero;*/
 
         PlayerLoadoutMenu menuScript = menu.GetComponent<PlayerLoadoutMenu>();
-        menuScript.playerNum = playerNum;
         menuScript.weapons = weaponScriptableObjects;
         menuScript.Init();
-        menuScript.UpdateTitle();
 
-        loadoutMenuScripts.Add(menu.GetComponent<PlayerLoadoutMenu>());
+        if(numPlayers == 2)
+        {
+            menuScript.playerNums = new List<int> { 1, 2};
+        }
+        else
+        {
+            menuScript.playerNums = new List<int> { 1, 2, 3, 4 };
+        }
+
+        loadoutMenuScript = menuScript;
     }
 
     private void SpawnPlayer(int playerNum)
@@ -288,7 +272,7 @@ public class StartScreenScript : MonoBehaviour
         }
 
         playerStats.playerNum = playerNum;
-        playerStats.weapon = loadoutMenuScripts[playerNum - 1].currentSelection;
+        playerStats.weapon = loadoutMenuScript.currentSelections[playerNum];
         GameObject Gun = Instantiate(playerStats.weapon.gunModel, playerStats.gunPos);
         Gun.transform.parent = playerStats.gunPos;
 
