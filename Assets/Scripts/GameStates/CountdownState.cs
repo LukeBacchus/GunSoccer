@@ -28,7 +28,13 @@ public class CountdownState : GameStates
         gameStateManager.StartCoroutine(Countdown(gameStateManager));
     }
 
-    public override void UpdateState(GameStateManager gameStateManager) { }
+    public override void UpdateState(GameStateManager gameStateManager) 
+    {
+        if (Input.GetButtonDown("Menu"))
+        {
+            gameStateManager.SwitchState(gameStateManager.pauseState);
+        }
+    }
 
     private IEnumerator Countdown(GameStateManager gameStateManager)
     {
