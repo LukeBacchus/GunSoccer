@@ -174,4 +174,29 @@ public class PlayerMovementController : MonoBehaviour
         }
         return false;
     }
+
+    void OnCollisionEnter(Collision other){
+        if(other.gameObject.tag == "Stadium Surface"){
+            if (playerStats.team == "Blue"){
+                playerStats.BlueJetLeft.SetActive(false);
+                playerStats.BlueJetRight.SetActive(false);
+            } else {
+                playerStats.RedJetLeft.SetActive(false);
+                playerStats.RedJetRight.SetActive(false);
+            }
+        }
+    }
+
+    void OnCollisionExit(Collision other){
+        if(other.gameObject.tag == "Stadium Surface"){
+            if (playerStats.team == "Blue"){
+                playerStats.BlueJetLeft.SetActive(true);
+                playerStats.BlueJetRight.SetActive(true);
+            } else {
+                playerStats.RedJetLeft.SetActive(true);
+                playerStats.RedJetRight.SetActive(true);
+            }
+        }
+    }
+
 }

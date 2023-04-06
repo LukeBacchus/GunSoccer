@@ -10,6 +10,10 @@ public class PlayerStats : MonoBehaviour
     public Transform gunPosSee;
     public Transform gunPosNotSee;
     public Weapons weapon;
+    public GameObject BlueJetLeft;
+    public GameObject BlueJetRight;
+    public GameObject RedJetLeft;
+    public GameObject RedJetRight;
     public Camera cam;
     private Camera arena_cam;
     [SerializeField]
