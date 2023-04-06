@@ -38,7 +38,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
             newbutton.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = weapons[i].name;
             newbutton.transform.GetChild(1).GetComponent<Image>().sprite = weapons[i].icon;
             int index = i;
-            newbutton.onClick.AddListener(delegate { SelectWeapon(index); });
+            newbutton.onClick.AddListener(delegate { ShowWeaponInfo(index); });
 
             weaponButtons.Add(newbutton);
         }
@@ -66,26 +66,30 @@ public class PlayerLoadoutMenu : MonoBehaviour
         {
             if (Input.GetAxisRaw("Fire1" + (playerNum).ToString()) > 0.0f)
             {
-                if (!justPressed[playerNum-1])
+                if (!justPressed[playerNum - 1])
                 {
-                    justPressed[playerNum-1] = true;
+                    justPressed[playerNum - 1] = true;
                     ToggleReady(playerNum);
                 }
             }
             else
             {
-                justPressed[playerNum-1] = false;
+                justPressed[playerNum - 1] = false;
             }
         }
 
 
         if (!ready)
         {
-            // if anyone is still not ready, will need to keep taking input 
+            // if anyone is still not ready, will need to keep taking input, checking what their selection is
             weaponSelector.SelectionInput();
-            if (weaponSelector.Select())
+            foreach (int playerNum in playerNums)
             {
-                weaponSelector.InvokeSelection();
+                if (weaponSelector.Select(playerNum))
+                {
+                    int index = weaponSelector.InvokeSelection(playerNum);
+                    SelectWeapon(playerNum, index);
+                }
             }
         }
     }
@@ -94,28 +98,19 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private void ToggleReady(int playerNum)
     {
         readys[playerNum-1] = !readys[playerNum-1];
-        if (readys[playerNum-1])
+        if (readys.TrueForAll(x => x))
         {
-            for (int i = 0; i < weapons.Count; i++)
-            {
-                weaponButtons[i].onClick.RemoveAllListeners();
-            }
-
-            GetComponent<Image>().color = readyColor;
-        } else
-        {
-            for (int i = 0; i < weapons.Count; i++)
-            {
-                int index = i;
-                weaponButtons[i].onClick.AddListener(delegate { SelectWeapon(index); });
-            }
-
-            GetComponent<Image>().color = new Color(0, 0, 0, 0);
+            ready = true;
         }
     }
 
-    private void SelectWeapon(int index)
+    private void ShowWeaponInfo(int index)
     {
-        currentSelection = weapons[index];
+        // this is the new function invoked when the button is pressed
+        Debug.Log("Weapon button pressed, since invoked function is per button not per player, dunno what should do with invoke?");
+    }
+    private void SelectWeapon(int playerNum, int index)
+    {
+        currentSelections[playerNum-1] = weapons[index];
     }
 }

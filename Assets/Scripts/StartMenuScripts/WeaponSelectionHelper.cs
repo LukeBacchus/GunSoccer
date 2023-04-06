@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class WeaponSelectionHelper
 {
     private List<List<int>> current_positions = new List<List<int>> { new List<int> { 0, 0 }, new List<int> { 0, 1 }, new List<int> { 0, 2 }, new List<int> { 0, 3 } };
-    private int selectedCol = -1;
-    private int selectedRow = -1;
-    private List<List<int>> selected_positions = new List<List<int>>();
+    private List<List<int>> selected_positions = new List<List<int>>(); //row index = 0, col index = 1
     private float holdTime = 0.1f;
     private float coolDownTime = 0.4f;
     private float horizontalHoldTime = 0;
@@ -21,11 +19,11 @@ public class WeaponSelectionHelper
     private int maxRow = 0;
     private List<int> playerNums = new List<int> { 1 };
 
-    // For horizontal scrollable menus
+/*    // For horizontal scrollable menus
     private bool hScrollable = false;
     private bool vScrollable = false;
     private RectTransform grid = null;
-    private RectTransform viewport = null;
+    private RectTransform viewport = null;*/
 
 
     public WeaponSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, List<int> playerNums = null, int defaultCol = 0, int defaultRow = 0)
@@ -33,8 +31,7 @@ public class WeaponSelectionHelper
         this.buttons = buttons;
         this.maxCol = maxCol;
         this.maxRow = maxRow;
-        selectedCol = defaultCol;
-        selectedRow = defaultRow;
+
         this.playerNums = playerNums ?? this.playerNums;
 
         Init();
@@ -177,26 +174,28 @@ public class WeaponSelectionHelper
         }
     }
 
-    public bool Select()
+    public bool Select(int playerNum)
     {
-        foreach (int playerNum in playerNums)
+        if (Input.GetButtonDown("Jump" + (playerNum).ToString()))
         {
-            if (Input.GetButtonDown("Jump" + (playerNum).ToString()))
-            {
-                int currentCol = current_positions[playerNum - 1][0];
-                int currentRow = current_positions[playerNum - 1][1];
-                selectedCol = currentCol;
-                selectedRow = currentRow;
-                return true;
-            }
+            int currentCol = current_positions[playerNum - 1][0];
+            int currentRow = current_positions[playerNum - 1][1];
+
+            selected_positions[playerNum][0] = currentCol;
+            selected_positions[playerNum][1] = currentRow;
+            return true;
         }
 
         return false;
     }
 
-    public void InvokeSelection()
+    public int InvokeSelection(int playerNum)
     {
+        // returns the row which is the index of the button selected
+        int selectedRow = selected_positions[playerNum][0];
+        int selectedCol = selected_positions[playerNum][1];
         buttons[selectedRow][selectedCol].GetComponent<Button>().onClick.Invoke();
+        return selectedRow;
     }
 
 /*    public GameObject GetCurrent()
@@ -215,7 +214,7 @@ public class WeaponSelectionHelper
     public void ShowBorderHover(int row, int col, int playerNum)
     {
         int pIndex = playerNum - 1;
-        buttons[row][col].GetComponent<WeaponButtonComponents>().hover[pIndex].SetActive(true);
+        List<GameObject> hover = buttons[row][col].GetComponent<WeaponButtonComponents>().hover;
     }
 
     public void HideBorderHover(int row, int col, int playerNum)

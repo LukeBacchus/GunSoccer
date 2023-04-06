@@ -235,7 +235,9 @@ public class StartScreenScript : MonoBehaviour
     {
         GameObject menu = Instantiate(playerLoadoutMenu);
         menu.transform.SetParent(loadoutPanel.transform);
-        /*menu.name = "Player " + playerNum + " Loadout Menu";
+
+        /* no need for per player stuff and transforming?
+         * menu.name = "Player " + playerNum + " Loadout Menu";
         RectTransform rTransform = menu.GetComponent<RectTransform>();
         rTransform.anchorMin = new Vector2(menuLocs[playerNum - 1][0], menuLocs[playerNum - 1][1]);
         rTransform.anchorMax = new Vector2(menuLocs[playerNum - 1][2], menuLocs[playerNum - 1][3]);
@@ -244,16 +246,17 @@ public class StartScreenScript : MonoBehaviour
 
         PlayerLoadoutMenu menuScript = menu.GetComponent<PlayerLoadoutMenu>();
         menuScript.weapons = weaponScriptableObjects;
-        menuScript.Init();
 
-        if(numPlayers == 2)
+        if (numPlayers == 2)
         {
-            menuScript.playerNums = new List<int> { 1, 2};
+            menuScript.playerNums = new List<int> { 1, 2 };
         }
         else
         {
             menuScript.playerNums = new List<int> { 1, 2, 3, 4 };
         }
+
+        menuScript.Init();
 
         loadoutMenuScript = menuScript;
     }
