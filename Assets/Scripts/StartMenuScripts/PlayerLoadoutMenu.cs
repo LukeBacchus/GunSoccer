@@ -108,6 +108,28 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private void ToggleReady(int playerNum)
     {
         readys[playerNum-1] = !readys[playerNum-1];
+
+        GameObject weaponDisplays;
+        if (playerNums.Count == 2)
+        {
+            weaponDisplays = selectedWeaponstwo;
+        }
+        else
+        {
+            weaponDisplays = selectedWeaponsfour;
+        }
+
+        GameObject weaponDisplayForP = weaponDisplays.transform.GetChild(playerNum - 1).gameObject; // get the display per player
+
+        if (readys[playerNum - 1])
+        {
+            weaponDisplayForP.GetComponent<Image>().color = readyColor;
+        }
+        else
+        {
+            weaponDisplayForP.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        }
+
         if (readys.TrueForAll(x => x))
         {
             ready = true;
