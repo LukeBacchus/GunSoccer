@@ -8,14 +8,15 @@ public class EndStats: MonoBehaviour
 {
     private TMPro.TextMeshProUGUI team1ScoreText;
     private TMPro.TextMeshProUGUI team2ScoreText;
-    private TMPro.TextMeshProUGUI teamWinText;
+    private TMPro.TextMeshProUGUI team1WinText;
+    private TMPro.TextMeshProUGUI team2WinText;
 
     public float timer;
     private GameStats gameStats;
-    private string team1Score;
-    private string team2Score;
-    private string team1Win;
-    private string team2Win;
+    // private string team1ScoreText;
+    // private string team2ScoreText;
+    // private string team1WinText;
+    // private string team2WinText;
 
     public void DisplayStats () {
         gameStats = GameObject.Find("GameManager").GetComponent<GameStats>();
