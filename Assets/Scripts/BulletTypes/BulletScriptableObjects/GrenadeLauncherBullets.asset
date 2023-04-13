@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e30af295ae1884da6cbf1060d72373, type: 3}
   m_Name: GrenadeLauncherBullets
   m_EditorClassIdentifier: 
+  explosionEffect: {fileID: 1591812526963045241, guid: a1b795114824d184f89e158e5f2081b0, type: 3}
