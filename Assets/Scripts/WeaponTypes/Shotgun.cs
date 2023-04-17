@@ -6,7 +6,7 @@ using UnityEngine;
 public class Shotgun : Weapons
 {
     public override string weaponType { get; } = "Shotgun";
-    public override string description { get; } = "initial bullet velocity: 100 m/s\nblast radius: 2\nblast power: 8 x 10\nrate of fire: 75 rpm\nreload: 3 sec\nmagazine: 5";
+    public override string description { get; } = "initial bullet velocity: 100 m/s\nblast radius: 2m\nblast power: 8 x 10\nrate of fire: 75 rpm\nreload: 3 sec\nmagazine: 5";
     public override float shootPower { get; } = 100f;
     public override float shootCooldown { get; } = 0.8f;
     public override int magazineSize { get; } = 5;
