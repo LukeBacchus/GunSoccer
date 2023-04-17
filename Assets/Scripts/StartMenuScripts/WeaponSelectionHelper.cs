@@ -8,7 +8,6 @@ public class WeaponSelectionHelper
 {
     // changed to save multiple positions, one per player.
     private List<List<int>> current_positions = new List<List<int>> { new List<int> { 0, 0 }, new List<int> { 0, 0 }, new List<int> { 0, 0 }, new List<int> { 0, 0} }; //TODO: issues with starting position!
-    //private List<List<int>> selected_positions = new List<List<int>>(); //row index = 0, col index = 1
     private List<bool> allowedInput = new List<bool> { true, true, true, true };
     private float holdTime = 0.1f;
     private float coolDownTime = 0.4f;
@@ -21,12 +20,6 @@ public class WeaponSelectionHelper
     private int maxCol = 0;
     private int maxRow = 0;
     private List<int> playerNums = new List<int> { 1 };
-
-/*    // For horizontal scrollable menus
-    private bool hScrollable = false;
-    private bool vScrollable = false;
-    private RectTransform grid = null;
-    private RectTransform viewport = null;*/
 
 
     public WeaponSelectionHelper(List<List<Button>> buttons, int maxCol, int maxRow, List<int> playerNums = null)
@@ -43,12 +36,12 @@ public class WeaponSelectionHelper
 
     public void Init()
     {
+        HideAllBorderHover();
         foreach (int playerNum in playerNums)
         {
             int currentRow = current_positions[playerNum-1][0];
             int currentCol = current_positions[playerNum-1][1];
             ShowBorderHover(currentRow, currentCol, playerNum);
-            //selected_positions.Add(new List<int> { -1, -1 });
         }
 
         horizontalThresholdTimes = new List<float> { holdTime, holdTime, holdTime, holdTime };
@@ -257,19 +250,17 @@ public class WeaponSelectionHelper
         buttons[row][col].GetComponent<WeaponButtonComponents>().hover[pIndex].SetActive(false);
     }
 
-    public void ShowBorderSelect(int row, int col)
+    public void HideAllBorderHover()
     {
-        if (row >= 0 && col >= 0)
+        for (int row = 0; row <= maxRow; row++)
         {
-            buttons[row][col].GetComponent<ButtonComponents>().select.SetActive(true);
-        }
-    }
-
-    public void HideBorderSelect(int row, int col)
-    {
-        if (row >= 0 && col >= 0)
-        {
-            buttons[row][col].GetComponent<ButtonComponents>().select.SetActive(false);
+            for (int col = 0; col <= maxCol; col++)
+            {
+                for (int pIndex = 0; pIndex < playerNums.Count; pIndex++)
+                {
+                    buttons[row][col].GetComponent<WeaponButtonComponents>().hover[pIndex].SetActive(false);
+                }
+            }
         }
     }
 

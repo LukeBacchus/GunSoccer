@@ -163,10 +163,7 @@ public class StartScreenScript : MonoBehaviour
             {
                 mapPanel.SetActive(false);
                 currentMenu = MenuTypes.LoadoutMenu;
-                if (loadoutMenuScript.ready)
-                {
-                    loadoutMenuScript.ToggleReadyAll();
-                }
+                loadoutMenuScript.SetAllReadyFalse();
             }
         }
         else if (currentMenu == MenuTypes.Controls)
