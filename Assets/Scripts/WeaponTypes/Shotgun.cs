@@ -18,9 +18,17 @@ public class Shotgun : Weapons
 
     public override void ShootGun(Transform muzzle, Vector3 playerVelocity, int playerNum)
     {
+        List<GameObject> bullets = new List<GameObject>();
+
         for (int i = 0; i < numberBullets; i++)
         {
             GameObject bulletInstance = Instantiate(bullet, muzzle.position, muzzle.rotation);
+            foreach (GameObject b in bullets)
+            {
+                Physics.IgnoreCollision(b.GetComponent<Collider>(), bulletInstance.GetComponent<Collider>());
+            }
+            bullets.Add(bulletInstance);
+
             BulletBehavior bulletBehavior = bulletInstance.GetComponent<BulletBehavior>();
             bulletBehavior.bullet = bulletType;
             bulletBehavior.playerNum = playerNum;
