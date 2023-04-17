@@ -121,7 +121,7 @@ public class StartScreenScript : MonoBehaviour
         List<List<GameObject>> gamemodeButtons = new List<List<GameObject>> { new List<GameObject> { twoPlayerButton.gameObject }, 
             new List<GameObject> { fourPlayerButton.gameObject }, new List<GameObject> { controlsButton.gameObject }, 
             new List<GameObject> { settingsButton.gameObject } };
-        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 4, new List<int> { 1, 2, 3, 4 });
+        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
         List<List<GameObject>> mapButtons = new List<List<GameObject>> { new List<GameObject> { stadiumButton1.gameObject, stadiumButton2.gameObject } };
         mapSelector = new MenuSelectionHelper(mapButtons, 1, 0, new List<int> { 1, 2, 3, 4 });
