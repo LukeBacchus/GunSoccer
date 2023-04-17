@@ -10,5 +10,7 @@ public abstract class Bullets : ScriptableObject
     public abstract float selfBlastRadius { get; }
     public abstract float selfBlastForce { get; }
 
+    public GameObject explosionEffect;
+
     public virtual void Movement(GameObject bullet, Vector3 bulletDirection, float bulletSpeed) { }
 }

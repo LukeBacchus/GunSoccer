@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BulletBehavior : MonoBehaviour
 {
-
     public Bullets bullet;
     public Vector3 bulletDirection;
     public float bulletSpeed;
@@ -30,6 +29,13 @@ public class BulletBehavior : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        GameObject explosionEffect = Instantiate(bullet.explosionEffect);
+        explosionEffect.transform.position = transform.position;
+        ParticleSystem effect = explosionEffect.GetComponent<ParticleSystem>();
+        var main = effect.main;
+        main.startSize = bullet.blastRadius;
+        effect.Play();
+
         if (collision.gameObject.tag == "Bullet" && collision.gameObject.GetComponent<BulletBehavior>().playerNum == playerNum){
             return;
         }

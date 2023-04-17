@@ -108,7 +108,7 @@ public class PlayerMovementController : MonoBehaviour
                 Vector3 lookTargetX = new Vector3(targetPosition.x, 0, targetPosition.z);
                 Quaternion targetRotationY = Quaternion.LookRotation(lookTargetY);
                 Quaternion targetRotationX = Quaternion.LookRotation(lookTargetX);
-                float angleY = Vector3.Angle(playerStats.cam.transform.forward, lookTargetY);
+                float angleY = Vector3.Angle(transform.InverseTransformDirection(playerStats.cam.transform.forward), lookTargetY);
                 float angleX = Vector3.Angle(transform.forward, lookTargetX);
 
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotationX, 360 * Time.deltaTime / angleX);
