@@ -6,6 +6,7 @@ using UnityEngine;
 public class GrenadeLauncher : Weapons
 {
     public override string weaponType { get; } = "Grenade Launcher";
+    public override string description { get; } = "initial bullet velocity: 50 m/s\nblast radius: 15\nblast power: 100\nrate of fire: 30 rpm\nreload: 2.5 sec\nmagazine: 1";
     public override float shootPower { get; } = 50f;
     public override float shootCooldown { get; } = 2f;
     public override int magazineSize { get; } = 1;

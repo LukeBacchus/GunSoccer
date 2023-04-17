@@ -8,7 +8,8 @@ public class WeaponSelectionHelper
 {
     // changed to save multiple positions, one per player.
     private List<List<int>> current_positions = new List<List<int>> { new List<int> { 0, 0 }, new List<int> { 0, 0 }, new List<int> { 0, 0 }, new List<int> { 0, 0} }; //TODO: issues with starting position!
-    private List<List<int>> selected_positions = new List<List<int>>(); //row index = 0, col index = 1
+    //private List<List<int>> selected_positions = new List<List<int>>(); //row index = 0, col index = 1
+    private List<bool> allowedInput = new List<bool> { true, true, true, true };
     private float holdTime = 0.1f;
     private float coolDownTime = 0.4f;
     private float horizontalHoldTime = 0;
@@ -47,7 +48,7 @@ public class WeaponSelectionHelper
             int currentRow = current_positions[playerNum-1][0];
             int currentCol = current_positions[playerNum-1][1];
             ShowBorderHover(currentRow, currentCol, playerNum);
-            selected_positions.Add(new List<int> { -1, -1 });
+            //selected_positions.Add(new List<int> { -1, -1 });
         }
 
         horizontalThresholdTimes = new List<float> { holdTime, holdTime, holdTime, holdTime };
@@ -69,6 +70,11 @@ public class WeaponSelectionHelper
             int currentCol = current_positions[playerNum - 1][1];
 
             int pIndex = playerNum - 1;
+            if (!allowedInput[pIndex])
+            {
+                continue;
+            }
+
             float threshold = horizontalThresholdTimes[pIndex];
             if (Input.GetAxis("Horizontal" + (playerNum).ToString()) >= 0.9f)
             {
@@ -149,6 +155,11 @@ public class WeaponSelectionHelper
             int currentCol = current_positions[playerNum - 1][1];
 
             int pIndex = playerNum - 1;
+            if (!allowedInput[pIndex])
+            {
+                continue;
+            }
+
             float threshold = verticalThresholdTimes[pIndex];
             if (Input.GetAxis("Vertical" + (playerNum).ToString()) <= -0.9f)
             {
@@ -218,49 +229,21 @@ public class WeaponSelectionHelper
         }
     }
 
-    public bool Select(int playerNum)
-    {
-        if (Input.GetButtonDown("Jump" + (playerNum).ToString()))
-        {
-            int currentRow = current_positions[playerNum - 1][0];
-            int currentCol = current_positions[playerNum - 1][1];
-
-            selected_positions[playerNum-1][0] = currentRow;
-            selected_positions[playerNum-1][1] = currentCol;
-
-            //Select sfx
-            RuntimeManager.PlayOneShot("event:/MenuSelect");
-
-            return true;
-        }
-
-        return false;
-    }
-
     public int InvokeSelection(int playerNum)
     {
 
         // returns the row which is the index of the button selected
-        int selectedRow = selected_positions[playerNum-1][0];
-        int selectedCol = selected_positions[playerNum-1][1];
+        int selectedRow = current_positions[playerNum-1][0];
+        int selectedCol = current_positions[playerNum-1][1];
 
         buttons[selectedRow][selectedCol].GetComponent<Button>().onClick.Invoke();
         return selectedCol;
     }
 
-
-/*    public GameObject GetCurrent()
+    public void ToggleAllowedInput(int playerNum)
     {
-        return buttons[currentRow][currentCol];
+        allowedInput[playerNum - 1] = !allowedInput[playerNum - 1];
     }
-
-    public void ResetCurrent()
-    {
-        HideBorderHover(currentRow, currentCol);
-        currentRow = 0;
-        currentCol = 0;
-        ShowBorderHover(currentRow, currentCol);
-    }*/
 
     public void ShowBorderHover(int row, int col, int playerNum)
     {

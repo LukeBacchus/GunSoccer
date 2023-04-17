@@ -79,6 +79,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
                 {
                     justPressed[playerNum - 1] = true;
                     ToggleReady(playerNum);
+                    weaponSelector.ToggleAllowedInput(playerNum);
                 }
             }
             else
@@ -94,12 +95,9 @@ public class PlayerLoadoutMenu : MonoBehaviour
             weaponSelector.SelectionInput();
             foreach (int playerNum in playerNums)
             {
-                if (weaponSelector.Select(playerNum))
-                {
-                    int index = weaponSelector.InvokeSelection(playerNum);
-                    SelectWeapon(playerNum, index);
-                    UpdateSelectedDisplay();
-                }
+                int index = weaponSelector.InvokeSelection(playerNum);
+                SelectWeapon(playerNum, index);
+                UpdateSelectedDisplay();
             }
         }
     }
@@ -139,6 +137,14 @@ public class PlayerLoadoutMenu : MonoBehaviour
     public void ToggleReadyAll()
     {
         ready = !ready;
+
+        foreach (int playerNum in playerNums)
+        {
+            if (readys[playerNum - 1])
+            {
+                ToggleReady(playerNum);
+            }
+        }
     }
 
     private void ShowWeaponInfo(int index)
@@ -173,9 +179,9 @@ public class PlayerLoadoutMenu : MonoBehaviour
             // Debug.Log(weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>());
             // update the stuff for each part witin this display per player
 
-            weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].name;
-            weaponDisplayForP.GetChild(1).GetComponent<Image>().sprite = currentSelections[pIndex].icon;
-            weaponDisplayForP.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].description;
+            weaponDisplayForP.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].name;
+            weaponDisplayForP.GetChild(2).GetComponent<Image>().sprite = currentSelections[pIndex].icon;
+            weaponDisplayForP.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].description;
         }
     }
 }
