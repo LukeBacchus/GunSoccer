@@ -24,7 +24,7 @@ public class GameStats : MonoBehaviour
     {
         teamOneScore = 0;
         teamTwoScore = 0;
-        gameTime = 3;
+        gameTime = 3 * 60;
     }
 
     public bool TimeIsUp()
