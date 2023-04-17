@@ -164,7 +164,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
             // Debug.Log(weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>());
             // update the stuff for each part witin this display per player
 
-            weaponDisplayForP.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].name;
+            weaponDisplayForP.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].weaponType;
             weaponDisplayForP.GetChild(2).GetComponent<Image>().sprite = currentSelections[pIndex].icon;
             weaponDisplayForP.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].description;
         }

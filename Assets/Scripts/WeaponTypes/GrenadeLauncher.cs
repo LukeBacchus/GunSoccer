@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapons/GrenadeLauncher")]
 public class GrenadeLauncher : Weapons
 {
-    public override string weaponType { get; } = "Grenade Launcher";
+    public override string weaponType { get; } = "Rocket Launcher";
     public override string description { get; } = "initial bullet velocity: 50 m/s\nblast radius: 20m\nblast power: 100\nrate of fire: 24 rpm\nreload: 2.5 sec\nmagazine: 1";
     public override float shootPower { get; } = 50f;
     public override float shootCooldown { get; } = 2.5f;
