@@ -256,7 +256,7 @@ public class WeaponSelectionHelper
         {
             for (int col = 0; col <= maxCol; col++)
             {
-                for (int pIndex = 0; pIndex < playerNums.Count; pIndex++)
+                for (int pIndex = 0; pIndex < 4; pIndex++)
                 {
                     buttons[row][col].GetComponent<WeaponButtonComponents>().hover[pIndex].SetActive(false);
                 }
