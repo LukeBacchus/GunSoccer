@@ -44,6 +44,12 @@ public class PlayerGunController : MonoBehaviour
             StartCoroutine(Reload());
         }
 
+        if (Input.GetButtonDown("reload" + playerStats.playerNum) && !reloading && currMagazine != playerStats.weapon.magazineSize)
+        {
+            reloading = true;
+            StartCoroutine(Reload());
+        }
+
         if (shoot)
         {
             if (currCooldown == 0 && !reloading && playerStats.allowPlayerShoot)

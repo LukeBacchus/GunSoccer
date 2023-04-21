@@ -20,8 +20,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
 
     public bool menuLoaded = false;
     public bool ready = false;
-    private List<bool> readys = new List<bool>();
-    private List<bool> justPressed = new List<bool> { false, false, false, false };
+    private List<bool> readys;
     public List<Weapons> currentSelections = new List<Weapons> { null, null, null, null };
     public List<Weapons> weapons;
     public List<int> playerNums = new List<int> { 1 };
@@ -40,13 +39,11 @@ public class PlayerLoadoutMenu : MonoBehaviour
             Button newbutton = weaponButtons[i];
             newbutton.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = weapons[i].name;
             newbutton.transform.GetChild(1).GetComponent<Image>().sprite = weapons[i].icon;
-            int index = i;
-            newbutton.onClick.AddListener(delegate { ShowWeaponInfo(index); });
-
         }
         List<List<Button>> buttons = new List<List<Button>> { weaponButtons };
 
         weaponSelector = new WeaponSelectionHelper(buttons, weaponButtons.Count - 1, 0,  playerNums);
+        readys = new List<bool>();
         foreach (int playerNum in playerNums)
         {
             currentSelections[playerNum-1] = weapons[0]; // set everyone to use assault rifle by default
@@ -65,25 +62,15 @@ public class PlayerLoadoutMenu : MonoBehaviour
             selectedWeaponstwo.SetActive(false);
         }
         UpdateSelectedDisplay();
-        
-
     }
 
     public void LoadoutInput()
     {
         foreach (int playerNum in playerNums)
         {
-            if (Input.GetAxisRaw("Fire1" + (playerNum).ToString()) > 0.0f)
+            if (Input.GetButtonDown("Jump" + playerNum.ToString()))
             {
-                if (!justPressed[playerNum - 1])
-                {
-                    justPressed[playerNum - 1] = true;
-                    ToggleReady(playerNum);
-                }
-            }
-            else
-            {
-                justPressed[playerNum - 1] = false;
+                ToggleReady(playerNum);
             }
         }
 
@@ -94,12 +81,9 @@ public class PlayerLoadoutMenu : MonoBehaviour
             weaponSelector.SelectionInput();
             foreach (int playerNum in playerNums)
             {
-                if (weaponSelector.Select(playerNum))
-                {
-                    int index = weaponSelector.InvokeSelection(playerNum);
-                    SelectWeapon(playerNum, index);
-                    UpdateSelectedDisplay();
-                }
+                int index = weaponSelector.InvokeSelection(playerNum);
+                SelectWeapon(playerNum, index);
+                UpdateSelectedDisplay();
             }
         }
     }
@@ -108,6 +92,7 @@ public class PlayerLoadoutMenu : MonoBehaviour
     private void ToggleReady(int playerNum)
     {
         readys[playerNum-1] = !readys[playerNum-1];
+        weaponSelector.ToggleAllowedInput(playerNum);
 
         GameObject weaponDisplays;
         if (playerNums.Count == 2)
@@ -134,18 +119,24 @@ public class PlayerLoadoutMenu : MonoBehaviour
         {
             ready = true;
         }
+
+
+        Debug.Log(ready);
     }
 
-    public void ToggleReadyAll()
+    public void SetAllReadyFalse()
     {
-        ready = !ready;
+        foreach (int playerNum in playerNums)
+        {
+            if (readys[playerNum - 1])
+            {
+                ToggleReady(playerNum);
+            }
+        }
+
+        ready = false;
     }
 
-    private void ShowWeaponInfo(int index)
-    {
-        // this is the new function invoked when the button is pressed
-        Debug.Log("Weapon button number"+(index)+" pressed, since invoked function is per button not per player, dunno what should do with invoke?");
-    }
     private void SelectWeapon(int playerNum, int index)
     {
         currentSelections[playerNum-1] = weapons[index];
@@ -173,9 +164,9 @@ public class PlayerLoadoutMenu : MonoBehaviour
             // Debug.Log(weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>());
             // update the stuff for each part witin this display per player
 
-            weaponDisplayForP.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].name;
-            weaponDisplayForP.GetChild(1).GetComponent<Image>().sprite = currentSelections[pIndex].icon;
-            weaponDisplayForP.GetChild(2).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].description;
+            weaponDisplayForP.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].weaponType;
+            weaponDisplayForP.GetChild(2).GetComponent<Image>().sprite = currentSelections[pIndex].icon;
+            weaponDisplayForP.GetChild(3).GetComponent<TMPro.TextMeshProUGUI>().text = currentSelections[pIndex].description;
         }
     }
 }

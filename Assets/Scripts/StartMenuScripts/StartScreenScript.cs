@@ -27,9 +27,13 @@ public class StartScreenScript : MonoBehaviour
     [SerializeField]
     private GameObject loadoutPanel;
     [SerializeField]
+    private GameObject weaponSelectionButtons;
+    [SerializeField]
     private List<Weapons> weaponScriptableObjects;
     private PlayerLoadoutMenu loadoutMenuScript;
     private bool loadingLoadoutMenu = false;
+    private List<float> twoPlayerWeaponSelectionLocation = new List<float>{ 0.7f, 0.85f };
+    private List<float> fourPlayerWeaponSelectionLocation = new List<float> { 0.4f, 0.55f };
 
     [SerializeField]
     private GameObject mapPanel;
@@ -117,7 +121,7 @@ public class StartScreenScript : MonoBehaviour
         List<List<GameObject>> gamemodeButtons = new List<List<GameObject>> { new List<GameObject> { twoPlayerButton.gameObject }, 
             new List<GameObject> { fourPlayerButton.gameObject }, new List<GameObject> { controlsButton.gameObject }, 
             new List<GameObject> { settingsButton.gameObject } };
-        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 4, new List<int> { 1, 2, 3, 4 });
+        gameModeSelector = new MenuSelectionHelper(gamemodeButtons, 0, 3, new List<int> { 1, 2, 3, 4 });
 
         List<List<GameObject>> mapButtons = new List<List<GameObject>> { new List<GameObject> { stadiumButton1.gameObject, stadiumButton2.gameObject } };
         mapSelector = new MenuSelectionHelper(mapButtons, 1, 0, new List<int> { 1, 2, 3, 4 });
@@ -148,7 +152,6 @@ public class StartScreenScript : MonoBehaviour
             if (BackInput())
             {
                 loadoutPanel.SetActive(false);
-                // DestroyLoadoutMenus();
                 TransitionToGamemodeMenu();
             }
         }
@@ -160,10 +163,7 @@ public class StartScreenScript : MonoBehaviour
             {
                 mapPanel.SetActive(false);
                 currentMenu = MenuTypes.LoadoutMenu;
-                if (loadoutMenuScript.ready)
-                {
-                    loadoutMenuScript.ToggleReadyAll();
-                }
+                loadoutMenuScript.SetAllReadyFalse();
             }
         }
         else if (currentMenu == MenuTypes.Controls)
@@ -306,40 +306,23 @@ public class StartScreenScript : MonoBehaviour
     {
         PlayerLoadoutMenu menuScript = loadoutPanel.GetComponentInChildren<PlayerLoadoutMenu>();
 
-        //menu.transform.SetParent(loadoutPanel.transform);
-
-        /* no need for per player stuff and transforming?
-         * menu.name = "Player " + playerNum + " Loadout Menu";
-        RectTransform rTransform = menu.GetComponent<RectTransform>();
-        rTransform.anchorMin = new Vector2(menuLocs[playerNum - 1][0], menuLocs[playerNum - 1][1]);
-        rTransform.anchorMax = new Vector2(menuLocs[playerNum - 1][2], menuLocs[playerNum - 1][3]);
-        rTransform.offsetMin = Vector2.zero;
-        rTransform.offsetMax = Vector2.zero;*/
-
-        // menuScript.weapons = weaponScriptableObjects;
-
         if (numPlayers == 2)
         {
             menuScript.playerNums = new List<int> { 1, 2 };
+            weaponSelectionButtons.GetComponent<RectTransform>().anchorMin = new Vector2(0.05f, twoPlayerWeaponSelectionLocation[0]);
+            weaponSelectionButtons.GetComponent<RectTransform>().anchorMax = new Vector2(0.95f, twoPlayerWeaponSelectionLocation[1]);
         }
         else
         {
             menuScript.playerNums = new List<int> { 1, 2, 3, 4 };
+            weaponSelectionButtons.GetComponent<RectTransform>().anchorMin = new Vector2(0.05f, fourPlayerWeaponSelectionLocation[0]);
+            weaponSelectionButtons.GetComponent<RectTransform>().anchorMax = new Vector2(0.95f, fourPlayerWeaponSelectionLocation[1]);
         }
 
         menuScript.Init();
 
         loadoutMenuScript = menuScript;
     }
-
-/*    private void DestroyLoadoutMenus()
-    {
-        foreach (PlayerLoadoutMenu loadoutMenu in loadoutMenuScripts)
-        {
-            Destroy(loadoutMenu.gameObject);
-        }
-        loadoutMenuScripts = new List<PlayerLoadoutMenu>();
-    }*/
 
     private void SpawnPlayer(int playerNum)
     {
@@ -378,7 +361,7 @@ public class StartScreenScript : MonoBehaviour
         }
         else if (numPlayers == 4)
         {
-            playerStats.cam.rect = new Rect(playerNum % 2 == 1 ? 0 : 0.5f, playerNum >= 3 ? 0.5f : 0, 0.5f, 0.5f);
+            playerStats.cam.rect = new Rect(playerNum % 2 == 1 ? 0 : 0.5f, playerNum >= 3 ? 0 : 0.5f, 0.5f, 0.5f);
         }
 
         playerStats.AssignLayer(playerNum);

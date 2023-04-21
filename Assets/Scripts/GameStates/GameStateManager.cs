@@ -146,7 +146,7 @@ public class GameStateManager : MonoBehaviour
 
         for (int i = 0; i < players.Count; i++)
         {
-            playerGunIcons.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/LoadoutIcon/GunIcon").GetComponent<Image>());
+            playerGunIcons.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/LoadoutIcon/GunBackground/GunIcon").GetComponent<Image>());
             playerCrosshairs.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/Crosshair"));
             playerMagazineTexts.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/LoadoutIcon/MagazineText").GetComponent<TMPro.TextMeshProUGUI>());
             arrows.Add(currPlayerUI.transform.Find("Player" + (i + 1) + "/ArrowRotator " + (i + 1) + "/Arrow").gameObject);

@@ -6,6 +6,7 @@ using UnityEngine;
 public class SubmachineGun : Weapons
 {
     public override string weaponType { get; } = "Submachine Gun";
+    public override string description { get; } = "initial bullet velocity: 120 m/s\nblast radius: 1m\nblast power: 10\nrate of fire: 600 rpm\nreload: 0.8 sec\nmagazine: 30";
     public override float shootPower { get; } = 120f;
     public override float shootCooldown { get; } = 0.1f;
     public override int magazineSize { get; } = 30;
